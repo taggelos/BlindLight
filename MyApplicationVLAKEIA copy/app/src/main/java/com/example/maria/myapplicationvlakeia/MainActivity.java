@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 
         tv1 = (TextView) findViewById(R.id.textView2);
         tv1.setVisibility(View.GONE);
-
+        //Sensor
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         List<Sensor> mList= mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
