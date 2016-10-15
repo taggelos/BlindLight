@@ -1,23 +1,13 @@
 package com.example.aggel.accelerometerapplication;
 
-import android.graphics.Color;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
-import android.hardware.SensorEventListener;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
-
-    private TextView xText, yText, zText;
-
-    private Sensor mySensor;
-
-    private SensorManager SM;
-
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,53 +15,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         //Create our Sensor Manager
-        SM = (SensorManager)getSystemService(SENSOR_SERVICE);
-
-        //Accelerometer Sensor
-        mySensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        //Register sensor listener
-
-        SM.registerListener(this,mySensor,SensorManager.SENSOR_DELAY_NORMAL);
-
+        SensorManager SM = (SensorManager)getSystemService(SENSOR_SERVICE);
 
         //Assign TextView
-        xText = (TextView)findViewById(R.id.xText);
-        yText = (TextView)findViewById(R.id.yText);
-        zText = (TextView)findViewById(R.id.zText);
+        TextView[] textTable = new TextView[3];
+        textTable[0] = (TextView)findViewById(R.id.xText);
+        textTable[1] = (TextView)findViewById(R.id.yText);
+        textTable[2] = (TextView)findViewById(R.id.zText);
 
-    }
+        AccelerometerEventListener accelero = new AccelerometerEventListener(SM, textTable);
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        xText.setText("X: " + event.values[0]);
-        yText.setText("Y: " + event.values[1]);
-        zText.setText("Z: " + event.values[2]);
+        TextView proxText = (TextView) findViewById(R.id.proxText);
+        ProximityEventListener proxy = new ProximityEventListener(SM, proxText);
 
-        float max = 0;
-        for (int i = 0; i < event.values.length; i++) {
-                if (max == 0 || event.values[i] > max)
-                    max = event.values[i];
-        }
-        if(max == event.values[0]) {
-            xText.setTextColor(Color.parseColor("#4dbf42"));
-            yText.setTextColor(Color.parseColor("#383232"));
-            zText.setTextColor(Color.parseColor("#383232"));
-        }
-        if(max == event.values[1]) {
-            xText.setTextColor(Color.parseColor("#383232"));
-            yText.setTextColor(Color.parseColor("#4dbf42"));
-            zText.setTextColor(Color.parseColor("#383232"));
-        }
-        if(max == event.values[2]) {
-            xText.setTextColor(Color.parseColor("#383232"));
-            yText.setTextColor(Color.parseColor("#383232"));
-            zText.setTextColor(Color.parseColor("#4dbf42"));
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        //Not in use
     }
 }
