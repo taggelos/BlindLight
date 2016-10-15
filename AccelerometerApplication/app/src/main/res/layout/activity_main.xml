@@ -44,13 +44,4 @@
         android:layout_marginBottom="165dp"
         android:id="@+id/proxText" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/zText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="83dp" />
 </RelativeLayout>

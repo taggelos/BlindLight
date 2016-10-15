@@ -1,6 +1,7 @@
 package com.example.aggel.accelerometerapplication;
 
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -26,7 +27,11 @@ public class MainActivity extends AppCompatActivity {
         AccelerometerEventListener accelero = new AccelerometerEventListener(SM, textTable);
 
         TextView proxText = (TextView) findViewById(R.id.proxText);
-        ProximityEventListener proxy = new ProximityEventListener(SM, proxText);
+        Context context = getApplicationContext();
+
+        ProximityEventListener proxy = new ProximityEventListener(SM, proxText,context);
+
+
 
     }
 }
