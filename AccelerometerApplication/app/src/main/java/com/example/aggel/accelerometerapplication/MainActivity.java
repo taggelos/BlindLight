@@ -6,7 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.hardware.SensorManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,13 +34,21 @@ public class MainActivity extends AppCompatActivity {
         TextView proxText = (TextView) findViewById(R.id.proxText);
         Context context = getApplicationContext();
 
-        ProximityEventListener proxy = new ProximityEventListener(SM, proxText,context);
+        final ProximityEventListener proxy = new ProximityEventListener(SM, proxText,context);
 
+        Button button  = (Button) findViewById(R.id.button);
 
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            //On click function
+            public void onClick(View view) {
 
+                proxy.playSound();
+            }
+        });
     }
-    
-     @Override
+
+    @Override
     public void onBackPressed() {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setTitle("Exit");
@@ -54,5 +67,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ad.show();
-        }
+    }
 }
