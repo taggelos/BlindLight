@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">AccelerometerApplication</string>
+    <string name="app_name">Application</string>
+    <string name="Settings">Settings</string>
+    <string name="X">X</string>
+    <string name="Y">Y</string>
+    <string name="Z">Z</string>
+    <string name="gotosettings">Go to Settings</string>
+    <string name="proxText">proxText</string>
+    <string name="seekbarView">seekbarView</string>
+    <string name="playSound">play Sound</string>
+    <string name="lightsensText">lightsensText</string>
 </resources>
+

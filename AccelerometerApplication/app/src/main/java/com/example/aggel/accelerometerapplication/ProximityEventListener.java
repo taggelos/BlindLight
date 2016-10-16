@@ -25,6 +25,7 @@ public class ProximityEventListener implements SensorEventListener {
 
     private SoundPool mySound;
     private int soundId;
+    private int streamId;
 
     public ProximityEventListener(SensorManager SM, TextView textTable, Context context) {
         //Accelerometer Sensor
@@ -60,17 +61,21 @@ public class ProximityEventListener implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
         textTable.setText(String.valueOf(event.values[0]));
         if (event.values[0]==0){
 
             CharSequence text = "Hello toast!";
             Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
-            playSound();
+            streamId= mySound.play(soundId,.25f,.25f,1,-1,1);
+            return;
         }
+        mySound.stop(soundId);
     }
 
     public void playSound(){
+
         mySound.play(soundId,.25f,.25f,1,0,1);
     }
 

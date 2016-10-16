@@ -13,14 +13,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Z"
+        android:text="@string/Z"
         android:layout_marginTop="65dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/zText" />
 
     <TextView
-        android:text="X"
+        android:text="@string/X"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/xText"
@@ -28,40 +28,66 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Y"
+        android:text="@string/Y"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/yText"
         android:layout_alignStart="@+id/xText"
         android:layout_marginTop="32dp" />
 
-    <TextView
-        android:text="proxText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="165dp"
-        android:id="@+id/proxText" />
-
-    <Button
-        android:text="play Sound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/proxText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="69dp"
-        android:id="@+id/button" />
-
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar"
-        android:layout_marginEnd="17dp"
         android:max="10"
         android:progress="2"
-        android:layout_below="@+id/button"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="73dp" />
+        android:layout_marginBottom="72dp" />
+
+    <TextView
+        android:text="@string/proxText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="34dp"
+        android:id="@+id/proxText"
+        android:layout_above="@+id/seekBar"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/seekbarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekbarView"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/proxText"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:text="@string/playSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_marginBottom="84dp"
+        android:layout_above="@+id/seekBar"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/lightsensText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sensText"
+        android:layout_below="@+id/zText"
+        android:layout_alignStart="@+id/proxText"
+        android:layout_marginTop="46dp" />
+
+    <Button
+        android:text="@string/gotosettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/gotosettings" />
 
 </RelativeLayout>
