@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 /**
  * Created by aggel on 15/10/2016.
  */
@@ -23,7 +24,7 @@ public class ProximityEventListener implements SensorEventListener {
 
     private Context context;
 
-    private SoundPool mySound;
+    private SoundEvent se;
     private int soundId;
     private int streamId;
 
@@ -38,24 +39,8 @@ public class ProximityEventListener implements SensorEventListener {
         this.context = context;
 
         //mysound
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-            AudioAttributes aa = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            mySound = new SoundPool.Builder()
-                    .setMaxStreams(10)
-                    .setAudioAttributes(aa)
-                    .build();
-
-        }
-        else {
-            mySound = new SoundPool(10, AudioManager.STREAM_ALARM,1);
-        }
-        soundId = mySound.load(context,R.raw.kimsound,1);
-
+        se = new SoundEvent();
+        soundId = se.getSoundId(context);
     }
 
 
@@ -68,10 +53,10 @@ public class ProximityEventListener implements SensorEventListener {
             CharSequence text = "Hello toast!";
             Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
-            streamId= mySound.play(soundId,.25f,.25f,1,-1,1);
+            streamId = se.playNonStop(soundId);
             return;
         }
-        mySound.stop(soundId);
+        se.stopSound(streamId);
     }
 
 

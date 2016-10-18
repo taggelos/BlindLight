@@ -20,8 +20,10 @@ public class SettingsActivity extends AppCompatActivity {
     private static TextView text_view;
     private static SeekBar seek_bar;
 
-    private SoundPool mySound;
+
+    private SoundEvent se;
     private int soundId;
+    private int streamId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,23 +34,8 @@ public class SettingsActivity extends AppCompatActivity {
         seekbarr();
 
         //mysound
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-            AudioAttributes aa = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-
-            mySound = new SoundPool.Builder()
-                    .setMaxStreams(10)
-                    .setAudioAttributes(aa)
-                    .build();
-
-        }
-        else {
-            mySound = new SoundPool(10, AudioManager.STREAM_ALARM,1);
-        }
-        soundId = mySound.load(getApplicationContext(),R.raw.kimsound,1);
+        se = new SoundEvent();
+        soundId = se.getSoundId(getApplicationContext());
 
         //Sound Button
         Button button  = (Button) findViewById(R.id.button);
@@ -57,12 +44,9 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             //On click function
             public void onClick(View view) {
-                mySound.play(soundId,.25f,.25f,1,0,1);
-
+                se.playOnce(soundId);
             }
         });
-
-
     }
 
     public void seekbarr(){

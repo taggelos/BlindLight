@@ -28,18 +28,14 @@ public class LightEventListener implements SensorEventListener {
         //Assign TextView
         this.textTable = textTable;
 
-        System.out.println("EDWWWWWWWWWWWWWW");
-
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-
         if( event.sensor.getType() == Sensor.TYPE_LIGHT)
         {
             textTable.setText(String.valueOf(event.values[0]));
         }
-        System.out.println("axneeeeeeeeeeeeeeeeee");
     }
 
     @Override

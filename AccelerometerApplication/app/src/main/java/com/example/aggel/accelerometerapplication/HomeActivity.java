@@ -16,10 +16,13 @@ import android.support.v7.app.AlertDialog;
 
 public class HomeActivity extends AppCompatActivity {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
 
-    //Go to Second Screen
-    public Button StartButton;
-        public void initt() {
+        //Go to Second Screen
+        Button StartButton;
         StartButton = (Button) findViewById(R.id.button2);
         StartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,19 +30,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent toy1 = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(toy1);
             }
-
-
         });
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        initt();
-
-
     }
 
     @Override

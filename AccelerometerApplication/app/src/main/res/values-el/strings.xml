@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Εφαρμογή</string>
+    <string name="Accelerometer">Αξελερόμετρο</string>
+    <string name="X">Χ</string>
+    <string name="Y">Υ</string>
+    <string name="Z">Ζ</string>
+    <string name="android_settings">Ρυθμίσεις Android</string>
+    <string name="cm">εκ</string>
+    <string name="exit">Έξοδος</string>
+    <string name="light">Φως</string>
+    <string name="gotosettings">πήγαινερυθμίσεις</string>
+    <string name="lightsensText">Φως</string>
+    <string name="Main">Κύρια Εφαρμογή</string>
+    <string name="Proximity">Αισθητήρας Εγγύτητας</string>
+    <string name="m_s2">m/s^2</string>
+    <string name="menu">Μενού</string>
+    <string name="proxText">proxText</string>
+    <string name="push_me">Push me</string>
+    <string name="seekbarView">seekbarView</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="start_now">ΞΕΚΙΝΑ ΤΩΡΑ</string>
+    <string name="testSound">Δοκίμασε τον Ήχο</string>
+    <string name="the_app_is_ready_to_start">Η εφαρμογή είναι έτοιμη να ξεκινήσει</string>
+    <string name="title_activity_main2">Κύρια Δραστηριότητα 2</string>
+    <string name="Sensors">Αισθητήρες</string>
+    <string name="Settings">Ρυθμίσεις</string>
+</resources>

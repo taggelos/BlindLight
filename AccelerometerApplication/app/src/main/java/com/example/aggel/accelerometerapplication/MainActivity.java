@@ -27,10 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         //Create our Sensor Manager
-         SensorManager SM = (SensorManager)getSystemService(SENSOR_SERVICE);
+        SensorManager SM = (SensorManager)getSystemService(SENSOR_SERVICE);
 
         //Assign TextView
         TextView[] textTable = new TextView[3];
@@ -47,11 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         final ProximityEventListener proxy = new ProximityEventListener(SM, proxText,context);
 
-
         //Light Sensor
-
         TextView sensText = (TextView) findViewById(R.id.sensText);
-        //System.out.println("axneeeeeeeeeeeeeeeeee");
         LightEventListener lightsens = new LightEventListener(SM, sensText);
 
     }
@@ -83,29 +78,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-
         return super.onOptionsItemSelected(item);
 
     }
 
-    @Override
-    public void onBackPressed() {
-        AlertDialog.Builder ad = new AlertDialog.Builder(this);
-        ad.setTitle("Exit");
-        ad.setMessage("Are you sure that you want to EXIT this App?");
-        ad.setPositiveButton("YES", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        ad.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        ad.show();
-    }
 }
