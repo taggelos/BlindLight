@@ -74,10 +74,7 @@ public class ProximityEventListener implements SensorEventListener {
         mySound.stop(soundId);
     }
 
-    public void playSound(){
 
-        mySound.play(soundId,.25f,.25f,1,0,1);
-    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

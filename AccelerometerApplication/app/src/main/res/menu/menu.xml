@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.aggel.accelerometerapplication.HomeActivity">
+    <item
+        android:id="@+id/action_menu"
+        android:orderInCategory="100"
+        android:title="@string/menu"
+        app:showAsAction="never" >
+
+        <menu>
+            <item
+                android:id="@+id/menu_AndroidSettings"
+                android:title="@string/android_settings" />
+            <item
+                android:id="@+id/menu_Exit"
+                android:title="@string/exit" />
+
+        </menu>
+
+    </item>
+
+</menu>

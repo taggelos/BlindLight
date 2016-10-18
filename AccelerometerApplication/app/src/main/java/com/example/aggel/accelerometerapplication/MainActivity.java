@@ -1,31 +1,36 @@
 package com.example.aggel.accelerometerapplication;
 
 
+import android.content.ClipData;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.TextView;
-
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static SeekBar seek_bar;
-    private static TextView text_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         //Create our Sensor Manager
-        SensorManager SM = (SensorManager)getSystemService(SENSOR_SERVICE);
+         SensorManager SM = (SensorManager)getSystemService(SENSOR_SERVICE);
 
         //Assign TextView
         TextView[] textTable = new TextView[3];
@@ -42,61 +47,52 @@ public class MainActivity extends AppCompatActivity {
 
         final ProximityEventListener proxy = new ProximityEventListener(SM, proxText,context);
 
-        //Sound Button
-        Button button  = (Button) findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            //On click function
-            public void onClick(View view) {
-
-                proxy.playSound();
-            }
-        });
-
-        //Seekbar
-        seekbarr();
 
         //Light Sensor
 
         TextView sensText = (TextView) findViewById(R.id.sensText);
-        System.out.println("axneeeeeeeeeeeeeeeeee");
+        //System.out.println("axneeeeeeeeeeeeeeeeee");
         LightEventListener lightsens = new LightEventListener(SM, sensText);
+
     }
 
-    public void seekbarr(){
-        seek_bar = (SeekBar) findViewById(R.id.seekBar);
-        text_view = (TextView)findViewById(R.id.seekbarView);
-        text_view.setText("Covered : " + seek_bar.getProgress() + "/" + seek_bar.getMax());
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
-        seek_bar.setOnSeekBarChangeListener(
 
-            new SeekBar.OnSeekBarChangeListener(){
-                int progress_value;
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    progress_value = progress;
-                    text_view.setText("Covered : " + progress + "/" + seek_bar.getMax());
-                }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
+        //noinspection SimplifiableIfStatement
+        switch (id) {
+            case R.id.menu_AndroidSettings:
+                Intent toy = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(toy);
 
-                }
+                break;
+            case R.id.menu_Exit:
+                onBackPressed();
+                break;
+        }
 
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    text_view.setText("Covered : " + progress_value + "/" + seek_bar.getMax());
-                }
-            }
-        );
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
     public void onBackPressed() {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setTitle("Exit");
-        ad.setMessage("Are you sure that you to EXIT this App?");
+        ad.setMessage("Are you sure that you want to EXIT this App?");
         ad.setPositiveButton("YES", new DialogInterface.OnClickListener()
         {
             @Override

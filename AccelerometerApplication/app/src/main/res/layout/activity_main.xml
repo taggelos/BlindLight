@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,86 +9,123 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.aggel.accelerometerapplication.MainActivity">
+    tools:context="com.example.aggel.accelerometerapplication.HomeActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:text="@string/cm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:id="@+id/cm"
+        android:layout_alignBaseline="@+id/Proximity"
+        android:layout_alignBottom="@+id/Proximity"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="@string/proxText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/proxText"
+        android:layout_alignBottom="@+id/Proximity"
+        android:layout_alignTop="@+id/Proximity"
+        android:layout_alignEnd="@+id/sensText"
+        android:layout_alignStart="@+id/xText" />
+
+    <TextView
+        android:text="@string/m_s2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/m_sec2"
+        android:layout_alignBaseline="@+id/zText"
+        android:layout_alignBottom="@+id/zText"
+        android:layout_alignParentEnd="true"
+        tools:ignore="RelativeOverlap" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Z"
-        android:layout_marginTop="65dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/zText" />
+        android:id="@+id/zText"
+        android:layout_alignBaseline="@+id/yText"
+        android:layout_alignBottom="@+id/yText"
+        android:layout_toEndOf="@+id/yText"
+        android:layout_marginStart="24dp" />
 
     <TextView
-        android:text="@string/X"
+        android:text="@string/Sensors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/xText"
+        android:id="@+id/readyApp"
+        tools:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textCursorDrawable="@color/colorAccent"
+        android:textColorHighlight="@color/colorAccent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/action_menu"
+        tools:ignore="UnknownIdInLayout" />
 
     <TextView
         android:text="@string/Y"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/yText"
-        android:layout_alignStart="@+id/xText"
-        android:layout_marginTop="32dp" />
-
-    <SeekBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
-        android:max="10"
-        android:progress="2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="72dp" />
+        android:layout_alignBaseline="@+id/xText"
+        android:layout_alignBottom="@+id/xText"
+        android:layout_toEndOf="@+id/xText"
+        android:layout_marginStart="19dp" />
 
     <TextView
-        android:text="@string/proxText"
+        android:text="@string/X"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
-        android:id="@+id/proxText"
-        android:layout_above="@+id/seekBar"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/xText"
+        android:layout_alignBaseline="@+id/Accelerometer"
+        android:layout_alignBottom="@+id/Accelerometer"
+        android:layout_toEndOf="@+id/Accelerometer"
+        android:layout_marginStart="52dp" />
 
     <TextView
-        android:text="@string/seekbarView"
+        android:text="@string/light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/seekbarView"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/proxText"
-        android:layout_marginBottom="24dp" />
-
-    <Button
-        android:text="@string/playSound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_marginBottom="84dp"
-        android:layout_above="@+id/seekBar"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBottom="@+id/sensText"
+        android:layout_alignParentStart="true"
+        android:id="@+id/Light" />
 
     <TextView
         android:text="@string/lightsensText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sensText"
-        android:layout_below="@+id/zText"
-        android:layout_alignStart="@+id/proxText"
-        android:layout_marginTop="46dp" />
+        android:layout_below="@+id/readyApp"
+        android:layout_toStartOf="@+id/m_sec2"
+        android:layout_marginTop="24dp" />
 
-    <Button
-        android:text="@string/gotosettings"
+    <TextView
+        android:text="@string/Accelerometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/gotosettings" />
+        android:id="@+id/Accelerometer"
+        android:layout_below="@+id/Proximity"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="172dp" />
+
+    <TextView
+        android:text="@string/Proximity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Proximity"
+        android:layout_marginTop="107dp"
+        android:layout_below="@+id/Light"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>

@@ -10,4 +10,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:label="@string/Settings"
     tools:context="com.example.aggel.accelerometerapplication.SettingsActivity">
+
+
+    <TextView
+        android:text="@string/seekbarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekbarView"
+        android:layout_alignParentBottom="true"
+        />
+
+
+    <Button
+        android:text="@string/playSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="117dp" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:max="10"
+        android:progress="2"
+        android:layout_marginBottom="106dp"
+        android:layout_above="@+id/seekbarView"
+        android:layout_alignParentStart="true" />
+
+
 </RelativeLayout>
