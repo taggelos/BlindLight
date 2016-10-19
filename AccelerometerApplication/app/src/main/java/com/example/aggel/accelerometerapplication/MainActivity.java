@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_AndroidSettings:
                 Intent toy = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(toy);
-
                 break;
             case R.id.menu_Exit:
-                onBackPressed();
+                //onBackPressed();
+                finish();
                 break;
         }
 

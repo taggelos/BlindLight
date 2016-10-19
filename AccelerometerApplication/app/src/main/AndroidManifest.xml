@@ -21,9 +21,9 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/Main" />
-        <activity android:name=".HomeActivity">
-
-        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/Main" />
     </application>
 
 </manifest>

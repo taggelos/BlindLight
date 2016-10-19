@@ -9,14 +9,12 @@
     <string name="cm">εκ</string>
     <string name="exit">Έξοδος</string>
     <string name="light">Φως</string>
-    <string name="gotosettings">πήγαινερυθμίσεις</string>
     <string name="lightsensText">Φως</string>
     <string name="Main">Κύρια Εφαρμογή</string>
     <string name="Proximity">Αισθητήρας Εγγύτητας</string>
     <string name="m_s2">m/s^2</string>
     <string name="menu">Μενού</string>
     <string name="proxText">proxText</string>
-    <string name="push_me">Push me</string>
     <string name="seekbarView">seekbarView</string>
     <string name="settings">Ρυθμίσεις</string>
     <string name="start_now">ΞΕΚΙΝΑ ΤΩΡΑ</string>
