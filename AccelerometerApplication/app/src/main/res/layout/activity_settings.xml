@@ -12,23 +12,13 @@
     tools:context="com.example.aggel.accelerometerapplication.SettingsActivity">
 
 
-    <TextView
-        android:text="@string/seekbarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekbarView"
-        android:layout_alignParentBottom="true"
-        />
-
-
     <Button
         android:text="@string/testSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="117dp" />
+        android:layout_centerHorizontal="true" />
 
     <SeekBar
         android:layout_width="match_parent"
@@ -36,9 +26,57 @@
         android:id="@+id/seekBar"
         android:max="10"
         android:progress="2"
-        android:layout_marginBottom="106dp"
-        android:layout_above="@+id/seekbarView"
+        android:layout_below="@+id/button"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="37dp" />
+
+    <TextView
+        android:text="@string/seekbarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekbarView"
+        android:layout_below="@+id/button"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/y_axis_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBar"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="51dp"
+        android:id="@+id/seekbarView2" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekbarView2"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/seekBar2"
+        android:max="10"
+        android:progress="2" />
+
+    <TextView
+        android:text="@string/z_axis_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBar2"
+        android:layout_alignEnd="@+id/seekbarView2"
+        android:layout_marginTop="59dp"
+        android:id="@+id/seekbarView3" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekbarView3"
+        android:layout_marginTop="51dp"
+        android:id="@+id/seekBar3"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:max="10"
+        android:progress="2" />
 
 
 </RelativeLayout>

@@ -17,8 +17,17 @@ import android.widget.TextView;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private static TextView text_view;
-    private static SeekBar seek_bar;
+    private static TextView text_view_x_axis;
+    private static TextView text_view_y_axis;
+    private static TextView text_view_z_axis;
+
+    private static SeekBar seekBar_x_axis;
+    private static SeekBar seekBar_y_axis;
+    private static SeekBar seekBar_z_axis;
+
+
+
+
 
 
     private SoundEvent se;
@@ -31,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         //Seekbar
+
         seekbarr();
 
         //mysound
@@ -49,19 +59,38 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    public void seekbarr(){
-        seek_bar = (SeekBar) findViewById(R.id.seekBar);
-        text_view = (TextView)findViewById(R.id.seekbarView);
-        text_view.setText("Covered : " + seek_bar.getProgress() + "/" + seek_bar.getMax());
 
-        seek_bar.setOnSeekBarChangeListener(
+
+
+
+    public int GetSeekBarPr() {
+        return seekBar_x_axis.getProgress();
+    }
+
+
+
+
+
+    public void seekbarr(){
+        seekBar_x_axis = (SeekBar) findViewById(R.id.seekBar);
+        seekBar_y_axis = (SeekBar) findViewById(R.id.seekBar2);
+        seekBar_z_axis = (SeekBar) findViewById(R.id.seekBar3);
+
+        text_view_x_axis = (TextView)findViewById(R.id.seekbarView);
+        text_view_y_axis = (TextView)findViewById(R.id.seekbarView2);
+        text_view_z_axis = (TextView)findViewById(R.id.seekbarView3);
+
+
+        text_view_x_axis.setText("Covered_X_axis : " + seekBar_x_axis.getProgress() + "/" + seekBar_x_axis.getMax());
+
+        seekBar_x_axis.setOnSeekBarChangeListener(
 
                 new SeekBar.OnSeekBarChangeListener(){
                     int progress_value;
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         progress_value = progress;
-                        text_view.setText("Covered : " + progress + "/" + seek_bar.getMax());
+                        text_view_x_axis.setText("Covered_X_axis : " + progress + "/" + seekBar.getMax());
                     }
 
                     @Override
@@ -71,9 +100,60 @@ public class SettingsActivity extends AppCompatActivity {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                        text_view.setText("Covered : " + progress_value + "/" + seek_bar.getMax());
+                        text_view_x_axis.setText("Covered_X_axis : " + progress_value + "/" + seekBar.getMax());
                     }
                 }
         );
+
+        text_view_y_axis.setText("Covered_Y_axis : " + seekBar_y_axis.getProgress() + "/" + seekBar_y_axis.getMax());
+
+        seekBar_y_axis.setOnSeekBarChangeListener(
+
+                new SeekBar.OnSeekBarChangeListener(){
+                    int progress_value;
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        progress_value = progress;
+                        text_view_y_axis.setText("Covered_Y_axis : " + progress + "/" + seekBar.getMax());
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        text_view_y_axis.setText("Covered_Y_axis : " + progress_value + "/" + seekBar.getMax());
+                    }
+                }
+        );
+
+        text_view_z_axis.setText("Covered_Z_axis : " + seekBar_z_axis.getProgress() + "/" + seekBar_z_axis.getMax());
+
+        seekBar_z_axis.setOnSeekBarChangeListener(
+
+                new SeekBar.OnSeekBarChangeListener(){
+                    int progress_value;
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        progress_value = progress;
+                        text_view_z_axis.setText("Covered_Z_axis : " + progress + "/" + seekBar.getMax());
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        text_view_z_axis.setText("Covered_Z_axis : " + progress_value + "/" + seekBar.getMax());
+                    }
+                }
+        );
+
+
     }
 }
+
