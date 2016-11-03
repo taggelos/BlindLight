@@ -21,6 +21,11 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int threshold_x_axis;
+    private int threshold_y_axis;
+    private int threshold_z_axis;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +41,24 @@ public class MainActivity extends AppCompatActivity {
         textTable[1] = (TextView)findViewById(R.id.yText);
         textTable[2] = (TextView)findViewById(R.id.zText);
 
+
+        SettingsActivity SA = new SettingsActivity();
+
+        //Ιnitialization of thresholds from seekbars->settings
+
+        //threshold_x_axis = SA.GetSeekBarPr();
+        threshold_x_axis = 2;
+        threshold_y_axis = 3;
+        threshold_z_axis = 10;
+
+
+        Context context = getApplicationContext();
+
         //Accelerometer Sensor
-        AccelerometerEventListener accelero = new AccelerometerEventListener(SM, textTable);
+        AccelerometerEventListener accelero = new AccelerometerEventListener(SM, textTable , threshold_x_axis , threshold_y_axis, threshold_z_axis ,context);
 
         //Proximity Sensor
         TextView proxText = (TextView) findViewById(R.id.proxText);
-        Context context = getApplicationContext();
 
         final ProximityEventListener proxy = new ProximityEventListener(SM, proxText,context);
 
@@ -81,5 +98,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
 
 }

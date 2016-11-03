@@ -22,4 +22,6 @@
     <string name="exit">Exit</string>
     <string name="android_settings">Android Settings</string>
     <string name="menu">Menu</string>
+    <string name="y_axis_limit">Y-axis_limit</string>
+    <string name="z_axis_limit">Z-axis_limit</string>
 </resources>
