@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private int threshold_x_axis;
     private int threshold_y_axis;
     private int threshold_z_axis;
-
+    private SettingsActivity SA;
 
 
     @Override
@@ -41,16 +41,12 @@ public class MainActivity extends AppCompatActivity {
         textTable[1] = (TextView)findViewById(R.id.yText);
         textTable[2] = (TextView)findViewById(R.id.zText);
 
-
-        SettingsActivity SA = new SettingsActivity();
-
         //Ιnitialization of thresholds from seekbars->settings
+        SA = new SettingsActivity();
 
-        //threshold_x_axis = SA.GetSeekBarPr();
-        threshold_x_axis = 2;
-        threshold_y_axis = 3;
-        threshold_z_axis = 10;
-
+        threshold_x_axis = SA.getSeekBarPr_X();
+        threshold_y_axis = SA.getSeekBarPr_Y();
+        threshold_z_axis = SA.getSeekBarPr_Z();
 
         Context context = getApplicationContext();
 
@@ -75,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
+    //Creating Menu
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

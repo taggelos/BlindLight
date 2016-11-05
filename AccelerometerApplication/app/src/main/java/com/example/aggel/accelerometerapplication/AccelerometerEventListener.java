@@ -6,6 +6,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.provider.Settings;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class AccelerometerEventListener implements SensorEventListener {
 
 
 
-    public AccelerometerEventListener(SensorManager SM, TextView[] textTable , int threshold_x_axis ,int threshold_y_axis, int threshold_z_axis, Context context ) {
+    public AccelerometerEventListener(SensorManager SM, TextView[] textTable , int threshold_x_axis , int threshold_y_axis, int threshold_z_axis, Context context ) {
         //Accelerometer Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
@@ -42,9 +43,11 @@ public class AccelerometerEventListener implements SensorEventListener {
 
         //Assign TextView
         this.textTable = textTable;
+        //Assign thresholds
         this.threshold_x_axis = threshold_x_axis;
         this.threshold_y_axis = threshold_y_axis;
         this.threshold_z_axis = threshold_z_axis;
+
         this.context = context;
 
 
@@ -67,7 +70,6 @@ public class AccelerometerEventListener implements SensorEventListener {
         textTable[1].setText("Y: " + linear_acceleration[1]);
         textTable[2].setText("Z: " + linear_acceleration[2]);
 
-
         int max = 0;
         for (int i = 0; i < event.values.length; i++) {
             textTable[i].setTextColor(Color.BLACK);
@@ -75,8 +77,8 @@ public class AccelerometerEventListener implements SensorEventListener {
                 max = i;
         }
         textTable[max].setTextColor(Color.BLUE);
-
-        if ((linear_acceleration[0] > threshold_x_axis)| (linear_acceleration[1] > threshold_y_axis) | (linear_acceleration[2] > threshold_z_axis)){
+        System.out.println(threshold_y_axis);
+        if ((linear_acceleration[0] > threshold_x_axis) || (linear_acceleration[1] > threshold_y_axis) || (linear_acceleration[2] > threshold_z_axis)){
             CharSequence text = "Be carefull: You're moving too fast!!";
             Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
@@ -85,9 +87,6 @@ public class AccelerometerEventListener implements SensorEventListener {
 
         }
         //se.stopSound(streamId);
-
-
-
 
     }
 

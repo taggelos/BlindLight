@@ -50,7 +50,7 @@ public class ProximityEventListener implements SensorEventListener {
         textTable.setText(String.valueOf(event.values[0]));
         if (event.values[0]==0){
 
-            CharSequence text = "Βe carefull idiot!!";
+            CharSequence text = "Βe carefull!!";
             Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
             streamId = se.playNonStop(soundId);

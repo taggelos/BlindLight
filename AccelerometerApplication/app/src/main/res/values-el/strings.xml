@@ -23,4 +23,8 @@
     <string name="title_activity_main2">Κύρια Δραστηριότητα 2</string>
     <string name="Sensors">Αισθητήρες</string>
     <string name="Settings">Ρυθμίσεις</string>
+    <string name="y_axis_limit">Όριο_Y_Άξονας</string>
+    <string name="z_axis_limit">Όριο_Z_Άξονας</string>
+    <string name="save_changes">Aποθήκευση_Αλλαγών</string>
+
 </resources>

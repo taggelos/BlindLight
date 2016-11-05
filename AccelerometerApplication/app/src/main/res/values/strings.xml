@@ -24,4 +24,6 @@
     <string name="menu">Menu</string>
     <string name="y_axis_limit">Y-axis_limit</string>
     <string name="z_axis_limit">Z-axis_limit</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="checkbox">CheckBox</string>
 </resources>

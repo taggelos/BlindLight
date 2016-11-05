@@ -72,16 +72,6 @@
         tools:ignore="UnknownIdInLayout" />
 
     <TextView
-        android:text="@string/Y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/yText"
-        android:layout_alignBaseline="@+id/xText"
-        android:layout_alignBottom="@+id/xText"
-        android:layout_toEndOf="@+id/xText"
-        android:layout_marginStart="19dp" />
-
-    <TextView
         android:text="@string/X"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -125,6 +115,15 @@
         android:layout_marginTop="107dp"
         android:layout_below="@+id/Light"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/Y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yText"
+        android:layout_below="@+id/xText"
+        android:layout_toStartOf="@+id/proxText"
+        android:layout_marginTop="40dp" />
 
 
 </RelativeLayout>
