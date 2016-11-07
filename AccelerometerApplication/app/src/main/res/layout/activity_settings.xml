@@ -12,10 +12,19 @@
     android:fillViewport="true"
     tools:context="com.example.aggel.accelerometerapplication.SettingsActivity"
     >
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="1">
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:text="@string/seekbarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekbarView"
+            android:layout_below="@+id/button"
+            android:layout_alignParentStart="true" />
 
         <SeekBar
             android:layout_width="match_parent"
@@ -28,14 +37,6 @@
             android:layout_marginTop="37dp" />
 
         <TextView
-            android:text="@string/seekbarView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekbarView"
-            android:layout_below="@+id/button"
-            android:layout_alignParentStart="true" />
-
-        <TextView
             android:text="@string/y_axis_limit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
             android:id="@+id/seekbarView2" />
 
         <SeekBar
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/seekbarView2"
             android:layout_marginTop="40dp"
@@ -53,7 +54,8 @@
             android:layout_alignParentStart="true"
             android:id="@+id/seekBar2"
             android:max="10"
-            android:progress="7" />
+            android:progress="7"
+            tools:ignore="ObsoleteLayoutParam" />
 
         <TextView
             android:text="@string/z_axis_limit"
@@ -64,12 +66,11 @@
             android:id="@+id/seekbarView3" />
 
         <SeekBar
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/seekbarView3"
             android:layout_marginTop="51dp"
             android:id="@+id/seekBar3"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:max="10"
             android:progress="8" />
@@ -77,7 +78,7 @@
         <CheckBox
             android:text="@string/checkbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="21dp"
             android:layout_marginBottom="28dp"
             android:id="@+id/checkBox1" />
 
@@ -95,11 +96,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonSave"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true" />
 
+        <TextView
+            android:text="Light"
+            android:layout_width="274dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekbarView4" />
 
-    </RelativeLayout>
+        <NumberPicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/numberPicker3" />
+
+
+    </LinearLayout>
 
 
 </ScrollView>

@@ -32,10 +32,10 @@ public class SettingsActivity extends AppCompatActivity  {
     private Button save_changes;
     private CheckBox cb;
 
-
-    private int x_my_progress=3;
-    private int y_my_progress=7;
-    private int z_my_progress=8;
+    //default thresholds
+    private int x_my_progress;
+    private int y_my_progress;
+    private int z_my_progress;
 
 
     private SoundEvent se;
@@ -47,7 +47,11 @@ public class SettingsActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+
         //SaveChanges Button
+        final String MY_KEY_X = "intVariableName1";
+        final String MY_KEY_Y = "intVariableName2";
+        final String MY_KEY_Z = "intVariableName3";
         cb = (CheckBox) findViewById(R.id.checkBox1);
         save_changes = (Button)findViewById(R.id.buttonSave);
         save_changes.setOnClickListener(new View.OnClickListener(){
@@ -56,22 +60,25 @@ public class SettingsActivity extends AppCompatActivity  {
             //On click function
             public void onClick(View v1) {
 
-
                 seekBar_x_axis = (SeekBar) findViewById(R.id.seekBar);
                 seekBar_y_axis = (SeekBar) findViewById(R.id.seekBar2);
                 seekBar_z_axis = (SeekBar) findViewById(R.id.seekBar3);
 
-
                 x_my_progress = seekBar_x_axis.getProgress();
                 y_my_progress = seekBar_y_axis.getProgress();
                 z_my_progress = seekBar_z_axis.getProgress();
+
                 savePrefs("CHECKBOX" , cb.isChecked());
 
                 if (cb.isChecked())
                     savePrefs("PROGRESS_X" , x_my_progress);
                     savePrefs("PROGRESS_Y" , y_my_progress);
                     savePrefs("PROGRESS_Z" , z_my_progress);
-                finish();
+                    Intent toy2 = new Intent(SettingsActivity.this,MainActivity.class);
+                    toy2.putExtra( MY_KEY_X,x_my_progress);
+                    toy2.putExtra( MY_KEY_Y,y_my_progress);
+                    toy2.putExtra( MY_KEY_Z,z_my_progress);
+                    startActivity(toy2);
 
             }
         });
@@ -101,9 +108,9 @@ public class SettingsActivity extends AppCompatActivity  {
     private void loadPrefs(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         boolean cbValue = sp.getBoolean("CHECKBOX",false);
-        int prog_x = sp.getInt("PROGRESS_X" , 3);
-        int prog_y = sp.getInt("PROGRESS_Y" , 7);
-        int prog_z = sp.getInt("PROGRESS_Z" , 8);
+        int prog_x = sp.getInt("PROGRESS_X" , x_my_progress);
+        int prog_y = sp.getInt("PROGRESS_Y" , y_my_progress);
+        int prog_z = sp.getInt("PROGRESS_Z" , z_my_progress);
 
         if(cbValue){
             cb.setChecked(true);
@@ -111,13 +118,25 @@ public class SettingsActivity extends AppCompatActivity  {
             cb.setChecked(false);
 
         }
+        seekBar_x_axis = (SeekBar) findViewById(R.id.seekBar);
+        seekBar_y_axis = (SeekBar) findViewById(R.id.seekBar2);
+        seekBar_z_axis = (SeekBar) findViewById(R.id.seekBar3);
         text_view_x_axis = (TextView)findViewById(R.id.seekbarView);
         text_view_y_axis = (TextView)findViewById(R.id.seekbarView2);
         text_view_z_axis = (TextView)findViewById(R.id.seekbarView3);
+
+        //Updating the values on screen
+
         text_view_x_axis.setText("Covered_X_axis : " + prog_x + "/" + seekBar_x_axis.getMax());
         text_view_y_axis.setText("Covered_Y_axis : " + prog_y + "/" + seekBar_y_axis.getMax());
         text_view_z_axis.setText("Covered_Z_axis : " + prog_z + "/" + seekBar_z_axis.getMax());
+        seekBar_x_axis.setProgress(prog_x);
+        seekBar_y_axis.setProgress(prog_y);
+        seekBar_z_axis.setProgress(prog_z);
 
+        x_my_progress = prog_x;
+        y_my_progress = prog_y;
+        z_my_progress = prog_z;
 
     }
 
@@ -137,22 +156,9 @@ public class SettingsActivity extends AppCompatActivity  {
     }
 
 
-
-  //Function that returns seekbar_value in order to be used in main
-
-    public int getSeekBarPr_X() { return x_my_progress; }
-
-    public int getSeekBarPr_Y() { return y_my_progress; }
-
-    public int getSeekBarPr_Z() { return z_my_progress; }
-
-
-
     //Seekbar Function
 
     public void seekbarr(){
-
-
 
         seekBar_x_axis = (SeekBar) findViewById(R.id.seekBar);
         seekBar_y_axis = (SeekBar) findViewById(R.id.seekBar2);
@@ -164,9 +170,7 @@ public class SettingsActivity extends AppCompatActivity  {
         text_view_y_axis = (TextView)findViewById(R.id.seekbarView2);
         text_view_z_axis = (TextView)findViewById(R.id.seekbarView3);
 
-
         x_my_progress = seekBar_x_axis.getProgress();
-
 
         text_view_x_axis.setText("Covered_X_axis : " + x_my_progress + "/" + seekBar_x_axis.getMax());
 
