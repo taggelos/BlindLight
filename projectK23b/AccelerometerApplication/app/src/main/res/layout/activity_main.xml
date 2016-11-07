@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
+    android:background="@color/colorMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -20,6 +21,7 @@
 
     <TextView
         android:text="@string/cm"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
@@ -30,6 +32,7 @@
 
     <TextView
         android:text="@string/proxText"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/proxText"
@@ -40,6 +43,7 @@
 
     <TextView
         android:text="@string/m_s2"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/m_sec2"
@@ -52,6 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Z"
+        android:textColor="@color/colorPrimaryDark"
         android:id="@+id/zText"
         android:layout_alignBaseline="@+id/yText"
         android:layout_alignBottom="@+id/yText"
@@ -59,20 +64,8 @@
         android:layout_marginStart="24dp" />
 
     <TextView
-        android:text="@string/Sensors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/readyApp"
-        tools:textAlignment="center"
-        android:textColor="@android:color/background_dark"
-        android:textCursorDrawable="@color/colorAccent"
-        android:textColorHighlight="@color/colorAccent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        tools:ignore="UnknownIdInLayout" />
-
-    <TextView
         android:text="@string/X"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/xText"
@@ -83,6 +76,7 @@
 
     <TextView
         android:text="@string/light"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/sensText"
@@ -91,6 +85,7 @@
 
     <TextView
         android:text="@string/lightsensText"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sensText"
@@ -100,6 +95,7 @@
 
     <TextView
         android:text="@string/Accelerometer"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Accelerometer"
@@ -109,6 +105,7 @@
 
     <TextView
         android:text="@string/Proximity"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/Proximity"
@@ -118,12 +115,26 @@
 
     <TextView
         android:text="@string/Y"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/yText"
         android:layout_below="@+id/xText"
         android:layout_toStartOf="@+id/proxText"
         android:layout_marginTop="40dp" />
+
+    <TextView
+        android:text="@string/Sensors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/readyApp"
+        tools:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textCursorDrawable="@color/colorAccent"
+        android:textColorHighlight="@color/colorAccent"
+        tools:ignore="UnknownIdInLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
