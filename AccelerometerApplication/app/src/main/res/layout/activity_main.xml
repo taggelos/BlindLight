@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    android:background="@color/colorMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -21,7 +20,6 @@
 
     <TextView
         android:text="@string/cm"
-        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
@@ -32,7 +30,6 @@
 
     <TextView
         android:text="@string/proxText"
-        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/proxText"
@@ -43,7 +40,6 @@
 
     <TextView
         android:text="@string/m_s2"
-        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/m_sec2"
@@ -56,72 +52,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Z"
-        android:textColor="@color/colorPrimaryDark"
         android:id="@+id/zText"
         android:layout_alignBaseline="@+id/yText"
         android:layout_alignBottom="@+id/yText"
         android:layout_toEndOf="@+id/yText"
         android:layout_marginStart="24dp" />
-
-    <TextView
-        android:text="@string/X"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/xText"
-        android:layout_alignBaseline="@+id/Accelerometer"
-        android:layout_alignBottom="@+id/Accelerometer"
-        android:layout_toEndOf="@+id/Accelerometer"
-        android:layout_marginStart="52dp" />
-
-    <TextView
-        android:text="@string/light"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/sensText"
-        android:layout_alignParentStart="true"
-        android:id="@+id/Light" />
-
-    <TextView
-        android:text="@string/lightsensText"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/sensText"
-        android:layout_below="@+id/readyApp"
-        android:layout_toStartOf="@+id/m_sec2"
-        android:layout_marginTop="24dp" />
-
-    <TextView
-        android:text="@string/Accelerometer"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Accelerometer"
-        android:layout_below="@+id/Proximity"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="172dp" />
-
-    <TextView
-        android:text="@string/Proximity"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Proximity"
-        android:layout_marginTop="107dp"
-        android:layout_below="@+id/Light"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="@string/Y"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/yText"
-        android:layout_below="@+id/xText"
-        android:layout_toStartOf="@+id/proxText"
-        android:layout_marginTop="40dp" />
 
     <TextView
         android:text="@string/Sensors"
@@ -132,9 +67,63 @@
         android:textColor="@android:color/background_dark"
         android:textCursorDrawable="@color/colorAccent"
         android:textColorHighlight="@color/colorAccent"
-        tools:ignore="UnknownIdInLayout"
         android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        tools:ignore="UnknownIdInLayout" />
+
+    <TextView
+        android:text="@string/X"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/xText"
+        android:layout_alignBaseline="@+id/Accelerometer"
+        android:layout_alignBottom="@+id/Accelerometer"
+        android:layout_toEndOf="@+id/Accelerometer"
+        android:layout_marginStart="52dp" />
+
+    <TextView
+        android:text="@string/light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/sensText"
+        android:layout_alignParentStart="true"
+        android:id="@+id/Light" />
+
+    <TextView
+        android:text="@string/lightsensText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sensText"
+        android:layout_below="@+id/readyApp"
+        android:layout_toStartOf="@+id/m_sec2"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:text="@string/Accelerometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Accelerometer"
+        android:layout_below="@+id/Proximity"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="172dp" />
+
+    <TextView
+        android:text="@string/Proximity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Proximity"
+        android:layout_marginTop="107dp"
+        android:layout_below="@+id/Light"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/Y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yText"
+        android:layout_below="@+id/xText"
+        android:layout_toStartOf="@+id/proxText"
+        android:layout_marginTop="40dp" />
 
 
 </RelativeLayout>
