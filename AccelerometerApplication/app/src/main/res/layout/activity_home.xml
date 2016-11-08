@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackround"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,14 +15,38 @@
 
     <Button
         android:text="@string/start_now"
+        android:background="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button2"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="45dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="@string/the_app_is_ready_to_start"
+        android:text="BlindLight is an application that helps you map the space around you and protects you from hitting on obstacles by warning you with a special sound."
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_marginBottom="33dp"
+        tools:ignore="HardcodedText"
+        android:layout_alignBottom="@+id/readyApp"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/picturewels"
+        android:id="@+id/imageView"
+        tools:ignore="ContentDescription"
+        android:layout_above="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="23dp" />
+
+    <TextView
+        android:text="@string/blindlight_is_ready_to_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/readyApp"
@@ -29,10 +55,10 @@
         android:textCursorDrawable="@color/colorAccent"
         android:textColorHighlight="@color/colorAccent"
         android:textSize="18sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="76dp"
-        android:layout_alignParentEnd="true" />
+        android:fontFamily="sans-serif"
+        android:layout_above="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp" />
 
 
 </RelativeLayout>
