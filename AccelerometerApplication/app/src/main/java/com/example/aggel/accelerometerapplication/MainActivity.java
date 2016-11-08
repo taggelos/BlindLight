@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private int threshold_x_axis;
     private int threshold_y_axis;
     private int threshold_z_axis;
-    private SettingsActivity SA;
 
 
     @Override
@@ -42,11 +41,17 @@ public class MainActivity extends AppCompatActivity {
         textTable[2] = (TextView)findViewById(R.id.zText);
 
         //Ιnitialization of thresholds from seekbars->settings
-        SA = new SettingsActivity();
 
-        threshold_x_axis = SA.getSeekBarPr_X();
-        threshold_y_axis = SA.getSeekBarPr_Y();
-        threshold_z_axis = SA.getSeekBarPr_Z();
+
+            Intent toy2 = getIntent();
+            threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
+            threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
+            threshold_z_axis = toy2.getIntExtra("intVariableName3", 8);
+            System.out.println("IIIIIIIIIIIIIII");
+
+            System.out.println(threshold_x_axis);
+            System.out.println(threshold_y_axis);
+            System.out.println(threshold_z_axis);
 
         Context context = getApplicationContext();
 
@@ -62,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
         TextView sensText = (TextView) findViewById(R.id.sensText);
         LightEventListener lightsens = new LightEventListener(SM, sensText);
 
+
     }
+
+
+    //Creating Options_menu
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,10 +79,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
-
-
-
-    //Creating Menu
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
