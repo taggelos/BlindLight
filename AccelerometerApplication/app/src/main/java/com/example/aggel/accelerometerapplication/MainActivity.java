@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private int threshold_x_axis;
     private int threshold_y_axis;
     private int threshold_z_axis;
+    private int threshold_max_light;
+    private int threshold_min_light;
 
 
     @Override
@@ -42,16 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Ιnitialization of thresholds from seekbars->settings
 
-
             Intent toy2 = getIntent();
             threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
             threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
             threshold_z_axis = toy2.getIntExtra("intVariableName3", 8);
-            System.out.println("IIIIIIIIIIIIIII");
-
-            System.out.println(threshold_x_axis);
-            System.out.println(threshold_y_axis);
-            System.out.println(threshold_z_axis);
+            threshold_max_light = 1500;
+            threshold_min_light =5;
 
         Context context = getApplicationContext();
 
@@ -65,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Light Sensor
         TextView sensText = (TextView) findViewById(R.id.sensText);
-        LightEventListener lightsens = new LightEventListener(SM, sensText);
+        LightEventListener lightsens = new LightEventListener(SM, sensText , threshold_max_light , threshold_min_light
+                , context);
 
 
     }

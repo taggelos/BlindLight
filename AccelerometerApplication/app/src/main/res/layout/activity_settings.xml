@@ -11,12 +11,36 @@
     android:label="@string/Settings"
     android:fillViewport="true"
     tools:context="com.example.aggel.accelerometerapplication.SettingsActivity"
-    >
+    android:weightSum="1">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="710dp"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:id="@+id/NumberPickerLightMax">
+
+        <TextView
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/LightTextViewMax"
+            android:text="Select Max Threshold" />
+
+        <NumberPicker
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/LightMaxNumberPicker" />
+
+        <TextView
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/LightTextViewMin"
+            android:text="Select Min Threshold" />
+
+        <NumberPicker
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/LightMinNumberPicker" />
 
         <TextView
             android:text="@string/seekbarView"
@@ -75,12 +99,6 @@
             android:max="10"
             android:progress="8" />
 
-        <CheckBox
-            android:text="@string/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:layout_marginBottom="28dp"
-            android:id="@+id/checkBox1" />
 
         <Button
             android:text="@string/testSound"
@@ -88,26 +106,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/button"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
             tools:ignore="RelativeOverlap" />
 
         <Button
             android:text="@string/save_changes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonSave"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:text="Light"
-            android:layout_width="274dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekbarView4" />
-
-        <NumberPicker
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/numberPicker3" />
+            android:id="@+id/buttonSave" />
 
 
     </LinearLayout>

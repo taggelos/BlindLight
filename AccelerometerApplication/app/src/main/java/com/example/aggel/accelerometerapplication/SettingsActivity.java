@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -21,23 +22,14 @@ import android.widget.TextView;
 
 public class SettingsActivity extends AppCompatActivity  {
 
-    private  TextView text_view_x_axis;
-    private  TextView text_view_y_axis;
-    private  TextView text_view_z_axis;
-
-    private  SeekBar seekBar_x_axis ;
-    private  SeekBar seekBar_y_axis ;
-    private  SeekBar seekBar_z_axis ;
-
+    private TextView[] TextViewSettings = new TextView[3];
+    private SeekBar[] SeekBars = new SeekBar[3];
+    private String[] TextViewCovered = new String[3];
+    private int[] My_Progress = new int[3];
+    private int[] My_Light_Thresholds = new int[2];
+    private NumberPicker[] Light_np=new NumberPicker[2];
+    private TextView[] TextViewLight = new TextView[2];
     private Button save_changes;
-    private CheckBox cb;
-
-    //default thresholds
-    private int x_my_progress;
-    private int y_my_progress;
-    private int z_my_progress;
-
-
     private SoundEvent se;
     private int soundId;
     private int streamId;
@@ -52,7 +44,8 @@ public class SettingsActivity extends AppCompatActivity  {
         final String MY_KEY_X = "intVariableName1";
         final String MY_KEY_Y = "intVariableName2";
         final String MY_KEY_Z = "intVariableName3";
-        cb = (CheckBox) findViewById(R.id.checkBox1);
+
+
         save_changes = (Button)findViewById(R.id.buttonSave);
         save_changes.setOnClickListener(new View.OnClickListener(){
 
@@ -60,30 +53,36 @@ public class SettingsActivity extends AppCompatActivity  {
             //On click function
             public void onClick(View v1) {
 
-                seekBar_x_axis = (SeekBar) findViewById(R.id.seekBar);
-                seekBar_y_axis = (SeekBar) findViewById(R.id.seekBar2);
-                seekBar_z_axis = (SeekBar) findViewById(R.id.seekBar3);
+                SeekBars[0] = (SeekBar) findViewById(R.id.seekBar);
+                SeekBars[1] = (SeekBar) findViewById(R.id.seekBar2);
+                SeekBars[2] = (SeekBar) findViewById(R.id.seekBar3);
 
-                x_my_progress = seekBar_x_axis.getProgress();
-                y_my_progress = seekBar_y_axis.getProgress();
-                z_my_progress = seekBar_z_axis.getProgress();
+                My_Progress[0] = SeekBars[0].getProgress();
+                My_Progress[1] = SeekBars[1].getProgress();
+                My_Progress[2] = SeekBars[2].getProgress();
 
-                savePrefs("CHECKBOX" , cb.isChecked());
 
-                if (cb.isChecked())
-                    savePrefs("PROGRESS_X" , x_my_progress);
-                    savePrefs("PROGRESS_Y" , y_my_progress);
-                    savePrefs("PROGRESS_Z" , z_my_progress);
-                    Intent toy2 = new Intent(SettingsActivity.this,MainActivity.class);
-                    toy2.putExtra( MY_KEY_X,x_my_progress);
-                    toy2.putExtra( MY_KEY_Y,y_my_progress);
-                    toy2.putExtra( MY_KEY_Z,z_my_progress);
-                    startActivity(toy2);
+                    savePrefs("PROGRESS_X" , My_Progress[0]);
+                    savePrefs("PROGRESS_Y" , My_Progress[1]);
+                    savePrefs("PROGRESS_Z" , My_Progress[2]);
+
+
+
+                Intent toy2 = new Intent(SettingsActivity.this,MainActivity.class);
+                    toy2.putExtra( MY_KEY_X,My_Progress[0]);
+                    toy2.putExtra( MY_KEY_Y,My_Progress[1]);
+                    toy2.putExtra( MY_KEY_Z,My_Progress[2]);
+
+                startActivity(toy2);
 
             }
         });
 
-        //Seekbar
+        //Number_Pickers
+        numberPickerr();
+
+
+        //Seekbars
         seekbarr();
 
         //mysound
@@ -102,50 +101,45 @@ public class SettingsActivity extends AppCompatActivity  {
     }
 
 
-
     //Functions for Saving changes on Seekbars
 
     private void loadPrefs(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean cbValue = sp.getBoolean("CHECKBOX",false);
-        int prog_x = sp.getInt("PROGRESS_X" , x_my_progress);
-        int prog_y = sp.getInt("PROGRESS_Y" , y_my_progress);
-        int prog_z = sp.getInt("PROGRESS_Z" , z_my_progress);
+        //boolean cbValue = sp.getBoolean("CHECKBOX",false);
+        int prog_x = sp.getInt("PROGRESS_X" , My_Progress[0]);
+        int prog_y = sp.getInt("PROGRESS_Y" , My_Progress[1]);
+        int prog_z = sp.getInt("PROGRESS_Z" , My_Progress[2]);
 
-        if(cbValue){
-            cb.setChecked(true);
-        }else{
-            cb.setChecked(false);
 
-        }
-        seekBar_x_axis = (SeekBar) findViewById(R.id.seekBar);
-        seekBar_y_axis = (SeekBar) findViewById(R.id.seekBar2);
-        seekBar_z_axis = (SeekBar) findViewById(R.id.seekBar3);
-        text_view_x_axis = (TextView)findViewById(R.id.seekbarView);
-        text_view_y_axis = (TextView)findViewById(R.id.seekbarView2);
-        text_view_z_axis = (TextView)findViewById(R.id.seekbarView3);
+
+        SeekBars[0] = (SeekBar) findViewById(R.id.seekBar);
+        SeekBars[1] = (SeekBar) findViewById(R.id.seekBar2);
+        SeekBars[2] = (SeekBar) findViewById(R.id.seekBar3);
+
+        Light_np[0] = (NumberPicker) findViewById(R.id.LightMaxNumberPicker);
+        Light_np[1] = (NumberPicker) findViewById(R.id.LightMinNumberPicker);
+
+
+        TextViewSettings[0] = (TextView)findViewById(R.id.seekbarView);
+        TextViewSettings[1] = (TextView)findViewById(R.id.seekbarView2);
+        TextViewSettings[2] = (TextView)findViewById(R.id.seekbarView3);
 
         //Updating the values on screen
 
-        text_view_x_axis.setText("Covered_X_axis : " + prog_x + "/" + seekBar_x_axis.getMax());
-        text_view_y_axis.setText("Covered_Y_axis : " + prog_y + "/" + seekBar_y_axis.getMax());
-        text_view_z_axis.setText("Covered_Z_axis : " + prog_z + "/" + seekBar_z_axis.getMax());
-        seekBar_x_axis.setProgress(prog_x);
-        seekBar_y_axis.setProgress(prog_y);
-        seekBar_z_axis.setProgress(prog_z);
+        TextViewSettings[0].setText("Covered_X_axis : " + prog_x + "/" + SeekBars[0].getMax());
+        TextViewSettings[1].setText("Covered_Y_axis : " + prog_y + "/" + SeekBars[1].getMax());
+        TextViewSettings[2].setText("Covered_Z_axis : " + prog_z + "/" + SeekBars[2].getMax());
 
-        x_my_progress = prog_x;
-        y_my_progress = prog_y;
-        z_my_progress = prog_z;
+        SeekBars[0].setProgress(prog_x);
+        SeekBars[1].setProgress(prog_y);
+        SeekBars[2].setProgress(prog_z);
+
+        My_Progress[0] = prog_x;
+        My_Progress[1] = prog_y;
+        My_Progress[2] = prog_z;
 
     }
 
-    private void savePrefs(String key , boolean value){
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putBoolean(key,value);
-        edit.commit();
-    }
 
     private void savePrefs(String key , int value_prog){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -160,32 +154,39 @@ public class SettingsActivity extends AppCompatActivity  {
 
     public void seekbarr(){
 
-        seekBar_x_axis = (SeekBar) findViewById(R.id.seekBar);
-        seekBar_y_axis = (SeekBar) findViewById(R.id.seekBar2);
-        seekBar_z_axis = (SeekBar) findViewById(R.id.seekBar3);
+        SeekBars[0] = (SeekBar) findViewById(R.id.seekBar);
+        SeekBars[1] = (SeekBar) findViewById(R.id.seekBar2);
+        SeekBars[2] = (SeekBar) findViewById(R.id.seekBar3);
 
-        System.out.println("MPLAAAAAAAAAAAAAAAAAAAAAA");
+        TextViewSettings[0] = (TextView)findViewById(R.id.seekbarView);
+        TextViewSettings[1] = (TextView)findViewById(R.id.seekbarView2);
+        TextViewSettings[2] = (TextView)findViewById(R.id.seekbarView3);
 
-        text_view_x_axis = (TextView)findViewById(R.id.seekbarView);
-        text_view_y_axis = (TextView)findViewById(R.id.seekbarView2);
-        text_view_z_axis = (TextView)findViewById(R.id.seekbarView3);
+        TextViewCovered[0] = "Covered_X_axis : ";
+        TextViewCovered[1] = "Covered_Y_axis : ";
+        TextViewCovered[2] = "Covered_Z_axis : ";
 
-        x_my_progress = seekBar_x_axis.getProgress();
+        //3 seekbars in 1
 
-        text_view_x_axis.setText("Covered_X_axis : " + x_my_progress + "/" + seekBar_x_axis.getMax());
+        for (int i=0; i<3; i++) {
+            My_Progress[i]=SeekBars[i].getProgress();
+            seekbarUpdate(SeekBars[i], TextViewSettings[i], TextViewCovered[i], My_Progress[i]);
+
+        }
+    }
 
 
+    public void  seekbarUpdate(SeekBar seekbarr , final TextView Text , final String TextViewCovered , int MyProgress){
+        Text.setText(TextViewCovered + MyProgress + "/" + seekbarr.getMax());
         loadPrefs();
-
-
-        seekBar_x_axis.setOnSeekBarChangeListener(
+        seekbarr.setOnSeekBarChangeListener(
 
                 new SeekBar.OnSeekBarChangeListener(){
                     int progress_value;
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         progress_value = progress;
-                        text_view_x_axis.setText("Covered_X_axis : " + progress + "/" + seekBar.getMax());
+                        Text.setText(TextViewCovered + progress + "/" + seekBar.getMax());
                     }
 
                     @Override
@@ -195,73 +196,47 @@ public class SettingsActivity extends AppCompatActivity  {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                        text_view_x_axis.setText("Covered_X_axis : " + progress_value + "/" + seekBar.getMax());
+                        Text.setText(TextViewCovered + progress_value + "/" + seekBar.getMax());
                     }
                 }
         );
-
-        y_my_progress = seekBar_y_axis.getProgress();
-
-
-        text_view_y_axis.setText("Covered_Y_axis : " + y_my_progress + "/" + seekBar_y_axis.getMax());
-
-
-        loadPrefs();
-
-        seekBar_y_axis.setOnSeekBarChangeListener(
-
-                new SeekBar.OnSeekBarChangeListener(){
-                    int progress_value;
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        progress_value = progress;
-                        text_view_y_axis.setText("Covered_Y_axis : " + progress + "/" + seekBar.getMax());
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-                        text_view_y_axis.setText("Covered_Y_axis : " + progress_value + "/" + seekBar.getMax());
-                    }
-                }
-        );
-
-        z_my_progress = seekBar_z_axis.getProgress();
-
-
-        text_view_z_axis.setText("Covered_Z_axis : " + z_my_progress + "/" + seekBar_z_axis.getMax());
-
-
-        loadPrefs();
-
-
-        seekBar_z_axis.setOnSeekBarChangeListener(
-
-                new SeekBar.OnSeekBarChangeListener(){
-                    int progress_value;
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        progress_value = progress;
-                        text_view_z_axis.setText("Covered_Z_axis : " + progress + "/" + seekBar.getMax());
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-                        text_view_z_axis.setText("Covered_Z_axis : " + progress_value + "/" + seekBar.getMax());
-                    }
-                }
-        );
-
 
     }
+
+
+    //Number_Picker Function
+
+    public void numberPickerr() {
+        String[] Max_mins = new String[2];
+        Light_np[0] = (NumberPicker) findViewById(R.id.LightMaxNumberPicker);
+        Light_np[1] = (NumberPicker) findViewById(R.id.LightMinNumberPicker);
+        TextViewLight[0] = (TextView) findViewById(R.id.LightTextViewMax);
+        TextViewLight[1] = (TextView) findViewById(R.id.LightTextViewMin);
+        Max_mins[0] ="Selected MAX threshold for light is: ";
+        Max_mins[1] ="Selected MIN threshold for light is: ";
+
+        for (int i=0; i<2; i++) {
+            numberPickerUpdate(Light_np[i] ,TextViewLight[i] , Max_mins[i] );
+
+        }
+
+    }
+
+    public void numberPickerUpdate(NumberPicker Light_np , final TextView TextViewLight , final String Label) {
+            Light_np.setMaxValue(10000);
+            Light_np.setMinValue(0);
+            Light_np.setWrapSelectorWheel(true);
+            Light_np.setOnValueChangedListener(new NumberPicker.
+                    OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int
+                        oldVal, int newVal) {
+                    TextViewLight.setText(Label + newVal);
+                }
+
+            });
+
+    }
+
 }
 
