@@ -11,6 +11,7 @@
         <menu>
             <item
                 android:id="@+id/menu_AndroidSettings"
+                android:background="@color/colorBackround"
                 android:title="@string/android_settings" />
             <item
                 android:id="@+id/menu_Exit"

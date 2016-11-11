@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Εφαρμογή</string>
+    <string name="app_name1">Όνομα Εφαρμογής</string>
     <string name="Accelerometer">Αξελερόμετρο</string>
     <string name="X">Χ</string>
     <string name="Y">Υ</string>

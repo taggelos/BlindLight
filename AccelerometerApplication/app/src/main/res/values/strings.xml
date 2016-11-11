@@ -27,4 +27,5 @@
     <string name="save_changes">Save Changes</string>
     <string name="checkbox">CheckBox</string>
     <string name="blindlight_is_ready_to_start">BlindLight is ready to start!</string>
+    <string name="app_name1">BlindLight</string>
 </resources>
