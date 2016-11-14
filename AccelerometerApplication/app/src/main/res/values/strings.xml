@@ -28,4 +28,9 @@
     <string name="checkbox">CheckBox</string>
     <string name="blindlight_is_ready_to_start">BlindLight is ready to start!</string>
     <string name="app_name1">BlindLight</string>
+    <string name="light_sensor">Light Sensor</string>
+    <string name="lx">lx</string>
+    <string name="m_s_2">m/s^2</string>
+    <string name="select_min_threshold">Select Min Threshold</string>
+    <string name="select_max_threshold">Select Max Threshold</string>
 </resources>

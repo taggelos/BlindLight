@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -11,6 +10,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.aggel.accelerometerapplication.HomeActivity">
+
+    <TextView
+        android:text="@string/m_s2"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_alignBaseline="@+id/zText"
+        android:layout_alignBottom="@+id/zText"
+        android:layout_alignParentEnd="true"
+        tools:ignore="RelativeOverlap" />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -40,8 +50,7 @@
         android:layout_alignBaseline="@+id/zText"
         android:layout_alignBottom="@+id/zText"
         android:layout_alignParentEnd="true"
-        tools:ignore="RelativeOverlap"
-        android:textSize="18sp" />
+        tools:ignore="RelativeOverlap" />
 
     <TextView
         android:text="@string/X"
@@ -113,8 +122,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="66dp"
         android:allowUndo="true"
-        android:textSize="18sp"
-        tools:ignore="UnusedAttribute" />
+        android:textSize="18sp" />
 
     <TextView
         android:text="@string/lightsensText"
@@ -164,38 +172,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/yText"
         android:layout_alignParentEnd="true"
-        android:id="@+id/textView5"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
-
-    <TextView
-        android:text="@string/m_s_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/xText"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/textView6"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/divline"
-        android:id="@+id/imageView2"
-        android:layout_alignTop="@+id/LightTextView"
-        android:layout_alignParentStart="true"
-        tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/divline"
-        android:id="@+id/imageView6"
-        android:layout_alignBottom="@+id/xText"
-        android:layout_alignParentStart="true"
-        android:contentDescription=""
-        tools:ignore="ContentDescription" />
+        android:id="@+id/textView5" />
 
 
 </RelativeLayout>
