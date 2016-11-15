@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:label="@string/Settings"
+    android:background="@color/colorBackround"
     android:fillViewport="true"
     tools:context="com.example.aggel.accelerometerapplication.SettingsActivity"
     android:weightSum="1">
