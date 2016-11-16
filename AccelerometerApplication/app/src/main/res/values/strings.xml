@@ -36,4 +36,7 @@
     <string name="select_max_light_threshold">Select max light threshold</string>
     <string name="select_min_light_threshold">Select min light threshold</string>
     <string name="press_here_to_enable_disable_proximity_sensor">press_here_to_enable_disable_proximity_sensor</string>
+    <string name="accelerometer_sensor">Accelerometer Sensor:</string>
+    <string name="proximity_sensor">Proximity Sensor:</string>
+    <string name="lightsensor">Light Sensor:</string>
 </resources>

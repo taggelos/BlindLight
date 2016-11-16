@@ -16,7 +16,7 @@
     <TextView
         android:text="@string/lx"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/sensText"
@@ -31,7 +31,7 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/textView5"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:text="@string/m_s_2"
@@ -41,7 +41,7 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/textView6"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:text="@string/cm"
@@ -49,11 +49,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cm"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_alignBaseline="@+id/proxText"
         android:layout_alignBottom="@+id/proxText"
         android:layout_alignStart="@+id/textView6"
         android:layout_marginStart="11dp" />
+
+    <TextView
+        android:text="@string/Proximity"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Proximity"
+        android:layout_marginTop="40dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/sensText"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="@string/proxText"
@@ -67,7 +78,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Accelerometer Sensor:"
+        android:text="@string/Accelerometer"
         android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,7 +119,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/m_sec2"
         tools:ignore="RelativeOverlap"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_alignBottom="@+id/zText"
         android:layout_alignParentEnd="true" />
 
@@ -129,29 +140,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Z"
-        android:textColor="@color/colorPrimaryDark"
-        android:id="@+id/zText"
-        android:layout_marginTop="33dp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/yText"
-        android:textSize="14sp" />
-
-    <TextView
-        android:text="@string/X"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/xText"
-        android:textSize="14sp"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/Accelerometer"
-        android:layout_toEndOf="@+id/Proximity" />
-
-    <TextView
-        android:text="Light Sensor:"
+        android:text="@string/light_sensor"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
@@ -161,15 +150,26 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Proximity Sensor:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Z"
+        android:textColor="@color/colorPrimaryDark"
+        android:id="@+id/zText"
+        android:layout_marginTop="33dp"
+        android:textSize="14sp"
+        android:layout_below="@+id/yText"
+        android:layout_alignStart="@+id/yText" />
+
+    <TextView
+        android:text="@string/X"
         android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Proximity"
-        android:layout_marginTop="40dp"
-        android:textSize="18sp"
-        android:layout_below="@+id/sensText"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/xText"
+        android:textSize="14sp"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/Accelerometer"
+        android:layout_toEndOf="@+id/Proximity" />
 
 
 </RelativeLayout>
