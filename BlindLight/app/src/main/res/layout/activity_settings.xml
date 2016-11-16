@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:label="@string/Settings"
     android:fillViewport="true"
-    tools:context="com.example.aggel.accelerometerapplication.SettingsActivity"
+    tools:context="com.example.aggel.blindlight.SettingsActivity"
     android:weightSum="1">
 
     <LinearLayout
@@ -20,19 +20,13 @@
         android:weightSum="1"
         android:id="@+id/NumberPickerLightMax">
 
-        <CheckBox
-            android:text="@string/press_here_to_enable_disable_proximity_sensor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox1" />
-
         <TextView
             android:layout_width="91dp"
             android:layout_height="wrap_content"
             android:id="@+id/LightTextViewMax"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:text="@string/select_max_light_threshold" />
+            android:text="@string/maxLightThreshold" />
 
         <NumberPicker
             android:layout_width="146dp"
@@ -45,12 +39,18 @@
             android:id="@+id/LightTextViewMin"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:text="@string/select_min_light_threshold" />
+            android:text="@string/minLightThreshold" />
 
         <NumberPicker
             android:layout_width="146dp"
             android:layout_height="wrap_content"
             android:id="@+id/LightMinNumberPicker" />
+
+        <CheckBox
+            android:text="@string/onoffprox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox1" />
 
         <TextView
             android:text="@string/seekbarView"

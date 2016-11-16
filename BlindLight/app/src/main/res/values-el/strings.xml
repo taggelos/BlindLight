@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name1">Όνομα Εφαρμογής</string>
+    <string name="app_name">BlindLight</string>
     <string name="Accelerometer">Αξελερόμετρο</string>
     <string name="X">Χ</string>
     <string name="Y">Υ</string>
@@ -8,7 +8,7 @@
     <string name="android_settings">Ρυθμίσεις Android</string>
     <string name="cm">εκ</string>
     <string name="exit">Έξοδος</string>
-    <string name="light">Φως</string>
+    <string name="light">Αισθητήρας Φωτός</string>
     <string name="lightsensText">Φως</string>
     <string name="Main">Κύρια Εφαρμογή</string>
     <string name="Proximity">Αισθητήρας Εγγύτητας</string>
@@ -23,8 +23,15 @@
     <string name="title_activity_main2">Κύρια Δραστηριότητα 2</string>
     <string name="Sensors">Αισθητήρες</string>
     <string name="Settings">Ρυθμίσεις</string>
-    <string name="y_axis_limit">Όριο_Y_Άξονας</string>
-    <string name="z_axis_limit">Όριο_Z_Άξονας</string>
+    <string name="y_axis_limit">Όριο Y-Άξονας</string>
+    <string name="z_axis_limit">Όριο Z-Άξονας</string>
     <string name="save_changes">Aποθήκευση_Αλλαγών</string>
-
+    <string name="checkbox">CheckBox</string>
+    <string name="readyToStart">Το BlindLight είναι έτοιμο να ξεκινήσει!</string>
+    <string name="lx">lx</string>
+    <string name="minThreshold">Επέλεξε Ελάχιστο Κατώφλι</string>
+    <string name="maxThreshold">Επέλεξε Μέγιστο Κατώφλι</string>
+    <string name="maxLightThreshold">Επέλεξε Μέγιστο light Κατώφλι</string>
+    <string name="minLightThreshold">Επέλεξε Ελάχιστο light Κατώφλι</string>
+    <string name="onoffprox">Ενεργοποίησε/Απενεργοποιήσε Αισθητήρα Εγγύτητας</string>
 </resources>
