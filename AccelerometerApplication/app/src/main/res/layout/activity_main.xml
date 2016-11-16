@@ -12,131 +12,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.aggel.accelerometerapplication.HomeActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-    </android.support.design.widget.AppBarLayout>
-
-    <TextView
-        android:text="@string/cm"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:id="@+id/cm"
-        android:layout_alignBaseline="@+id/Proximity"
-        android:layout_alignBottom="@+id/Proximity"
-        android:layout_alignParentEnd="true"
-        android:textSize="18sp" />
-
-    <TextView
-        android:text="@string/m_s2"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/m_sec2"
-        android:layout_alignBaseline="@+id/zText"
-        android:layout_alignBottom="@+id/zText"
-        android:layout_alignParentEnd="true"
-        tools:ignore="RelativeOverlap"
-        android:textSize="18sp" />
-
-    <TextView
-        android:text="@string/X"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/xText"
-        android:layout_alignBaseline="@+id/Accelerometer"
-        android:layout_alignBottom="@+id/Accelerometer"
-        android:layout_toEndOf="@+id/Accelerometer"
-        android:layout_marginStart="52dp"
-        android:textSize="14sp" />
-
-    <TextView
-        android:text="@string/Proximity"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Proximity"
-        android:layout_marginTop="107dp"
-        android:layout_below="@+id/LightTextView"
-        android:layout_alignParentStart="true"
-        android:textSize="18sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Z"
-        android:textColor="@color/colorPrimaryDark"
-        android:id="@+id/zText"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/yText" />
-
-    <TextView
-        android:text="@string/Sensors"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="22sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/readyApp"
-        tools:textAlignment="center"
-        android:textCursorDrawable="@color/colorAccent"
-        android:textColorHighlight="@color/colorAccent"
-        tools:ignore="UnknownIdInLayout"
-        android:textAlignment="center"
-        android:background="@android:drawable/alert_light_frame"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text="@string/light_sensor"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/LightTextView"
-        android:background="?attr/actionBarDivider"
-        android:layout_alignBaseline="@+id/sensText"
-        android:layout_alignBottom="@+id/sensText"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="@string/Accelerometer"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Accelerometer"
-        android:layout_alignBottom="@+id/yText"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="66dp"
-        android:allowUndo="true"
-        android:textSize="18sp"
-        tools:ignore="UnusedAttribute" />
-
-    <TextView
-        android:text="@string/lightsensText"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/sensText"
-        android:layout_marginTop="32dp"
-        android:textSize="18sp"
-        android:layout_below="@+id/readyApp"
-        android:layout_alignStart="@+id/readyApp" />
-
-    <TextView
-        android:text="@string/proxText"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/proxText"
-        android:textSize="18sp"
-        android:layout_alignBaseline="@+id/Proximity"
-        android:layout_alignBottom="@+id/Proximity"
-        android:layout_alignStart="@+id/sensText" />
 
     <TextView
         android:text="@string/lx"
@@ -147,16 +22,6 @@
         android:layout_alignBottom="@+id/sensText"
         android:layout_alignEnd="@+id/cm"
         android:id="@+id/textView3" />
-
-    <TextView
-        android:text="@string/Y"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/yText"
-        android:layout_marginBottom="43dp"
-        android:layout_above="@+id/m_sec2"
-        android:layout_alignEnd="@+id/xText" />
 
     <TextView
         android:text="@string/m_s_2"
@@ -178,24 +43,133 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
-    <ImageView
+    <TextView
+        android:text="@string/cm"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/divline"
-        android:id="@+id/imageView2"
-        android:layout_alignTop="@+id/LightTextView"
-        android:layout_alignParentStart="true"
-        tools:ignore="ContentDescription" />
+        android:id="@+id/cm"
+        android:textSize="18sp"
+        android:layout_alignBaseline="@+id/proxText"
+        android:layout_alignBottom="@+id/proxText"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_marginStart="11dp" />
 
-    <ImageView
+    <TextView
+        android:text="@string/proxText"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/divline"
-        android:id="@+id/imageView6"
-        android:layout_alignBottom="@+id/xText"
+        android:id="@+id/proxText"
+        android:textSize="18sp"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/Proximity"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Accelerometer Sensor:"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Accelerometer"
+        android:allowUndo="true"
+        android:textSize="18sp"
+        tools:ignore="UnusedAttribute"
+        android:layout_below="@+id/proxText"
         android:layout_alignParentStart="true"
-        android:contentDescription=""
-        tools:ignore="ContentDescription" />
+        android:layout_marginTop="29dp" />
+
+    <TextView
+        android:text="@string/lightsensText"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sensText"
+        android:layout_marginTop="33dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/LightTextView"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="@string/Y"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yText"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignEnd="@+id/xText"
+        android:textSize="14sp" />
+
+    <TextView
+        android:text="@string/m_s2"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/m_sec2"
+        tools:ignore="RelativeOverlap"
+        android:textSize="18sp"
+        android:layout_alignBottom="@+id/zText"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="@string/Sensors"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="22sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/readyApp"
+        tools:textAlignment="center"
+        android:textCursorDrawable="@color/colorAccent"
+        android:textColorHighlight="@color/colorAccent"
+        tools:ignore="UnknownIdInLayout"
+        android:textAlignment="center"
+        android:background="@android:drawable/alert_light_frame"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Z"
+        android:textColor="@color/colorPrimaryDark"
+        android:id="@+id/zText"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/yText"
+        android:textSize="14sp" />
+
+    <TextView
+        android:text="@string/X"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/xText"
+        android:textSize="14sp"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/Accelerometer"
+        android:layout_toEndOf="@+id/Proximity" />
+
+    <TextView
+        android:text="Light Sensor:"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/LightTextView"
+        android:layout_below="@+id/readyApp"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Proximity Sensor:"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Proximity"
+        android:layout_marginTop="40dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/sensText"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

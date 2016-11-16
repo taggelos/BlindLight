@@ -21,6 +21,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean CheckProx;
+
+    //Thresholds
+
     private int threshold_x_axis;
     private int threshold_y_axis;
     private int threshold_z_axis;
@@ -44,22 +48,23 @@ public class MainActivity extends AppCompatActivity {
 
         //Ιnitialization of thresholds from seekbars->settings
 
-            Intent toy2 = getIntent();
-            threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
-            threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
-            threshold_z_axis = toy2.getIntExtra("intVariableName3", 8);
-            threshold_max_light = 1500;
-            threshold_min_light =5;
+        Intent toy2 = getIntent();
+        threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
+        threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
+        threshold_z_axis = toy2.getIntExtra("intVariableName3", 8);
+        threshold_max_light = toy2.getIntExtra("intVariableName4", 1000);
+        threshold_min_light = toy2.getIntExtra("intVariableName5", 5);
+        CheckProx = toy2.getBooleanExtra("intVariableName6" , false);
 
         Context context = getApplicationContext();
 
         //Accelerometer Sensor
-        AccelerometerEventListener accelero = new AccelerometerEventListener(SM, textTable , threshold_x_axis , threshold_y_axis, threshold_z_axis ,context);
+        AccelerometerEventListener accelero = new AccelerometerEventListener(SM,  textTable , threshold_x_axis , threshold_y_axis, threshold_z_axis ,context);
 
         //Proximity Sensor
         TextView proxText = (TextView) findViewById(R.id.proxText);
 
-        final ProximityEventListener proxy = new ProximityEventListener(SM, proxText,context);
+        final ProximityEventListener proxy = new ProximityEventListener(SM, CheckProx , proxText,context);
 
         //Light Sensor
         TextView sensText = (TextView) findViewById(R.id.sensText);

@@ -52,7 +52,7 @@ public class LightEventListener implements SensorEventListener {
                 Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
                 toast.show();
             }
-            if (event.values[0]<threshold_min_light ) {
+            if (event.values[0] < threshold_min_light ) {
                 CharSequence text = "Little light around you!!";
                 Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
                 toast.show();

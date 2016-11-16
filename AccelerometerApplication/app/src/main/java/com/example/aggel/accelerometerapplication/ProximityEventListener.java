@@ -21,15 +21,15 @@ import android.widget.Toast;
 public class ProximityEventListener implements SensorEventListener {
 
     private TextView textTable;
-
+    private boolean CheckProx;
     private Context context;
 
     private SoundEvent se;
     private int soundId;
     private int streamId;
 
-    public ProximityEventListener(SensorManager SM, TextView textTable, Context context) {
-        //Accelerometer Sensor
+    public ProximityEventListener(SensorManager SM, boolean CheckProx , TextView textTable, Context context) {
+        //Proximity Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         //Register sensor listener
         SM.registerListener(this,mySensor,SensorManager.SENSOR_DELAY_NORMAL);
@@ -37,6 +37,7 @@ public class ProximityEventListener implements SensorEventListener {
         //Assign TextView
         this.textTable = textTable;
         this.context = context;
+        this.CheckProx = CheckProx;
 
         //mysound
         se = new SoundEvent();
@@ -48,15 +49,17 @@ public class ProximityEventListener implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
 
         textTable.setText(String.valueOf(event.values[0]));
-        if (event.values[0]==0){
+        if(CheckProx) {
+            if (event.values[0] == 0) {
 
-            CharSequence text = "Βe carefull!!";
-            Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-            toast.show();
-            streamId = se.playNonStop(soundId);
-            return;
+                CharSequence text = "Βe carefull!!";
+                Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                toast.show();
+                streamId = se.playNonStop(soundId);
+                return;
+            }
+            se.stopSound(streamId);
         }
-        se.stopSound(streamId);
     }
 
 

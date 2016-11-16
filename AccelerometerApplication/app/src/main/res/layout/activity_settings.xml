@@ -20,13 +20,19 @@
         android:weightSum="1"
         android:id="@+id/NumberPickerLightMax">
 
+        <CheckBox
+            android:text="@string/press_here_to_enable_disable_proximity_sensor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox1" />
+
         <TextView
             android:layout_width="91dp"
             android:layout_height="wrap_content"
             android:id="@+id/LightTextViewMax"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:text="@string/select_max_threshold" />
+            android:text="@string/select_max_light_threshold" />
 
         <NumberPicker
             android:layout_width="146dp"
@@ -39,7 +45,7 @@
             android:id="@+id/LightTextViewMin"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:text="@string/select_min_threshold" />
+            android:text="@string/select_min_light_threshold" />
 
         <NumberPicker
             android:layout_width="146dp"
