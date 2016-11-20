@@ -13,27 +13,18 @@
     tools:context="com.example.aggel.blindlight.HomeActivity">
 
 
-    <Button
-        android:text="@string/start_now"
-        android:background="@color/colorPrimary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_marginBottom="45dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:text="BlindLight is an application that helps you map the space around you and protects you from hitting on obstacles by warning you with a special sound."
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
+        android:id="@+id/startText"
         android:layout_marginBottom="33dp"
         tools:ignore="HardcodedText"
         android:layout_alignBottom="@+id/readyApp"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -41,7 +32,7 @@
         app:srcCompat="@mipmap/picturewels"
         android:id="@+id/imageView"
         tools:ignore="ContentDescription"
-        android:layout_above="@+id/textView2"
+        android:layout_above="@+id/startText"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="23dp" />
 
@@ -56,9 +47,32 @@
         android:textColorHighlight="@color/colorAccent"
         android:textSize="18sp"
         android:fontFamily="sans-serif"
-        android:layout_above="@+id/button2"
+        android:layout_above="@+id/startBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp" />
+        android:layout_marginBottom="13dp"/>
+
+    <Button
+        android:text="@string/moreInfo"
+        android:background="@drawable/buttonshape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoBtn"
+        android:layout_marginBottom="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="38dp" />
+
+    <Button
+        android:text="@string/start_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/startBtn"
+        android:layout_marginEnd="40dp"
+        android:layout_alignBaseline="@+id/infoBtn"
+        android:layout_alignBottom="@+id/infoBtn"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/buttonshape"
+        tools:ignore="RelativeOverlap" />
 
 
 </RelativeLayout>

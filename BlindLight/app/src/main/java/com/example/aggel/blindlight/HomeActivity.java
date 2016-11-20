@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.widget.TextView;
 
 import com.example.aggel.accelerometerapplication.R;
 
@@ -20,16 +21,37 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //Go to Second Screen
-        Button StartButton;
-        StartButton = (Button) findViewById(R.id.button2);
-        StartButton.setOnClickListener(new View.OnClickListener() {
+        //Go to Next Screen
+        Button startbtn;
+        startbtn = (Button) findViewById(R.id.startBtn);
+        startbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toy1 = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(toy1);
+                Intent toy = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(toy);
             }
         });
+
+        //Show Info
+        final Button infobtn;
+        infobtn = (Button) findViewById(R.id.infoBtn);
+        infobtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView starttxt = (TextView) findViewById(R.id.startText);
+                starttxt.setVisibility(View.VISIBLE);
+                infobtn.setEnabled(false);
+                //infobtn.setVisibility(View.INVISIBLE);
+                //starttxt.setVisibility((starttxt.getVisibility() == View.VISIBLE)
+                 //       ? View.GONE : View.VISIBLE);
+            }
+        });
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
     }
 
     @Override

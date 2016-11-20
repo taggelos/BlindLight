@@ -20,10 +20,11 @@
             android:label="@string/Settings" />
         <activity
             android:name="com.example.aggel.blindlight.MainActivity"
-            android:label="@string/Main" />
+            android:label="@string/mainLabel"
+           />
         <activity
             android:name="com.example.aggel.blindlight.HomeActivity"
-            android:label="@string/Main" />
+            android:label="@string/homeLabel" />
     </application>
 
 </manifest>

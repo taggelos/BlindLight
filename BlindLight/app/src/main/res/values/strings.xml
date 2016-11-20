@@ -32,4 +32,7 @@
     <string name="maxLightThreshold">Select max light threshold</string>
     <string name="minLightThreshold">Select min light threshold</string>
     <string name="onoffprox">press here to enable disable proximity sensor</string>
+    <string name="moreInfo">More Info</string>
+    <string name="mainLabel">Beware of your Surroundings</string>
+    <string name="homeLabel">Lets Start</string>
 </resources>

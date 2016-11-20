@@ -34,4 +34,7 @@
     <string name="maxLightThreshold">Επέλεξε Μέγιστο light Κατώφλι</string>
     <string name="minLightThreshold">Επέλεξε Ελάχιστο light Κατώφλι</string>
     <string name="onoffprox">Ενεργοποίησε/Απενεργοποιήσε Αισθητήρα Εγγύτητας</string>
+    <string name="moreInfo">Πληροφορίες</string>
+    <string name="mainLabel">Προσοχή στο Περιβάλλον σας</string>
+    <string name="homeLabel">Ας Ξεκινήσουμε</string>
 </resources>
