@@ -21,12 +21,14 @@
         android:id="@+id/NumberPickerLightMax">
 
         <TextView
-            android:layout_width="91dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/LightTextViewMax"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:text="@string/maxLightThreshold" />
+            android:text="@string/maxLightThreshold"
+            android:layout_weight="0.10"
+            android:background="@android:drawable/dialog_holo_light_frame" />
 
         <NumberPicker
             android:layout_width="146dp"
@@ -34,12 +36,14 @@
             android:id="@+id/LightMaxNumberPicker" />
 
         <TextView
-            android:layout_width="91dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/LightTextViewMin"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:text="@string/minLightThreshold" />
+            android:text="@string/minLightThreshold"
+            android:layout_weight="0.10"
+            android:background="@android:drawable/dialog_holo_light_frame" />
 
         <NumberPicker
             android:layout_width="146dp"
