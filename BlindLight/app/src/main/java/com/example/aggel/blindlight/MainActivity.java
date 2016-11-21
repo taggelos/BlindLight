@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
         threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
         threshold_z_axis = toy2.getIntExtra("intVariableName3", 8);
-        threshold_max_light = toy2.getIntExtra("intVariableName4", 1000);
+        threshold_max_light = toy2.getIntExtra("intVariableName4", 25);
         threshold_min_light = toy2.getIntExtra("intVariableName5", 5);
-        CheckProx = toy2.getBooleanExtra("intVariableName6" , false);
+        CheckProx = toy2.getBooleanExtra("intVariableName6" , true);
 
         Context context = getApplicationContext();
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(toy);
                 break;
             case R.id.menu_Exit:
-                //onBackPressed();
                 finish();
                 break;
         }

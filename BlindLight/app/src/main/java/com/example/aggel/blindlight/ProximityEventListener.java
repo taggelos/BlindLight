@@ -5,13 +5,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-/**
- * Created by aggel on 15/10/2016.
- */
 
 public class ProximityEventListener implements SensorEventListener {
 
@@ -47,8 +45,15 @@ public class ProximityEventListener implements SensorEventListener {
         if (event.values[0] == 0 && CheckProx) {
 
             CharSequence text = "Βe carefull!!";
-            Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+            final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toast.cancel();
+                }
+            }, 1500);
             streamId = se.playNonStop(soundId);
             return;
         }

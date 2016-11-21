@@ -31,12 +31,16 @@ public class SettingsActivity extends AppCompatActivity  {
     private int soundId;
     private int streamId;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
 
+        checkBox = (CheckBox) findViewById(R.id.checkBox1);
+        checkBox.setChecked(false);
+        save_changes = (Button) findViewById(R.id.buttonSave);
         //SaveChanges Button
         final String MY_KEY_X = "intVariableName1";
         final String MY_KEY_Y = "intVariableName2";
@@ -44,18 +48,11 @@ public class SettingsActivity extends AppCompatActivity  {
         final String MY_KEY_L_MAX = "intVariableName4";
         final String MY_KEY_L_MIN = "intVariableName5";
         final String My_KEY_CHECKBOX = "intVariableName6";
-
-
-
-        checkBox= (CheckBox) findViewById(R.id.checkBox1);
-        save_changes = (Button)findViewById(R.id.buttonSave);
         save_changes.setOnClickListener(new View.OnClickListener(){
 
             @Override
             //On click function
             public void onClick(View v1) {
-
-
 
                 SeekBars[0] = (SeekBar) findViewById(R.id.seekBar);
                 SeekBars[1] = (SeekBar) findViewById(R.id.seekBar2);
@@ -63,7 +60,6 @@ public class SettingsActivity extends AppCompatActivity  {
 
                 Light_np[0] = (NumberPicker) findViewById(R.id.LightMaxNumberPicker);
                 Light_np[1] = (NumberPicker) findViewById(R.id.LightMinNumberPicker);
-
 
                 My_Progress[0] = SeekBars[0].getProgress();
                 My_Progress[1] = SeekBars[1].getProgress();
@@ -79,7 +75,6 @@ public class SettingsActivity extends AppCompatActivity  {
                 savePrefs("MAX_LIGHT" , My_Light_Thresholds[0]);
                 savePrefs("MIN_LIGHT" , My_Light_Thresholds[1]);
 
-
                 Intent toy2 = new Intent(SettingsActivity.this,MainActivity.class);
                 toy2.putExtra( MY_KEY_X,My_Progress[0]);
                 toy2.putExtra( MY_KEY_Y,My_Progress[1]);
@@ -87,9 +82,6 @@ public class SettingsActivity extends AppCompatActivity  {
                 toy2.putExtra( MY_KEY_L_MAX,My_Light_Thresholds[0]);
                 toy2.putExtra( MY_KEY_L_MIN,My_Light_Thresholds[1]);
                 toy2.putExtra( My_KEY_CHECKBOX, checkBox.isChecked());
-
-
-
                 startActivity(toy2);
 
             }
@@ -118,22 +110,22 @@ public class SettingsActivity extends AppCompatActivity  {
     }
 
 
+
     //Functions for Saving changes on Seekbars
 
     private void loadPrefs(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean cbValue = sp.getBoolean("CHECKBOX",false);
+        boolean cbValue = sp.getBoolean("CHECKBOX",true);
         int prog_x = sp.getInt("PROGRESS_X" , My_Progress[0]);
         int prog_y = sp.getInt("PROGRESS_Y" , My_Progress[1]);
         int prog_z = sp.getInt("PROGRESS_Z" , My_Progress[2]);
         int light_max = sp.getInt("MAX_LIGHT" , My_Light_Thresholds[0]);
         int light_min = sp.getInt("MIN_LIGHT" , My_Light_Thresholds[1]);
 
-        if(cbValue){
-            checkBox.setChecked(true);
-        }else{
-            checkBox.setChecked(false);
+        checkBox.setChecked(true);
 
+        if(!cbValue){
+            checkBox.setChecked(false);
         }
 
         SeekBars[0] = (SeekBar) findViewById(R.id.seekBar);
@@ -163,13 +155,12 @@ public class SettingsActivity extends AppCompatActivity  {
         Light_np[0].setValue(light_max);
         Light_np[1].setValue(light_min);
 
-
         My_Progress[0] = prog_x;
         My_Progress[1] = prog_y;
         My_Progress[2] = prog_z;
 
         TextViewLight[0].setText("Selected MAX threshold for light is: " + light_max );
-        TextViewLight[1].setText("Selected MAX threshold for light is: " + light_min );
+        TextViewLight[1].setText("Selected MIN threshold for light is: " + light_min );
 
         My_Light_Thresholds[0] = light_max;
         My_Light_Thresholds[1] = light_min;
@@ -221,6 +212,8 @@ public class SettingsActivity extends AppCompatActivity  {
     }
 
 
+
+
     public void  seekbarUpdate(SeekBar seekbarr , final TextView Text , final String TextViewCovered , int MyProgress){
         Text.setText(TextViewCovered + MyProgress + "/" + seekbarr.getMax());
         loadPrefs();
@@ -254,6 +247,8 @@ public class SettingsActivity extends AppCompatActivity  {
     public void numberPickerr() {
         Light_np[0] = (NumberPicker) findViewById(R.id.LightMaxNumberPicker);
         Light_np[1] = (NumberPicker) findViewById(R.id.LightMinNumberPicker);
+        Light_np[0].setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //no keyboard on screen
+        Light_np[1].setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         TextViewLight[0] = (TextView) findViewById(R.id.LightTextViewMax);
         TextViewLight[1] = (TextView) findViewById(R.id.LightTextViewMin);
         Max_mins[0] ="Selected MAX threshold for light is: ";
@@ -267,6 +262,7 @@ public class SettingsActivity extends AppCompatActivity  {
     }
 
     public void numberPickerUpdate(NumberPicker Light_np , final TextView TextViewLight , final String Label) {
+        loadPrefs();
         Light_np.setMaxValue(10000);
         Light_np.setMinValue(0);
         Light_np.setWrapSelectorWheel(true);

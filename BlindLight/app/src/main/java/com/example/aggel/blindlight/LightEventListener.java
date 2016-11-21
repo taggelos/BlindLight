@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.TextView;
+import android.os.Handler;
 import android.widget.Toast;
 
 /**
@@ -18,6 +19,8 @@ public class LightEventListener implements SensorEventListener {
     private int threshold_max_light;
     private int threshold_min_light;
     private SoundEvent se;
+    private Handler lhandler;
+
     private int soundId;
     private int streamId;
 
@@ -48,13 +51,27 @@ public class LightEventListener implements SensorEventListener {
             textTable.setText(String.valueOf(event.values[0]));
             if (event.values[0] > threshold_max_light ) {
                 CharSequence text = "Too much light around you!!";
-                Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
                 toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 1500);
             }
             if (event.values[0] < threshold_min_light ) {
                 CharSequence text = "Little light around you!!";
-                Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
                 toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 1500);
             }
         }
     }

@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.TextView;
+import android.os.Handler;
 import android.widget.Toast;
 
 /**
@@ -20,11 +21,13 @@ public class AccelerometerEventListener implements SensorEventListener {
     private int threshold_y_axis;
     private int threshold_z_axis;
     private Context context;
+    private Handler handler;
     private double[] gravity = new double[3];
     private double[] linear_acceleration  = new double[3];
     private SoundEvent se;
     private int soundId;
     private int streamId;
+
 
 
 
@@ -49,7 +52,6 @@ public class AccelerometerEventListener implements SensorEventListener {
         this.threshold_z_axis = threshold_z_axis;
 
         this.context = context;
-
 
     }
 
@@ -81,8 +83,15 @@ public class AccelerometerEventListener implements SensorEventListener {
 
         if ((linear_acceleration[0] > threshold_x_axis) || (linear_acceleration[1] > threshold_y_axis) || (linear_acceleration[2] > threshold_z_axis)){
             CharSequence text = "Be carefull: You're moving too fast!!";
-            Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+            final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toast.cancel();
+                }
+            }, 1500);
             //streamId = se.playNonStop(soundId);
             //return;
 
@@ -90,6 +99,8 @@ public class AccelerometerEventListener implements SensorEventListener {
         //se.stopSound(streamId);
 
     }
+
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
