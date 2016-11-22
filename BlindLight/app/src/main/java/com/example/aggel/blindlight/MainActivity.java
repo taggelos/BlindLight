@@ -14,15 +14,15 @@ import com.example.aggel.accelerometerapplication.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean CheckProx;
+    //private boolean CheckProx;
 
     //Thresholds
-
+/*
     private int threshold_x_axis;
     private int threshold_y_axis;
     private int threshold_z_axis;
     private int threshold_max_light;
-    private int threshold_min_light;
+    private int threshold_min_light; */
 
 
     @Override
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         textTable[2] = (TextView)findViewById(R.id.zText);
 
         //Ιnitialization of thresholds from seekbars->settings
-
+/*
         Intent toy2 = getIntent();
         threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
         threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
@@ -48,20 +48,20 @@ public class MainActivity extends AppCompatActivity {
         threshold_max_light = toy2.getIntExtra("intVariableName4", 25);
         threshold_min_light = toy2.getIntExtra("intVariableName5", 5);
         CheckProx = toy2.getBooleanExtra("intVariableName6" , true);
-
+*/
         Context context = getApplicationContext();
 
         //Accelerometer Sensor
-        AccelerometerEventListener accelero = new AccelerometerEventListener(SM,  textTable , threshold_x_axis , threshold_y_axis, threshold_z_axis ,context);
+        AccelerometerEventListener accelero = new AccelerometerEventListener(SM,  textTable , context);
 
         //Proximity Sensor
         TextView proxText = (TextView) findViewById(R.id.proxText);
 
-        final ProximityEventListener proxy = new ProximityEventListener(SM, CheckProx , proxText,context);
+        final ProximityEventListener proxy = new ProximityEventListener(SM,  proxText,context);
 
         //Light Sensor
         TextView sensText = (TextView) findViewById(R.id.sensText);
-        LightEventListener lightsens = new LightEventListener(SM, sensText , threshold_max_light , threshold_min_light
+        LightEventListener lightsens = new LightEventListener(SM, sensText
                 , context);
 
 

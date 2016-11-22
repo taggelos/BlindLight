@@ -6,22 +6,22 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 
-public class ProximityEventListener implements SensorEventListener {
+public class ProximityEventListener extends SettingsActivity implements SensorEventListener {
 
     private TextView textTable;
-    private boolean CheckProx;
+    //public boolean CheckProx;
     private Context context;
-
     private SoundEvent se;
     private int soundId;
     private int streamId;
 
-    public ProximityEventListener(SensorManager SM, boolean CheckProx , TextView textTable, Context context) {
+    public ProximityEventListener(SensorManager SM, TextView textTable, Context context) {
         //Proximity Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         //Register sensor listener
@@ -30,7 +30,7 @@ public class ProximityEventListener implements SensorEventListener {
         //Assign TextView
         this.textTable = textTable;
         this.context = context;
-        this.CheckProx = CheckProx;
+        //this.CheckProx = CheckProx;
 
         //mysound
         se = new SoundEvent();
@@ -42,7 +42,10 @@ public class ProximityEventListener implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
 
         textTable.setText(String.valueOf(event.values[0]));
-        if (event.values[0] == 0 && CheckProx) {
+        if(this.CheckProximity==null){
+            this.CheckProximity=true;
+        }
+        if ((event.values[0] == 0) && (this.CheckProximity)) {
 
             CharSequence text = "Βe carefull!!";
             final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
@@ -59,7 +62,6 @@ public class ProximityEventListener implements SensorEventListener {
         }
         se.stopSound(streamId);
     }
-
 
 
     @Override

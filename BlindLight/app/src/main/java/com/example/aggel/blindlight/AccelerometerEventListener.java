@@ -14,12 +14,12 @@ import android.widget.Toast;
  * Created by aggel on 15/10/2016.
  */
 
-public class AccelerometerEventListener implements SensorEventListener {
+public class AccelerometerEventListener extends SettingsActivity implements SensorEventListener {
 
     private TextView[] textTable;
-    private int threshold_x_axis;
-    private int threshold_y_axis;
-    private int threshold_z_axis;
+    public int threshold_x_axis;
+    public int threshold_y_axis;
+    public int threshold_z_axis;
     private Context context;
     private Handler handler;
     private double[] gravity = new double[3];
@@ -32,9 +32,12 @@ public class AccelerometerEventListener implements SensorEventListener {
 
 
 
-    public AccelerometerEventListener(SensorManager SM, TextView[] textTable , int threshold_x_axis , int threshold_y_axis, int threshold_z_axis, Context context ) {
+    public AccelerometerEventListener(SensorManager SM, TextView[] textTable ,  Context context ) {
         //Accelerometer Sensor
+
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+
 
         //Register sensor listener
         SM.registerListener(this,mySensor,SensorManager.SENSOR_DELAY_NORMAL);
@@ -47,10 +50,9 @@ public class AccelerometerEventListener implements SensorEventListener {
         this.textTable = textTable;
         //Assign thresholds
 
-        this.threshold_x_axis = threshold_x_axis;
-        this.threshold_y_axis = threshold_y_axis;
-        this.threshold_z_axis = threshold_z_axis;
-
+        //this.threshold_x_axis = threshold_x_axis;
+        //this.threshold_y_axis = threshold_y_axis;
+        //this.threshold_z_axis = threshold_z_axis;
         this.context = context;
 
     }
@@ -81,6 +83,12 @@ public class AccelerometerEventListener implements SensorEventListener {
         textTable[max].setTextColor(Color.BLUE);
 
 
+        threshold_x_axis=this.My_Progress[0];
+        threshold_y_axis=this.My_Progress[1];
+        threshold_z_axis=this.My_Progress[2];
+
+        System.out.println(threshold_x_axis);
+
         if ((linear_acceleration[0] > threshold_x_axis) || (linear_acceleration[1] > threshold_y_axis) || (linear_acceleration[2] > threshold_z_axis)){
             CharSequence text = "Be carefull: You're moving too fast!!";
             final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
@@ -99,7 +107,6 @@ public class AccelerometerEventListener implements SensorEventListener {
         //se.stopSound(streamId);
 
     }
-
 
 
     @Override
