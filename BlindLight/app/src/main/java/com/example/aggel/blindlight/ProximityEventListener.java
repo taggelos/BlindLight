@@ -14,21 +14,21 @@ import android.widget.Toast;
 
 public class ProximityEventListener extends SettingsActivity implements SensorEventListener {
 
-    private TextView textTable;
+    private TextView proxText;
     private boolean CheckProx;
     private Context context;
     private SoundEvent se;
     private int soundId;
     private int streamId;
 
-    public ProximityEventListener(SensorManager SM, boolean CheckProx, TextView textTable, Context context) {
+    public ProximityEventListener(SensorManager SM, boolean CheckProx, TextView proxText, Context context) {
         //Proximity Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         //Register sensor listener
         SM.registerListener(this,mySensor,SensorManager.SENSOR_DELAY_NORMAL);
 
         //Assign TextView
-        this.textTable = textTable;
+        this.proxText = proxText;
         this.context = context;
         this.CheckProx = CheckProx;
 
@@ -41,11 +41,11 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        textTable.setText(String.valueOf(event.values[0]));
 
+        proxText.setText("Sensor Off");
 
         if ((event.values[0] == 0) && (CheckProx)) {
-
+            proxText.setText("Sensor On");
             CharSequence text = "Βe carefull!!";
             final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
