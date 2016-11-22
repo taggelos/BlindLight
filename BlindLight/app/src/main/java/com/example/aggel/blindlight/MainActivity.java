@@ -14,15 +14,20 @@ import com.example.aggel.accelerometerapplication.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private boolean CheckProx;
+    private boolean CheckProx;
 
     //Thresholds
-/*
+
     private int threshold_x_axis;
     private int threshold_y_axis;
     private int threshold_z_axis;
     private int threshold_max_light;
-    private int threshold_min_light; */
+    private int threshold_min_light;
+
+    private AccelerometerEventListener accelero;
+    private ProximityEventListener proxy;
+    private LightEventListener lightsens;
+    private SensorManager SM;
 
 
     @Override
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Create our Sensor Manager
-        SensorManager SM = (SensorManager)getSystemService(SENSOR_SERVICE);
+        SM = (SensorManager)getSystemService(SENSOR_SERVICE);
 
         //Assign TextView
         TextView[] textTable = new TextView[3];
@@ -40,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         textTable[2] = (TextView)findViewById(R.id.zText);
 
         //Ιnitialization of thresholds from seekbars->settings
-/*
+
         Intent toy2 = getIntent();
         threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
         threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
@@ -48,23 +53,31 @@ public class MainActivity extends AppCompatActivity {
         threshold_max_light = toy2.getIntExtra("intVariableName4", 25);
         threshold_min_light = toy2.getIntExtra("intVariableName5", 5);
         CheckProx = toy2.getBooleanExtra("intVariableName6" , true);
-*/
+
         Context context = getApplicationContext();
 
         //Accelerometer Sensor
-        AccelerometerEventListener accelero = new AccelerometerEventListener(SM,  textTable , context);
+         accelero = new AccelerometerEventListener(SM, threshold_x_axis ,threshold_y_axis ,threshold_z_axis , textTable , context);
 
         //Proximity Sensor
         TextView proxText = (TextView) findViewById(R.id.proxText);
 
-        final ProximityEventListener proxy = new ProximityEventListener(SM,  proxText,context);
+         proxy = new ProximityEventListener(SM, CheckProx, proxText,context);
 
         //Light Sensor
         TextView sensText = (TextView) findViewById(R.id.sensText);
-        LightEventListener lightsens = new LightEventListener(SM, sensText
-                , context);
+         lightsens = new LightEventListener(SM, sensText ,threshold_max_light, threshold_min_light , context);
 
 
+    }
+
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        accelero.unregister(SM);
+        proxy.unregister(SM);
+        lightsens.unregister(SM);
     }
 
 
@@ -72,18 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.menu_AndroidSettings:

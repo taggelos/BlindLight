@@ -20,14 +20,13 @@ public class SettingsActivity extends AppCompatActivity  {
     private TextView[] TextViewSettings = new TextView[3];
     private SeekBar[] SeekBars = new SeekBar[3];
     private String[] TextViewCovered = new String[3];
-    public int[] My_Progress = new int[3];
-    public int[] My_Light_Thresholds = new int[2];
+    private int[] My_Progress = new int[3];
+    private int[] My_Light_Thresholds = new int[2];
     private NumberPicker[] Light_np=new NumberPicker[2];
     private TextView[] TextViewLight = new TextView[2];
     private String[] Max_mins = new String[2];
     private Button save_changes;
-    public CheckBox checkBox;
-    public Boolean CheckProximity;
+    private CheckBox checkBox;
     private SoundEvent se;
     private int soundId;
     private int streamId;
@@ -41,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity  {
 
         checkBox = (CheckBox) findViewById(R.id.checkBox1);
         checkBox.setChecked(true);
-        //CheckProximity=checkBox.isChecked();
+
         save_changes = (Button) findViewById(R.id.buttonSave);
         //SaveChanges Button
         final String MY_KEY_X = "intVariableName1";
@@ -80,17 +79,15 @@ public class SettingsActivity extends AppCompatActivity  {
                 savePrefs("MAX_LIGHT" , My_Light_Thresholds[0]);
                 savePrefs("MIN_LIGHT" , My_Light_Thresholds[1]);
 
-                CheckProximity=checkBox.isChecked();
 
-                System.out.println(CheckProximity);
 
                 Intent toy2 = new Intent(SettingsActivity.this,MainActivity.class);
-               /* toy2.putExtra( MY_KEY_X,My_Progress[0]);
+                toy2.putExtra( MY_KEY_X,My_Progress[0]);
                 toy2.putExtra( MY_KEY_Y,My_Progress[1]);
                 toy2.putExtra( MY_KEY_Z,My_Progress[2]);
                 toy2.putExtra( MY_KEY_L_MAX,My_Light_Thresholds[0]);
                 toy2.putExtra( MY_KEY_L_MIN,My_Light_Thresholds[1]);
-                toy2.putExtra( My_KEY_CHECKBOX, checkBox.isChecked()); */
+                toy2.putExtra( My_KEY_CHECKBOX, checkBox.isChecked());
                 startActivity(toy2);
 
 

@@ -25,7 +25,7 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
 
     private Context context;
 
-    public LightEventListener(SensorManager SM, TextView textTable , Context context) {
+    public LightEventListener(SensorManager SM,  TextView textTable , int threshold_max_light , int threshold_min_light ,  Context context) {
         //Light Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_LIGHT);
 
@@ -36,8 +36,8 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
         soundId = se.getSoundId(context);
 
         //Assign TextView
-        //this.threshold_max_light = threshold_max_light;
-        //this.threshold_min_light = threshold_min_light;
+        this.threshold_max_light = threshold_max_light;
+        this.threshold_min_light = threshold_min_light;
         this.textTable = textTable;
         this.context=context;
 
@@ -49,8 +49,6 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
         {
             textTable.setText(String.valueOf(event.values[0]));
 
-            threshold_max_light=this.My_Light_Thresholds[0];
-            threshold_min_light=this.My_Light_Thresholds[1];
 
             if (event.values[0] > threshold_max_light ) {
                 CharSequence text = "Too much light around you!!";
@@ -77,6 +75,11 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
                 }, 1500);
             }
         }
+    }
+
+
+    public void unregister(SensorManager SM){
+        SM.unregisterListener(this);
     }
 
     @Override

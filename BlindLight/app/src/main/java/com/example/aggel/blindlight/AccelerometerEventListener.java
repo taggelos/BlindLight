@@ -32,7 +32,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
 
 
-    public AccelerometerEventListener(SensorManager SM, TextView[] textTable ,  Context context ) {
+    public AccelerometerEventListener(SensorManager SM, int threshold_x_axis , int threshold_y_axis , int threshold_z_axis , TextView[] textTable ,  Context context ) {
         //Accelerometer Sensor
 
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -50,9 +50,9 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
         this.textTable = textTable;
         //Assign thresholds
 
-        //this.threshold_x_axis = threshold_x_axis;
-        //this.threshold_y_axis = threshold_y_axis;
-        //this.threshold_z_axis = threshold_z_axis;
+        this.threshold_x_axis = threshold_x_axis;
+        this.threshold_y_axis = threshold_y_axis;
+        this.threshold_z_axis = threshold_z_axis;
         this.context = context;
 
     }
@@ -82,11 +82,6 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
         }
         textTable[max].setTextColor(Color.BLUE);
 
-
-        threshold_x_axis=this.My_Progress[0];
-        threshold_y_axis=this.My_Progress[1];
-        threshold_z_axis=this.My_Progress[2];
-
         System.out.println(threshold_x_axis);
 
         if ((linear_acceleration[0] > threshold_x_axis) || (linear_acceleration[1] > threshold_y_axis) || (linear_acceleration[2] > threshold_z_axis)){
@@ -106,6 +101,10 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
         }
         //se.stopSound(streamId);
 
+    }
+
+    public void unregister(SensorManager SM){
+        SM.unregisterListener(this);
     }
 
 
