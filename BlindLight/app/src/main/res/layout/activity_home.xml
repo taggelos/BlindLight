@@ -14,7 +14,7 @@
 
 
     <TextView
-        android:text="BlindLight is an application that helps you map the space around you and protects you from hitting on obstacles by warning you with a special sound."
+        android:text="@string/info"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:layout_width="wrap_content"

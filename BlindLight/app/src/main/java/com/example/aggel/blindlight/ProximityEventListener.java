@@ -46,7 +46,7 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
 
         if ((event.values[0] == 0) && (CheckProx)) {
             proxText.setText("Sensor On");
-            CharSequence text = "Βe carefull!!";
+            CharSequence text = "Βe careful!!";
             final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
             Handler handler = new Handler();

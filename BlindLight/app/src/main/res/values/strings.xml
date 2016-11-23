@@ -33,6 +33,11 @@
     <string name="minLightThreshold">Select min light threshold</string>
     <string name="onoffprox">press here to enable disable proximity sensor</string>
     <string name="moreInfo">More Info</string>
+    <string name="info">BlindLight is an application that helps you map the space around you and protects you from hitting on obstacles by warning you with a special sound. </string>
     <string name="mainLabel">Beware of your Surroundings</string>
     <string name="homeLabel">Lets Start</string>
+    <string name="exitDB">Exit</string>
+    <string name="questionDB">Are you sure you want to EXIT this App?</string>
+    <string name="yesDB">YES</string>
+    <string name="noDB">NO</string>
 </resources>

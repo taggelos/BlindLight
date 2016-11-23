@@ -2,15 +2,19 @@ package com.example.aggel.blindlight;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.aggel.accelerometerapplication.R;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -109,8 +113,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(MainActivity.this, HomeActivity.class));
-        finish();
+        AlertDialog.Builder ad = new AlertDialog.Builder(this);
+        ad.setTitle(getResources().getString(R.string.exitDB));
+        ad.setMessage(getResources().getString(R.string.questionDB));
+        ad.setPositiveButton(getResources().getString(R.string.yesDB), new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        ad.setNegativeButton(getResources().getString(R.string.noDB), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        ad.show();
     }
 }

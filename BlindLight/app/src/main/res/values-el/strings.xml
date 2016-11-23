@@ -25,7 +25,7 @@
     <string name="Settings">Ρυθμίσεις</string>
     <string name="y_axis_limit">Όριο Y-Άξονας</string>
     <string name="z_axis_limit">Όριο Z-Άξονας</string>
-    <string name="save_changes">Aποθήκευση_Αλλαγών</string>
+    <string name="save_changes">Aποθήκευση Αλλαγών</string>
     <string name="checkbox">CheckBox</string>
     <string name="readyToStart">Το BlindLight είναι έτοιμο να ξεκινήσει!</string>
     <string name="lx">lx</string>
@@ -35,6 +35,11 @@
     <string name="minLightThreshold">Επέλεξε Ελάχιστο light Κατώφλι</string>
     <string name="onoffprox">Ενεργοποίησε/Απενεργοποιήσε Αισθητήρα Εγγύτητας</string>
     <string name="moreInfo">Πληροφορίες</string>
+    <string name="info">To BlindLight είναι μια εφαρμογή που σε βοηθά να χαρτογραφήσεις τα αντικείμενα γύρω σου και σε προστατεύει απο τη σύγκρουση εμποδίων με χρήση ηχητικής ειδοποιήσης </string>
     <string name="mainLabel">Προσοχή στο Περιβάλλον σας</string>
     <string name="homeLabel">Ας Ξεκινήσουμε</string>
+    <string name="exitDB">Έξοδος</string>
+    <string name="questionDB">Είστε σίγουροι ότι θέλετε να αποχωρήσετε από την εφαρμογή</string>
+    <string name="yesDB">ΝΑΙ</string>
+    <string name="noDB">ΟΧΙ</string>
 </resources>

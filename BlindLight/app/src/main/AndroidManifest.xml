@@ -17,14 +17,17 @@
         </activity>
         <activity
             android:name="com.example.aggel.blindlight.SettingsActivity"
-            android:label="@string/Settings" />
+            android:label="@string/Settings"
+            />
         <activity
             android:name="com.example.aggel.blindlight.MainActivity"
             android:label="@string/mainLabel"
+
            />
         <activity
             android:name="com.example.aggel.blindlight.HomeActivity"
-            android:label="@string/homeLabel" />
+            android:label="@string/homeLabel"
+            android:noHistory="true"/>
     </application>
 
 </manifest>

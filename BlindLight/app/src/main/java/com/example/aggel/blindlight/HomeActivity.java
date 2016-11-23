@@ -54,24 +54,5 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        AlertDialog.Builder ad = new AlertDialog.Builder(this);
-        ad.setTitle("Exit");
-        ad.setMessage("Are you sure that you want to EXIT this App?");
-        ad.setPositiveButton("YES", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        ad.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        ad.show();
-    }
+
 }

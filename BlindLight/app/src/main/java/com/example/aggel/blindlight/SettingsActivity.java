@@ -152,9 +152,9 @@ public class SettingsActivity extends AppCompatActivity  {
 
         //Updating the values on screen
 
-        TextViewSettings[0].setText("Covered_X_axis : " + prog_x + "/" + SeekBars[0].getMax());
-        TextViewSettings[1].setText("Covered_Y_axis : " + prog_y + "/" + SeekBars[1].getMax());
-        TextViewSettings[2].setText("Covered_Z_axis : " + prog_z + "/" + SeekBars[2].getMax());
+        TextViewSettings[0].setText("Covered X axis : " + prog_x + "/" + SeekBars[0].getMax());
+        TextViewSettings[1].setText("Covered Y axis : " + prog_y + "/" + SeekBars[1].getMax());
+        TextViewSettings[2].setText("Covered Z axis : " + prog_z + "/" + SeekBars[2].getMax());
 
         SeekBars[0].setProgress(prog_x);
         SeekBars[1].setProgress(prog_y);
