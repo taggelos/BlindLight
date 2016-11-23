@@ -8,7 +8,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:descendantFocusability="blocksDescendants"
-
     android:paddingTop="@dimen/activity_vertical_margin"
     android:label="@string/Settings"
     android:fillViewport="true"

@@ -30,9 +30,9 @@
     <string name="readyToStart">Το BlindLight είναι έτοιμο να ξεκινήσει!</string>
     <string name="lx">lx</string>
     <string name="minThreshold">Επέλεξε Ελάχιστο Κατώφλι</string>
-    <string name="maxThreshold">Επέλεξε Μέγιστο Κατώφλι</string>
-    <string name="maxLightThreshold">Επέλεξε Μέγιστο light Κατώφλι</string>
-    <string name="minLightThreshold">Επέλεξε Ελάχιστο light Κατώφλι</string>
+    <string name="maxThreshold">Επέλεξε Μέγιστο Ανώφλι</string>
+    <string name="maxLightThreshold">Επέλεξε Μέγιστο light Ανώφλι :</string>
+    <string name="minLightThreshold">Επέλεξε Ελάχιστο light Κατώφλι :</string>
     <string name="onoffprox">Ενεργοποίησε/Απενεργοποιήσε Αισθητήρα Εγγύτητας</string>
     <string name="moreInfo">Πληροφορίες</string>
     <string name="info">To BlindLight είναι μια εφαρμογή που σε βοηθά να χαρτογραφήσεις τα αντικείμενα γύρω σου και σε προστατεύει απο τη σύγκρουση εμποδίων με χρήση ηχητικής ειδοποιήσης </string>
@@ -42,4 +42,11 @@
     <string name="questionDB">Είστε σίγουροι ότι θέλετε να αποχωρήσετε από την εφαρμογή</string>
     <string name="yesDB">ΝΑΙ</string>
     <string name="noDB">ΟΧΙ</string>
+    <string name="coveredX">Επέλεξε κατώφλι για τον Χ άξονα :</string>
+    <string name="coveredΥ">Επέλεξε κατώφλι για τον Υ άξονα :</string>
+    <string name="coveredΖ">Επέλεξε κατώφλι για τον Ζ άξονα :</string>
+
+
+
+
 </resources>

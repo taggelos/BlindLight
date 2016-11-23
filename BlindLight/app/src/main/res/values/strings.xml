@@ -40,4 +40,8 @@
     <string name="questionDB">Are you sure you want to EXIT this App?</string>
     <string name="yesDB">YES</string>
     <string name="noDB">NO</string>
+    <string name="coveredX">Covered X axis :</string>
+    <string name="coveredY">Covered Υ axis :</string>
+
+
 </resources>

@@ -13,6 +13,13 @@ import android.widget.CheckBox;
 import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.graphics.Color;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+
+
 
 import com.example.aggel.accelerometerapplication.R;
 
@@ -42,6 +49,7 @@ public class SettingsActivity extends AppCompatActivity  {
 
         checkBox = (CheckBox) findViewById(R.id.checkBox1);
         checkBox.setChecked(true);
+        checkBox.setDrawingCacheBackgroundColor(Color.RED);
 
         save_changes = (Button) findViewById(R.id.buttonSave);
         //SaveChanges Button
@@ -154,9 +162,9 @@ public class SettingsActivity extends AppCompatActivity  {
 
         //Updating the values on screen
 
-        TextViewSettings[0].setText("Covered X axis : " + prog_x + "/" + SeekBars[0].getMax());
-        TextViewSettings[1].setText("Covered Y axis : " + prog_y + "/" + SeekBars[1].getMax());
-        TextViewSettings[2].setText("Covered Z axis : " + prog_z + "/" + SeekBars[2].getMax());
+        TextViewSettings[0].setText(getResources().getString(R.string.coveredX) + prog_x + "/" + SeekBars[0].getMax());
+        TextViewSettings[1].setText(getResources().getString(R.string.coveredΥ) + prog_y + "/" + SeekBars[1].getMax());
+        TextViewSettings[2].setText(getResources().getString(R.string.coveredΖ) + prog_z + "/" + SeekBars[2].getMax());
 
         SeekBars[0].setProgress(prog_x);
         SeekBars[1].setProgress(prog_y);
@@ -169,8 +177,8 @@ public class SettingsActivity extends AppCompatActivity  {
         My_Progress[1] = prog_y;
         My_Progress[2] = prog_z;
 
-        TextViewLight[0].setText("Selected MAX threshold for light is: " + light_max );
-        TextViewLight[1].setText("Selected MIN threshold for light is: " + light_min );
+        TextViewLight[0].setText(getResources().getString(R.string.maxLightThreshold) + light_max );
+        TextViewLight[1].setText(getResources().getString(R.string.minLightThreshold) + light_min );
 
         My_Light_Thresholds[0] = light_max;
         My_Light_Thresholds[1] = light_min;
@@ -210,14 +218,24 @@ public class SettingsActivity extends AppCompatActivity  {
         TextViewSettings[1] = (TextView)findViewById(R.id.seekbarView2);
         TextViewSettings[2] = (TextView)findViewById(R.id.seekbarView3);
 
-        TextViewCovered[0] = "Covered_X_axis : ";
-        TextViewCovered[1] = "Covered_Y_axis : ";
-        TextViewCovered[2] = "Covered_Z_axis : ";
+        TextViewCovered[0] = getResources().getString(R.string.coveredX);
+        TextViewCovered[1] = getResources().getString(R.string.coveredΥ);
+        TextViewCovered[2] = getResources().getString(R.string.coveredΖ);
 
         //3 seekbars in 1
         SeekBars[0].setProgress(3);
         SeekBars[1].setProgress(7);
         SeekBars[2].setProgress(8);
+
+        //Red color for seekbars
+
+        for (int i=0; i<3; i++) {
+            SeekBars[i].getProgressDrawable().setColorFilter(
+                    Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+        }
+
+        SeekBars[0].getProgressDrawable().setColorFilter(
+                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
 
         for (int i=0; i<3; i++) {
             My_Progress[i]=SeekBars[i].getProgress();
@@ -255,6 +273,7 @@ public class SettingsActivity extends AppCompatActivity  {
     }
 
 
+
     //Number_Picker Function
 
     public void numberPickerr() {
@@ -266,8 +285,8 @@ public class SettingsActivity extends AppCompatActivity  {
         TextViewLight[1] = (TextView) findViewById(R.id.LightTextViewMin);
         Light_np[0].setValue(1000);
         Light_np[1].setValue(0);
-        Max_mins[0] ="Selected MAX threshold for light is: ";
-        Max_mins[1] ="Selected MIN threshold for light is: ";
+        Max_mins[0] =getResources().getString(R.string.maxLightThreshold);
+        Max_mins[1] =getResources().getString(R.string.minLightThreshold);
 
         for (int i=0; i<2; i++) {
             numberPickerUpdate(Light_np[i] ,TextViewLight[i] , Max_mins[i] );
