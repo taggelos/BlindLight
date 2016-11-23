@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
 
         //Create our Sensor Manager
         SM = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -61,16 +67,16 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
 
         //Accelerometer Sensor
-         accelero = new AccelerometerEventListener(SM, threshold_x_axis ,threshold_y_axis ,threshold_z_axis , textTable , context);
+        accelero = new AccelerometerEventListener(SM, threshold_x_axis ,threshold_y_axis ,threshold_z_axis , textTable , context);
 
         //Proximity Sensor
         TextView proxText = (TextView) findViewById(R.id.proxText);
 
-         proxy = new ProximityEventListener(SM, CheckProx, proxText,context);
+        proxy = new ProximityEventListener(SM, CheckProx, proxText,context);
 
         //Light Sensor
         TextView sensText = (TextView) findViewById(R.id.sensText);
-         lightsens = new LightEventListener(SM, sensText ,threshold_max_light, threshold_min_light , context);
+        lightsens = new LightEventListener(SM, sensText ,threshold_max_light, threshold_min_light , context);
 
 
     }
