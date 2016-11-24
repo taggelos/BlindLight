@@ -53,12 +53,22 @@
             android:descendantFocusability="blocksDescendants"
             android:id="@+id/LightMinNumberPicker" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#d93434" />
+
         <CheckBox
             android:text="@string/onoffprox"
             android:layout_width="match_parent"
             android:button="@drawable/cb_selector"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox1" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#d93434" />
 
         <TextView
             android:text="@string/seekbarView"
@@ -131,19 +141,21 @@
 
         <Button
             android:text="@string/testSound"
-            android:layout_width="wrap_content"
+            android:layout_width="111dp"
             android:layout_height="wrap_content"
             android:id="@+id/button"
             android:layout_alignParentTop="true"
             tools:ignore="ObsoleteLayoutParam,RelativeOverlap"
-            android:background="@drawable/buttonshape"/>
+            android:background="@drawable/button_shape"
+            android:layout_weight="0.13" />
 
         <Button
             android:text="@string/save_changes"
-            android:layout_width="wrap_content"
+            android:layout_width="124dp"
             android:layout_height="wrap_content"
             android:id="@+id/buttonSave"
-            android:background="@drawable/buttonshape"/>
+            android:background="@drawable/button_shape"
+            android:layout_weight="0.13" />
 
 
     </LinearLayout>
