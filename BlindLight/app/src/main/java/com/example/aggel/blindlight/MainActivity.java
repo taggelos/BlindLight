@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private int threshold_x_axis;
     private int threshold_y_axis;
     private int threshold_z_axis;
+    private int threshold_frequency;
     private int threshold_max_light;
     private int threshold_min_light;
-
     private AccelerometerEventListener accelero;
     private ProximityEventListener proxy;
     private LightEventListener lightsens;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
         threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
         threshold_z_axis = toy2.getIntExtra("intVariableName3", 8);
+        threshold_frequency = toy2.getIntExtra("intVariableName7", 1);
         threshold_max_light = toy2.getIntExtra("intVariableName4", 25);
         threshold_min_light = toy2.getIntExtra("intVariableName5", 5);
         CheckProx = toy2.getBooleanExtra("intVariableName6" , true);
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
 
         //Accelerometer Sensor
-        accelero = new AccelerometerEventListener(SM, threshold_x_axis ,threshold_y_axis ,threshold_z_axis , textTable , context);
+        accelero = new AccelerometerEventListener(SM,threshold_frequency , threshold_x_axis ,threshold_y_axis ,threshold_z_axis , textTable , context);
 
         //Proximity Sensor
         TextView proxText = (TextView) findViewById(R.id.proxText);

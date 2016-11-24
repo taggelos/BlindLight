@@ -26,10 +26,10 @@ import com.example.aggel.accelerometerapplication.R;
 
 public class SettingsActivity extends AppCompatActivity  {
 
-    private TextView[] TextViewSettings = new TextView[3];
-    private SeekBar[] SeekBars = new SeekBar[3];
-    private String[] TextViewCovered = new String[3];
-    private int[] My_Progress = new int[3];
+    private TextView[] TextViewSettings = new TextView[4];
+    private SeekBar[] SeekBars = new SeekBar[4];
+    private String[] TextViewCovered = new String[4];
+    private int[] My_Progress = new int[4];
     private int[] My_Light_Thresholds = new int[2];
     private NumberPicker[] Light_np=new NumberPicker[2];
     private TextView[] TextViewLight = new TextView[2];
@@ -59,6 +59,7 @@ public class SettingsActivity extends AppCompatActivity  {
         final String MY_KEY_L_MAX = "intVariableName4";
         final String MY_KEY_L_MIN = "intVariableName5";
         final String My_KEY_CHECKBOX = "intVariableName6";
+        final String MY_KEY_FREQUENCY = "intVariableName7";
 
 
 
@@ -71,6 +72,8 @@ public class SettingsActivity extends AppCompatActivity  {
                 SeekBars[0] = (SeekBar) findViewById(R.id.seekBar);
                 SeekBars[1] = (SeekBar) findViewById(R.id.seekBar2);
                 SeekBars[2] = (SeekBar) findViewById(R.id.seekBar3);
+                SeekBars[3] = (SeekBar) findViewById(R.id.seekBar4);
+
 
                 Light_np[0] = (NumberPicker) findViewById(R.id.LightMaxNumberPicker);
                 Light_np[1] = (NumberPicker) findViewById(R.id.LightMinNumberPicker);
@@ -78,6 +81,9 @@ public class SettingsActivity extends AppCompatActivity  {
                 My_Progress[0] = SeekBars[0].getProgress();
                 My_Progress[1] = SeekBars[1].getProgress();
                 My_Progress[2] = SeekBars[2].getProgress();
+                My_Progress[3] = SeekBars[3].getProgress();
+
+
 
                 My_Light_Thresholds[0] = Light_np[0].getValue();
                 My_Light_Thresholds[1] = Light_np[1].getValue();
@@ -86,8 +92,11 @@ public class SettingsActivity extends AppCompatActivity  {
                 savePrefs("PROGRESS_X" , My_Progress[0]);
                 savePrefs("PROGRESS_Y" , My_Progress[1]);
                 savePrefs("PROGRESS_Z" , My_Progress[2]);
+                savePrefs("FREQUENCY"  , My_Progress[3]);
                 savePrefs("MAX_LIGHT" , My_Light_Thresholds[0]);
                 savePrefs("MIN_LIGHT" , My_Light_Thresholds[1]);
+
+
 
 
 
@@ -95,6 +104,7 @@ public class SettingsActivity extends AppCompatActivity  {
                 toy2.putExtra( MY_KEY_X,My_Progress[0]);
                 toy2.putExtra( MY_KEY_Y,My_Progress[1]);
                 toy2.putExtra( MY_KEY_Z,My_Progress[2]);
+                toy2.putExtra( MY_KEY_FREQUENCY,My_Progress[3]);
                 toy2.putExtra( MY_KEY_L_MAX,My_Light_Thresholds[0]);
                 toy2.putExtra( MY_KEY_L_MIN,My_Light_Thresholds[1]);
                 toy2.putExtra( My_KEY_CHECKBOX, checkBox.isChecked());
@@ -138,6 +148,7 @@ public class SettingsActivity extends AppCompatActivity  {
         int prog_x = sp.getInt("PROGRESS_X" , My_Progress[0]);
         int prog_y = sp.getInt("PROGRESS_Y" , My_Progress[1]);
         int prog_z = sp.getInt("PROGRESS_Z" , My_Progress[2]);
+        int frequency = sp.getInt("FREQUENCY" , My_Progress[3]);
         int light_max = sp.getInt("MAX_LIGHT" , My_Light_Thresholds[0]);
         int light_min = sp.getInt("MIN_LIGHT" , My_Light_Thresholds[1]);
 
@@ -150,6 +161,8 @@ public class SettingsActivity extends AppCompatActivity  {
         SeekBars[0] = (SeekBar) findViewById(R.id.seekBar);
         SeekBars[1] = (SeekBar) findViewById(R.id.seekBar2);
         SeekBars[2] = (SeekBar) findViewById(R.id.seekBar3);
+        SeekBars[3] = (SeekBar) findViewById(R.id.seekBar4);
+
 
         Light_np[0] = (NumberPicker) findViewById(R.id.LightMaxNumberPicker);
         Light_np[1] = (NumberPicker) findViewById(R.id.LightMinNumberPicker);
@@ -157,6 +170,8 @@ public class SettingsActivity extends AppCompatActivity  {
         TextViewSettings[0] = (TextView)findViewById(R.id.seekbarView);
         TextViewSettings[1] = (TextView)findViewById(R.id.seekbarView2);
         TextViewSettings[2] = (TextView)findViewById(R.id.seekbarView3);
+        TextViewSettings[3] = (TextView)findViewById(R.id.seekbarView4);
+
 
         TextViewLight[0] = (TextView) findViewById(R.id.LightTextViewMax);
         TextViewLight[1] = (TextView) findViewById(R.id.LightTextViewMin);
@@ -166,10 +181,14 @@ public class SettingsActivity extends AppCompatActivity  {
         TextViewSettings[0].setText(getResources().getString(R.string.coveredX) + prog_x + "/" + SeekBars[0].getMax());
         TextViewSettings[1].setText(getResources().getString(R.string.coveredY) + prog_y + "/" + SeekBars[1].getMax());
         TextViewSettings[2].setText(getResources().getString(R.string.coveredΖ) + prog_z + "/" + SeekBars[2].getMax());
+        TextViewSettings[3].setText(getResources().getString(R.string.frequency) + frequency + "/" + SeekBars[3].getMax());
+
 
         SeekBars[0].setProgress(prog_x);
         SeekBars[1].setProgress(prog_y);
         SeekBars[2].setProgress(prog_z);
+        SeekBars[3].setProgress(frequency);
+
 
         Light_np[0].setValue(light_max);
         Light_np[1].setValue(light_min);
@@ -177,6 +196,8 @@ public class SettingsActivity extends AppCompatActivity  {
         My_Progress[0] = prog_x;
         My_Progress[1] = prog_y;
         My_Progress[2] = prog_z;
+        My_Progress[3] = frequency;
+
 
         TextViewLight[0].setText(getResources().getString(R.string.maxLightThreshold) + light_max );
         TextViewLight[1].setText(getResources().getString(R.string.minLightThreshold) + light_min );
@@ -214,31 +235,36 @@ public class SettingsActivity extends AppCompatActivity  {
         SeekBars[0] = (SeekBar) findViewById(R.id.seekBar);
         SeekBars[1] = (SeekBar) findViewById(R.id.seekBar2);
         SeekBars[2] = (SeekBar) findViewById(R.id.seekBar3);
+        SeekBars[3] = (SeekBar) findViewById(R.id.seekBar4);
+
 
         TextViewSettings[0] = (TextView)findViewById(R.id.seekbarView);
         TextViewSettings[1] = (TextView)findViewById(R.id.seekbarView2);
         TextViewSettings[2] = (TextView)findViewById(R.id.seekbarView3);
+        TextViewSettings[3] = (TextView)findViewById(R.id.seekbarView4);
+
 
         TextViewCovered[0] = getResources().getString(R.string.coveredX);
         TextViewCovered[1] = getResources().getString(R.string.coveredY);
         TextViewCovered[2] = getResources().getString(R.string.coveredΖ);
+        TextViewCovered[3] = getResources().getString(R.string.frequency);
+
 
         //3 seekbars in 1
         SeekBars[0].setProgress(3);
         SeekBars[1].setProgress(7);
         SeekBars[2].setProgress(8);
+        SeekBars[3].setProgress(1);
+
 
         //Red color for seekbars
 
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<4; i++) {
             SeekBars[i].getProgressDrawable().setColorFilter(
                     Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
         }
 
-        SeekBars[0].getProgressDrawable().setColorFilter(
-                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
-
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<4; i++) {
             My_Progress[i]=SeekBars[i].getProgress();
             seekbarUpdate(SeekBars[i], TextViewSettings[i], TextViewCovered[i], My_Progress[i]);
 

@@ -20,6 +20,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
     public int threshold_x_axis;
     public int threshold_y_axis;
     public int threshold_z_axis;
+    public int threshold_frequency;
     private Context context;
     private Handler handlerFrequency;
     private double[] gravity = new double[3];
@@ -32,7 +33,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
 
 
-    public AccelerometerEventListener(SensorManager SM, int threshold_x_axis , int threshold_y_axis , int threshold_z_axis , TextView[] textTable ,  Context context ) {
+    public AccelerometerEventListener(SensorManager SM,int threshold_frequency, int threshold_x_axis , int threshold_y_axis , int threshold_z_axis , TextView[] textTable ,  Context context ) {
         //Accelerometer Sensor
 
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -53,6 +54,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
         this.threshold_x_axis = threshold_x_axis;
         this.threshold_y_axis = threshold_y_axis;
         this.threshold_z_axis = threshold_z_axis;
+        this.threshold_frequency = threshold_frequency;
         this.context = context;
 
     }
@@ -76,7 +78,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
-
+        final int freq=threshold_frequency*1000;
 
         final double alpha = 0.8;
 
@@ -107,7 +109,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
                     toast.cancel();
                 }
             }, 1500);
-            mHandler.postDelayed(run, 1000);
+            mHandler.postDelayed(run, freq);
             //streamId = se.playNonStop(soundId);
             //return;
 

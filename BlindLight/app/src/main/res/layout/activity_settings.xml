@@ -171,9 +171,9 @@
             android:textSize="18sp"
             android:layout_below="@+id/seekBar2"
             android:layout_marginTop="59dp"
-            android:id="@+id/seekbarView4"
             tools:ignore="ObsoleteLayoutParam"
-            android:background="@android:drawable/dialog_holo_light_frame" />
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:id="@+id/seekbarView4" />
 
         <SeekBar
             android:layout_width="match_parent"
