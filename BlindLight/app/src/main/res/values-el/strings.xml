@@ -35,7 +35,7 @@
     <string name="minLightThreshold">Επέλεξε Ελάχιστο light Κατώφλι :</string>
     <string name="onoffprox">Ενεργοποίησε/Απενεργοποιήσε Αισθητήρα Εγγύτητας</string>
     <string name="moreInfo">Πληροφορίες</string>
-    <string name="info">To BlindLight είναι μια εφαρμογή που σε βοηθά να χαρτογραφήσεις τα αντικείμενα γύρω σου και σε προστατεύει απο τη σύγκρουση εμποδίων με χρήση ηχητικής ειδοποιήσης </string>
+    <string name="info">To BlindLight είναι μια εφαρμογή που σε βοηθά να χαρτογραφήσεις τον χώρο γύρω σου και σε προστατεύει απο τη σύγκρουση εμποδίων με χρήση ηχητικής ειδοποιήσης </string>
     <string name="mainLabel">Προσοχή στο Περιβάλλον σας</string>
     <string name="homeLabel">Ας Ξεκινήσουμε</string>
     <string name="exitDB">Έξοδος</string>

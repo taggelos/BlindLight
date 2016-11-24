@@ -26,16 +26,6 @@
         android:layout_alignParentStart="true"
         android:visibility="invisible"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/picturewels"
-        android:id="@+id/imageView"
-        tools:ignore="ContentDescription"
-        android:layout_above="@+id/startText"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="23dp" />
-
     <TextView
         android:text="@string/readyToStart"
         android:layout_width="wrap_content"
@@ -53,7 +43,7 @@
 
     <Button
         android:text="@string/moreInfo"
-        android:background="@drawable/buttonshape"
+        android:background="@drawable/button_shape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/infoBtn"
@@ -62,17 +52,28 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="38dp" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/picturewels"
+        android:id="@+id/imageView"
+        tools:ignore="ContentDescription"
+        android:layout_above="@+id/startText"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="74dp" />
+
     <Button
         android:text="@string/start_now"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/startBtn"
-        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_shape"
+        tools:ignore="RelativeOverlap"
         android:layout_alignBaseline="@+id/infoBtn"
         android:layout_alignBottom="@+id/infoBtn"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/buttonshape"
-        tools:ignore="RelativeOverlap" />
+        android:layout_marginEnd="40dp"
+        android:elevation="0dp" />
 
 
 </RelativeLayout>
