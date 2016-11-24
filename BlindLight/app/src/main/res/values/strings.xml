@@ -29,9 +29,9 @@
     <string name="lx">lx</string>
     <string name="minThreshold">Select Min Threshold</string>
     <string name="maxThreshold">Select Max Threshold</string>
-    <string name="maxLightThreshold">Select max light threshold</string>
-    <string name="minLightThreshold">Select min light threshold</string>
-    <string name="onoffprox">press here to enable disable proximity sensor</string>
+    <string name="maxLightThreshold">Select max light threshold :</string>
+    <string name="minLightThreshold">Select min light threshold :</string>
+    <string name="onoffprox">Press here to enable/disable proximity sensor</string>
     <string name="moreInfo">More Info</string>
     <string name="info">BlindLight is an application that helps you map the space around you and protects you from hitting on obstacles by warning you with a special sound. </string>
     <string name="mainLabel">Beware of your Surroundings</string>
@@ -40,9 +40,10 @@
     <string name="questionDB">Are you sure you want to EXIT this App?</string>
     <string name="yesDB">YES</string>
     <string name="noDB">NO</string>
-    <string name="coveredX">Covered X axis :</string>
-    <string name="coveredY">Covered Υ axis :</string>
-    <string name="coveredΖ">Covered Ζ axis :</string>
+    <string name="coveredX">Select threshold in X axis :</string>
+    <string name="coveredY">Select threshold in Y axis :</string>
+    <string name="coveredΖ">Select threshold in Z axis :</string>
+
 
 
 

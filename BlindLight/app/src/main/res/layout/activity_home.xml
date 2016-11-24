@@ -52,16 +52,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="38dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/picturewels"
-        android:id="@+id/imageView"
-        tools:ignore="ContentDescription"
-        android:layout_above="@+id/startText"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="74dp" />
-
     <Button
         android:text="@string/start_now"
         android:layout_width="wrap_content"
@@ -74,6 +64,16 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="40dp"
         android:elevation="0dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/picturewels"
+        android:id="@+id/imageView"
+        tools:ignore="ContentDescription"
+        android:layout_marginBottom="14dp"
+        android:layout_above="@+id/startText"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

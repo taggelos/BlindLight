@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aggel.accelerometerapplication.R;
 
 
 public class ProximityEventListener extends SettingsActivity implements SensorEventListener {
@@ -42,10 +43,10 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
     public void onSensorChanged(SensorEvent event) {
 
 
-        proxText.setText("Sensor Off");
+        proxText.setText("Οff");
 
         if ((event.values[0] == 0) && (CheckProx)) {
-            proxText.setText("Sensor On");
+            proxText.setText("Οn");
             CharSequence text = "Βe careful!!";
             final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
