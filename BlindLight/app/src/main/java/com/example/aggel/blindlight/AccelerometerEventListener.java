@@ -57,6 +57,23 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
     }
 
+    private Handler mHandler = new Handler();
+    Runnable run=new Runnable() {
+
+        @Override
+        public void run() {
+
+            textTable[0].setText("X: " + linear_acceleration[0]);
+            textTable[1].setText("Y: " + linear_acceleration[1]);
+            textTable[2].setText("Z: " + linear_acceleration[2]);
+
+            //Kill runnable before a new one starts
+            mHandler.removeCallbacks(run);
+
+        }
+    };
+
+
     @Override
     public void onSensorChanged(final SensorEvent event) {
 
@@ -69,9 +86,6 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
         linear_acceleration[0] = event.values[0] - gravity[0];
         linear_acceleration[1] = event.values[1] - gravity[1];
         linear_acceleration[2] = event.values[2] - gravity[2];
-        textTable[0].setText("X: " + linear_acceleration[0]);
-        textTable[1].setText("Y: " + linear_acceleration[1]);
-        textTable[2].setText("Z: " + linear_acceleration[2]);
 
         int max = 0;
         for (int i = 0; i < event.values.length; i++) {
@@ -81,24 +95,27 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
         }
         textTable[max].setTextColor(Color.BLUE);
 
+
         if ((linear_acceleration[0] > threshold_x_axis) || (linear_acceleration[1] > threshold_y_axis) || (linear_acceleration[2] > threshold_z_axis)) {
             CharSequence text = "Be carefull: You're moving too fast!!";
             final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             toast.show();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            Handler handler2 = new Handler();
+            handler2.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     toast.cancel();
                 }
             }, 1500);
+            mHandler.postDelayed(run, 1000);
             //streamId = se.playNonStop(soundId);
             //return;
 
         }
+
+
+
     }
-
-
 
 
     public void unregister(SensorManager SM){
