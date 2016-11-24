@@ -18,12 +18,12 @@
         <activity
             android:name="com.example.aggel.blindlight.SettingsActivity"
             android:label="@string/Settings"
-            android:noHistory="true"
+
             />
         <activity
             android:name="com.example.aggel.blindlight.MainActivity"
             android:label="@string/mainLabel"
-            android:noHistory="true"
+
 
            />
         <activity

@@ -99,6 +99,7 @@ public class SettingsActivity extends AppCompatActivity  {
                 toy2.putExtra( MY_KEY_L_MIN,My_Light_Thresholds[1]);
                 toy2.putExtra( My_KEY_CHECKBOX, checkBox.isChecked());
                 startActivity(toy2);
+                finish();
 
 
 

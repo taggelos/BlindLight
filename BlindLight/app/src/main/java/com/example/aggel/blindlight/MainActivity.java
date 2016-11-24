@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_AndroidSettings:
                 Intent toy = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(toy);
+                finish();
                 break;
             case R.id.menu_Exit:
                 finish();
