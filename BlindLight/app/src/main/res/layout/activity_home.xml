@@ -71,7 +71,7 @@
         app:srcCompat="@mipmap/picturewels"
         android:id="@+id/imageView"
         tools:ignore="ContentDescription"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="105dp"
         android:layout_above="@+id/startText"
         android:layout_alignParentStart="true" />
 

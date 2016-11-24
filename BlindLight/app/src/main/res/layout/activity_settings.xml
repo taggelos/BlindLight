@@ -59,6 +59,12 @@
             android:background="#d93434"
             android:layout_weight="0.09" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:background="#ffffff"
+            android:layout_weight="0.09" />
+
         <CheckBox
             android:text="@string/onoffprox"
             android:layout_width="match_parent"
@@ -66,6 +72,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/checkBox1"
             android:layout_weight="0.07" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:background="#ffffff"
+            android:layout_weight="0.09" />
 
         <View
             android:layout_width="fill_parent"
@@ -144,6 +156,37 @@
             tools:ignore="ObsoleteLayoutParam" />
 
 
+        <TextView
+            android:text="@string/frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:layout_below="@+id/seekBar2"
+            android:layout_marginTop="59dp"
+            android:id="@+id/seekbarView4"
+            tools:ignore="ObsoleteLayoutParam"
+            android:background="@android:drawable/dialog_holo_light_frame" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/seekbarView3"
+            android:layout_marginTop="51dp"
+            android:id="@+id/seekBar4"
+            android:layout_alignParentStart="true"
+            android:max="10"
+            android:progress="8"
+            tools:ignore="ObsoleteLayoutParam" />
+
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="10dp"
+            android:background="#ffffff"
+            android:layout_weight="0.09" />
+
+
         <Button
             android:text="@string/testSound"
             android:layout_width="111dp"
@@ -153,6 +196,13 @@
             tools:ignore="ObsoleteLayoutParam,RelativeOverlap"
             android:background="@drawable/button_shape"
             android:layout_weight="0.13" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="8dp"
+            android:background="#ffffff"
+            android:layout_weight="0.09" />
+
 
         <Button
             android:text="@string/save_changes"
