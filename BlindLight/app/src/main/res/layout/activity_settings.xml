@@ -62,7 +62,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="15dp"
-            android:background="#ffffff"
+            android:background="#fafafa"
             android:layout_weight="0.09" />
 
         <CheckBox
@@ -76,7 +76,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="15dp"
-            android:background="#ffffff"
+            android:background="#fafafa"
             android:layout_weight="0.09" />
 
         <View
@@ -183,7 +183,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="10dp"
-            android:background="#ffffff"
+            android:background="#fafafa"
             android:layout_weight="0.09" />
 
 
@@ -200,7 +200,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="8dp"
-            android:background="#ffffff"
+            android:background="#fafafa"
             android:layout_weight="0.09" />
 
 
