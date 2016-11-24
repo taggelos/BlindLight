@@ -42,6 +42,8 @@
     <string name="noDB">NO</string>
     <string name="coveredX">Covered X axis :</string>
     <string name="coveredY">Covered Υ axis :</string>
+    <string name="coveredΖ">Covered Ζ axis :</string>
+
 
 
 </resources>

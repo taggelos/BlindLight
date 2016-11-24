@@ -164,7 +164,7 @@ public class SettingsActivity extends AppCompatActivity  {
         //Updating the values on screen
 
         TextViewSettings[0].setText(getResources().getString(R.string.coveredX) + prog_x + "/" + SeekBars[0].getMax());
-        TextViewSettings[1].setText(getResources().getString(R.string.coveredΥ) + prog_y + "/" + SeekBars[1].getMax());
+        TextViewSettings[1].setText(getResources().getString(R.string.coveredY) + prog_y + "/" + SeekBars[1].getMax());
         TextViewSettings[2].setText(getResources().getString(R.string.coveredΖ) + prog_z + "/" + SeekBars[2].getMax());
 
         SeekBars[0].setProgress(prog_x);
@@ -220,7 +220,7 @@ public class SettingsActivity extends AppCompatActivity  {
         TextViewSettings[2] = (TextView)findViewById(R.id.seekbarView3);
 
         TextViewCovered[0] = getResources().getString(R.string.coveredX);
-        TextViewCovered[1] = getResources().getString(R.string.coveredΥ);
+        TextViewCovered[1] = getResources().getString(R.string.coveredY);
         TextViewCovered[2] = getResources().getString(R.string.coveredΖ);
 
         //3 seekbars in 1
