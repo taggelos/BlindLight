@@ -56,6 +56,7 @@
         <CheckBox
             android:text="@string/onoffprox"
             android:layout_width="match_parent"
+            android:button="@drawable/cb_selector"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox1" />
 
