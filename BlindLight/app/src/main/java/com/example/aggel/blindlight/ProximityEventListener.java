@@ -66,6 +66,7 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
 
     public void unregister(SensorManager SM){
         SM.unregisterListener(this);
+        se.stopSound(streamId);
     }
 
 
