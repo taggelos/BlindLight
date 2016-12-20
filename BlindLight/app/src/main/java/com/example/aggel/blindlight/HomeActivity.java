@@ -4,22 +4,21 @@ package com.example.aggel.blindlight;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
-
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
-
 import com.example.aggel.accelerometerapplication.R;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+
+
 
         //Go to Next Screen
         Button startbtn;
@@ -52,7 +51,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
 
-    }
 
+    }
 
 }

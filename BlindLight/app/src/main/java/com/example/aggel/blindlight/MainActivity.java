@@ -11,14 +11,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.example.aggel.accelerometerapplication.R;
 
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener {
 
     private boolean CheckProx;
+
+    //offline-online mode
+    private NetworkStateReceiver networkStateReceiver;
+
 
     //Thresholds
 
@@ -44,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        networkStateReceiver = new NetworkStateReceiver();
+        networkStateReceiver.addListener(this);
+        this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 
         //Create our Sensor Manager
         SM = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -138,5 +149,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ad.show();
+    }
+
+    @Override
+    public void networkAvailable() {
+        Context context = getApplicationContext();
+        CharSequence text = "Mode: ONLINE";
+        final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        toast.show();
+
+    /* TODO: Your connection-oriented stuff here */
+    }
+
+    @Override
+    public void networkUnavailable() {
+        Context context = getApplicationContext();
+        CharSequence text = "Mode: OFFLINE";
+        final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        toast.show();
+
+    /* TODO: Your disconnection-oriented stuff here */
     }
 }
