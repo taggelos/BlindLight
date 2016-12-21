@@ -1,10 +1,11 @@
-package com.example.aggel.blindlight;
+package com.example.aggel.blindlight.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.aggel.accelerometerapplication.R;
+import com.example.aggel.blindlight.Activities.HomeActivity;
 
 public class WelcomeScreen extends AppCompatActivity {
 

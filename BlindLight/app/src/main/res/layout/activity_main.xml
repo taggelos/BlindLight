@@ -16,7 +16,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.aggel.blindlight.MainActivity">
+    tools:context="com.example.aggel.blindlight.Activities.MainActivity">
 
 
     <TextView
@@ -135,23 +135,6 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="@string/Sensors"
-        android:textColor="@color/colorBackround"
-        android:textSize="34sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/readyApp"
-        tools:textAlignment="center"
-        android:textCursorDrawable="@color/colorAccent"
-        android:textColorHighlight="@color/colorAccent"
-        tools:ignore="UnknownIdInLayout"
-        android:textAlignment="center"
-        android:background="@android:drawable/editbox_dropdown_dark_frame"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
         android:text="@string/Proximity"
         android:textColor="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
@@ -196,6 +179,31 @@
         android:layout_marginTop="23dp"
         android:layout_below="@+id/LightTextView"
         android:layout_alignStart="@+id/proxText" />
+
+    <Switch
+        android:text="Mode:  "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connectivity"
+        android:layout_alignBaseline="@+id/readyApp"
+        android:layout_alignBottom="@+id/readyApp"
+        android:layout_toStartOf="@+id/textView3" />
+
+    <TextView
+        android:text="@string/Sensors"
+        android:textColor="@color/colorBackround"
+        android:textSize="34sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/readyApp"
+        tools:textAlignment="center"
+        android:textCursorDrawable="@color/colorAccent"
+        android:textColorHighlight="@color/colorAccent"
+        tools:ignore="UnknownIdInLayout"
+        android:textAlignment="center"
+        android:background="@android:drawable/editbox_dropdown_dark_frame"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

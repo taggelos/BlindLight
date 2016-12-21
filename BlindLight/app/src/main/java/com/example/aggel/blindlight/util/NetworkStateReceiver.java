@@ -1,4 +1,4 @@
-package com.example.aggel.blindlight;
+package com.example.aggel.blindlight.util;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -31,7 +31,7 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = manager.getActiveNetworkInfo();
 
-        if(ni != null && ni.getType() == ConnectivityManager.TYPE_WIFI) {
+        if(ni != null && ni.getState() == NetworkInfo.State.CONNECTED) {
             connected = true;
         } else if(intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY,Boolean.FALSE)) {
             connected = false;
@@ -65,7 +65,7 @@ public class NetworkStateReceiver extends BroadcastReceiver {
     }
 
     public interface NetworkStateReceiverListener {
-        public void networkAvailable();
-        public void networkUnavailable();
+         void networkAvailable();
+         void networkUnavailable();
     }
 }

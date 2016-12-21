@@ -1,10 +1,8 @@
-package com.example.aggel.blindlight;
+package com.example.aggel.blindlight.Activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,16 +10,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.graphics.Color;
-import android.graphics.drawable.ClipDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-
 
 
 import com.example.aggel.accelerometerapplication.R;
+import com.example.aggel.blindlight.util.SoundEvent;
 
 
 public class SettingsActivity extends AppCompatActivity  {
@@ -36,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity  {
     private String[] Max_mins = new String[2];
     private Button save_changes;
     private CheckBox checkBox;
+    private Switch connectionMode;
     private SoundEvent se;
     private int soundId;
     private int streamId;
@@ -96,10 +92,6 @@ public class SettingsActivity extends AppCompatActivity  {
                 savePrefs("MAX_LIGHT" , My_Light_Thresholds[0]);
                 savePrefs("MIN_LIGHT" , My_Light_Thresholds[1]);
 
-
-
-
-
                 Intent toy2 = new Intent(SettingsActivity.this,MainActivity.class);
                 toy2.putExtra( MY_KEY_X,My_Progress[0]);
                 toy2.putExtra( MY_KEY_Y,My_Progress[1]);
@@ -110,8 +102,6 @@ public class SettingsActivity extends AppCompatActivity  {
                 toy2.putExtra( My_KEY_CHECKBOX, checkBox.isChecked());
                 startActivity(toy2);
                 finish();
-
-
 
             }
         });

@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.aggel.blindlight.WelcomeScreen">
+        <activity android:name="com.example.aggel.blindlight.Activities.WelcomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,18 +22,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.aggel.blindlight.SettingsActivity"
+            android:name="com.example.aggel.blindlight.Activities.SettingsActivity"
             android:label="@string/Settings"
 
             />
         <activity
-            android:name="com.example.aggel.blindlight.MainActivity"
+            android:name="com.example.aggel.blindlight.Activities.MainActivity"
             android:label="@string/mainLabel"
 
 
            />
         <activity
-            android:name="com.example.aggel.blindlight.HomeActivity"
+            android:name="com.example.aggel.blindlight.Activities.HomeActivity"
             android:label="@string/homeLabel"
             android:noHistory="true"/>
 

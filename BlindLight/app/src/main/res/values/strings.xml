@@ -44,6 +44,9 @@
     <string name="coveredY">Select threshold in Y axis :</string>
     <string name="coveredΖ">Select threshold in Z axis :</string>
     <string name="frequency">Select frequency (accelerometer) :</string>
+    <string name="select_mode">Select Mode:</string>
+    <string name="mode">Mode</string>
+    <string name="Mode">Mode:</string>
 
 
 </resources>

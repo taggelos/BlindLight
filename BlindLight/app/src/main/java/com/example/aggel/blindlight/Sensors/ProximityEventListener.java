@@ -1,4 +1,4 @@
-package com.example.aggel.blindlight;
+package com.example.aggel.blindlight.Sensors;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -6,11 +6,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.aggel.accelerometerapplication.R;
+import com.example.aggel.blindlight.Activities.SettingsActivity;
+import com.example.aggel.blindlight.util.SoundEvent;
 
 
 public class ProximityEventListener extends SettingsActivity implements SensorEventListener {

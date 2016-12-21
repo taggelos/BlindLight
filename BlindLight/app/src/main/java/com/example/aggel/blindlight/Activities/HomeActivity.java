@@ -1,4 +1,4 @@
-package com.example.aggel.blindlight;
+package com.example.aggel.blindlight.Activities;
 
 
 import android.content.Intent;
@@ -15,9 +15,6 @@ public class HomeActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
-
 
 
         //Go to Next Screen

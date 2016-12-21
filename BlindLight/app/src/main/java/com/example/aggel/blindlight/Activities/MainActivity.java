@@ -1,6 +1,7 @@
-package com.example.aggel.blindlight;
+package com.example.aggel.blindlight.Activities;
 
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,17 +9,21 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuInflater;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.widget.Toast;
-
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.example.aggel.accelerometerapplication.R;
-
-import java.util.Locale;
+import com.example.aggel.blindlight.util.NetworkStateReceiver;
+import com.example.aggel.blindlight.Sensors.AccelerometerEventListener;
+import com.example.aggel.blindlight.Sensors.LightEventListener;
+import com.example.aggel.blindlight.Sensors.ProximityEventListener;
 
 public class MainActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener {
 
@@ -26,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
     //offline-online mode
     private NetworkStateReceiver networkStateReceiver;
-
+    private MenuItem item;
+    private boolean online_mode;
+    private Switch connectivity_Mode;
 
     //Thresholds
 
@@ -47,17 +54,45 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
     }
 
     @Override
     protected void onResume(){
         super.onResume();
+
+        //Listener for Internet Connectivity
         networkStateReceiver = new NetworkStateReceiver();
         networkStateReceiver.addListener(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 
         //Create our Sensor Manager
         SM = (SensorManager)getSystemService(SENSOR_SERVICE);
+
+        //Internet Connection
+
+        connectivity_Mode = (Switch) findViewById(R.id.connectivity);
+
+        connectivity_Mode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if(isChecked){
+                    online_mode=false;
+                    invalidateOptionsMenu();
+                    connectivity_Mode.setEnabled(true);
+
+                }else{
+                    online_mode=true;
+                    invalidateOptionsMenu();
+                    connectivity_Mode.setChecked(false);
+                    connectivity_Mode.setEnabled(true);
+                }
+
+
+            }
+        });
 
         //Assign TextView
         TextView[] textTable = new TextView[3];
@@ -72,8 +107,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         threshold_y_axis = toy2.getIntExtra("intVariableName2", 7);
         threshold_z_axis = toy2.getIntExtra("intVariableName3", 8);
         threshold_frequency = toy2.getIntExtra("intVariableName7", 1);
-        threshold_max_light = toy2.getIntExtra("intVariableName4", 25);
-        threshold_min_light = toy2.getIntExtra("intVariableName5", 5);
+        threshold_max_light = toy2.getIntExtra("intVariableName4", 900);
+        threshold_min_light = toy2.getIntExtra("intVariableName5", 1);
         CheckProx = toy2.getBooleanExtra("intVariableName6" , true);
 
         Context context = getApplicationContext();
@@ -100,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         accelero.unregister(SM);
         proxy.unregister(SM);
         lightsens.unregister(SM);
+        unregisterReceiver(networkStateReceiver);
     }
 
 
@@ -112,14 +148,25 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        super.onPrepareOptionsMenu(menu);
+        connectivity_Mode = (Switch) findViewById(R.id.connectivity);
+        item = menu.findItem(R.id.menu_AndroidSettings);
+
+            item.setEnabled(online_mode);
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.menu_AndroidSettings:
-                Intent toy = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(toy);
-                finish();
+                    Intent toy = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(toy);
+                    finish();
                 break;
             case R.id.menu_Exit:
                 finish();
@@ -157,8 +204,11 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         CharSequence text = "Mode: ONLINE";
         final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.show();
-
-    /* TODO: Your connection-oriented stuff here */
+        online_mode = false;
+        invalidateOptionsMenu();
+        connectivity_Mode = (Switch) findViewById(R.id.connectivity);
+        connectivity_Mode.setEnabled(true);
+        connectivity_Mode.setChecked(true);
     }
 
     @Override
@@ -167,7 +217,10 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         CharSequence text = "Mode: OFFLINE";
         final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.show();
-
-    /* TODO: Your disconnection-oriented stuff here */
+        online_mode=true;
+        invalidateOptionsMenu(); //  we call this function to update options_menu
+        connectivity_Mode = (Switch) findViewById(R.id.connectivity);
+        connectivity_Mode.setChecked(false);
+        connectivity_Mode.setEnabled(false);
     }
 }

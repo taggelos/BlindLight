@@ -1,4 +1,4 @@
-package com.example.aggel.blindlight;
+package com.example.aggel.blindlight.Sensors;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,9 @@ import android.hardware.SensorManager;
 import android.widget.TextView;
 import android.os.Handler;
 import android.widget.Toast;
+
+import com.example.aggel.blindlight.Activities.SettingsActivity;
+import com.example.aggel.blindlight.util.SoundEvent;
 
 /**
  * Created by aggel on 15/10/2016.

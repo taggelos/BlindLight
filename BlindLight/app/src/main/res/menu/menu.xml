@@ -12,7 +12,6 @@
             >
 
         <menu>
-
             <item
                 android:id="@+id/menu_AndroidSettings"
                 android:icon="@drawable/ic_brightness_high_black_24dp"

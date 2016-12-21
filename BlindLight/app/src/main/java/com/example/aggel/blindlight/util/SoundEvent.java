@@ -1,4 +1,4 @@
-package com.example.aggel.blindlight;
+package com.example.aggel.blindlight.util;
 
 import android.content.Context;
 import android.hardware.Sensor;
