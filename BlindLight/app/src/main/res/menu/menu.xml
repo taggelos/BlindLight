@@ -19,12 +19,18 @@
                 android:title="@string/android_settings"
                 app:showAsAction="ifRoom" />
 
+            <item
+                android:id="@+id/menu_mqtt_settings"
+                android:icon="@drawable/ic_brightness_high_black_24dp"
+                android:title="@string/mqtt_broker_settings"
+                app:showAsAction="ifRoom" />
 
             <item
                 android:id="@+id/menu_Exit"
                 android:icon="@drawable/ic_arrow_forward_black_24dp"
                 android:title="@string/exit"
                 app:showAsAction="ifRoom" />
+
 
         </menu>
 

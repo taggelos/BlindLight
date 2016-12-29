@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aggel.accelerometerapplication">
 
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -23,22 +23,18 @@
         </activity>
         <activity
             android:name="com.example.aggel.blindlight.Activities.SettingsActivity"
-            android:label="@string/Settings"
-
-            />
+            android:label="@string/Settings" />
         <activity
             android:name="com.example.aggel.blindlight.Activities.MainActivity"
-            android:label="@string/mainLabel"
-
-
-           />
+            android:label="@string/mainLabel" />
         <activity
             android:name="com.example.aggel.blindlight.Activities.HomeActivity"
             android:label="@string/homeLabel"
-            android:noHistory="true"/>
+            android:noHistory="true" />
 
-        <service android:name="org.eclipse.paho.android.service.MqttService" >
-        </service>
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+
+        <activity android:name="com.example.aggel.blindlight.Activities.Mqtt_Settings" />
     </application>
 
 </manifest>

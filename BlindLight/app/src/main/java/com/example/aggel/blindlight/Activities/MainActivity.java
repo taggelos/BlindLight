@@ -1,7 +1,6 @@
 package com.example.aggel.blindlight.Activities;
 
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,25 +8,40 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuInflater;
+import android.util.Log;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.IntentFilter;
 import android.widget.Toast;
-import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.example.aggel.accelerometerapplication.R;
+import com.example.aggel.blindlight.util.MqttPublisher;
+import com.example.aggel.blindlight.util.MqttSubscriber;
 import com.example.aggel.blindlight.util.NetworkStateReceiver;
 import com.example.aggel.blindlight.Sensors.AccelerometerEventListener;
 import com.example.aggel.blindlight.Sensors.LightEventListener;
 import com.example.aggel.blindlight.Sensors.ProximityEventListener;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener {
 
     private boolean CheckProx;
+
+    //Mqtt Broker Client
+    private MqttSubscriber subscriber;
+    private MqttPublisher publisher;
+    public static String Port;
+
 
     //offline-online mode
     private NetworkStateReceiver networkStateReceiver;
@@ -54,17 +68,69 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Getting the MAC of the device
+        String macAddress = getMacAddr();
+        System.out.println("---------------------------");
+        System.out.println("MAC ADDRESS IS : "+macAddress);
+        System.out.println("---------------------------");
 
+    }
+
+    //This function is used in order to find the mac address of the device
+    public static String getMacAddr() {
+        try {
+            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface nif : all) {
+                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+
+                byte[] macBytes = nif.getHardwareAddress();
+                if (macBytes == null) {
+                    return "";
+                }
+
+                StringBuilder res1 = new StringBuilder();
+                for (byte b : macBytes) {
+                    res1.append(String.format("%02X:",b));
+                }
+
+                if (res1.length() > 0) {
+                    res1.deleteCharAt(res1.length() - 1);
+                }
+                return res1.toString();
+            }
+        } catch (Exception ex) {
+        }
+        return "02:00:00:00:00:00"; // <Android 6.0.
+    }
+
+    protected String getIpAddress () {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
+                 en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("IP Address", ex.toString());
+        }
+        return null;
     }
 
     @Override
     protected void onResume(){
         super.onResume();
 
+
         //Listener for Internet Connectivity
         networkStateReceiver = new NetworkStateReceiver();
         networkStateReceiver.addListener(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+
 
         //Create our Sensor Manager
         SM = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -100,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         textTable[1] = (TextView)findViewById(R.id.yText);
         textTable[2] = (TextView)findViewById(R.id.zText);
 
-        //Ιnitialization of thresholds from seekbars->settings
+        //Initialization of thresholds from seekbars->settings
 
         Intent toy2 = getIntent();
         threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
@@ -164,9 +230,38 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.menu_AndroidSettings:
-                    Intent toy = new Intent(MainActivity.this, SettingsActivity.class);
-                    startActivity(toy);
+                    Intent toy1 = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(toy1);
                     finish();
+            case R.id.menu_mqtt_settings:
+                    //Intent toy2 = new Intent(MainActivity.this, MqttSetings.class);
+                    //startActivity(toy2);
+                    //finish();
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                alertDialog.setTitle("Port");
+                alertDialog.setMessage("Enter Port");
+
+
+                final EditText input = new EditText(MainActivity.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                alertDialog.setView(input);
+
+                alertDialog.setNeutralButton("Save", new DialogInterface.OnClickListener() {
+
+                    // click listener on the alert box
+                    public void onClick(DialogInterface dialog, int which) {
+                        Port = input.getText().toString();
+                        System.out.println("---------------------------");
+                        System.out.println( " PORT :"+Port);
+                        System.out.println("---------------------------");
+                        dialog.dismiss();
+                    }
+                });
+                alertDialog.show();
                 break;
             case R.id.menu_Exit:
                 finish();
@@ -197,6 +292,9 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         });
         ad.show();
     }
+
+
+    //Network state
 
     @Override
     public void networkAvailable() {

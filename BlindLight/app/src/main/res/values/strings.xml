@@ -47,6 +47,10 @@
     <string name="select_mode">Select Mode:</string>
     <string name="mode">Mode</string>
     <string name="Mode">Mode:</string>
+    <string name="mqtt_broker_settings">MQTT broker (settings)</string>
+    <string name="choose_port">Choose Port:</string>
+    <string name="my_ip">My Ip:</string>
+    <string name="ip_value">ip_value</string>
 
 
 </resources>
