@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     //offline-online mode
     private NetworkStateReceiver networkStateReceiver;
     private MenuItem item;
+    private MenuItem item2;
     private boolean online_mode;
     private Switch connectivity_Mode;
 
@@ -218,8 +219,10 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         super.onPrepareOptionsMenu(menu);
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         item = menu.findItem(R.id.menu_AndroidSettings);
+        item2 = menu.findItem(R.id.menu_mqtt_settings);
 
-            item.setEnabled(online_mode);
+        item.setEnabled(online_mode);
+        item2.setEnabled(!online_mode);
 
         return true;
     }
@@ -233,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                     Intent toy1 = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(toy1);
                     finish();
+                    break;
             case R.id.menu_mqtt_settings:
                     //Intent toy2 = new Intent(MainActivity.this, MqttSetings.class);
                     //startActivity(toy2);
