@@ -5,6 +5,7 @@ package com.example.aggel.blindlight.util;
  */
 
 
+import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -12,12 +13,12 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttPublisher  {
-    public static void main(String[] args) {
-        String topic = "MQTT Example";
-        String content = "Message from MqttPublishSample";
+    public void main() {
+        String topic = "blindlight";
+        String content = "My Message";
         int qos = 2;
         String broker = "tcp://localhost:1883";
-        String clientId = "JavaSample";
+        String clientId = "Μyclientid";
         MemoryPersistence persistence = new MemoryPersistence();
 
 

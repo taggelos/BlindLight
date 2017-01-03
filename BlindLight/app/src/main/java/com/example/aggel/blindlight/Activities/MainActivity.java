@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     private boolean CheckProx;
 
     //Mqtt Broker Client
-    private MqttSubscriber subscriber;
-    private MqttPublisher publisher;
+    public MqttSubscriber subscriber;
+    public MqttPublisher publisher;
     public static String Port;
 
 
@@ -221,8 +221,10 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         item = menu.findItem(R.id.menu_AndroidSettings);
         item2 = menu.findItem(R.id.menu_mqtt_settings);
 
+
         item.setEnabled(online_mode);
         item2.setEnabled(!online_mode);
+
 
         return true;
     }
@@ -311,6 +313,10 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         connectivity_Mode.setEnabled(true);
         connectivity_Mode.setChecked(true);
+        publisher = new MqttPublisher();
+        publisher.main();
+
+
     }
 
     @Override
