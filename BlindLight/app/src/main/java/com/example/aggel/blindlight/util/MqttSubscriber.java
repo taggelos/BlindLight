@@ -17,7 +17,7 @@ public class MqttSubscriber implements MqttCallback {
 
     public static void main(String[] args) {
 
-        String topic="TESTING MQTT BROKER"; //sensors LATHOSSSS EDWWWWWW
+        String topic="blindlight"; //
         int qos = 2;
         String broker = "tcp://localhost:1883";
         String clientId = "JavaAsyncSample";
