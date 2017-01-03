@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.SensorManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,13 +21,14 @@ import android.view.MenuItem;
 import android.content.IntentFilter;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
 import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.util.MqttPublisher;
 import com.example.aggel.blindlight.util.MqttSubscriber;
 import com.example.aggel.blindlight.util.NetworkStateReceiver;
-import com.example.aggel.blindlight.Sensors.AccelerometerEventListener;
-import com.example.aggel.blindlight.Sensors.LightEventListener;
-import com.example.aggel.blindlight.Sensors.ProximityEventListener;
+import com.example.aggel.blindlight.Listeners.AccelerometerEventListener;
+import com.example.aggel.blindlight.Listeners.LightEventListener;
+import com.example.aggel.blindlight.Listeners.ProximityEventListener;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     private MenuItem item2;
     private boolean online_mode;
     private Switch connectivity_Mode;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
     //Thresholds
 
@@ -72,12 +77,12 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         //Getting the MAC of the device
         String macAddress = getMacAddr();
         System.out.println("---------------------------");
-        System.out.println("MAC ADDRESS IS : "+macAddress);
+        System.out.println("MAC ADDRESS IS : " + macAddress);
         System.out.println("---------------------------");
 
     }
 
-    //This function is used in order to find the mac address of the device
+    //--------------This function is used in order to find the mac address of the device--------------
     public static String getMacAddr() {
         try {
             List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
@@ -91,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
                 StringBuilder res1 = new StringBuilder();
                 for (byte b : macBytes) {
-                    res1.append(String.format("%02X:",b));
+                    res1.append(String.format("%02X:", b));
                 }
 
                 if (res1.length() > 0) {
@@ -104,12 +109,15 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         return "02:00:00:00:00:00"; // <Android 6.0.
     }
 
-    protected String getIpAddress () {
+
+    //---------------This function is used in order to find the ip address of the device--------------
+
+    protected String getIpAddress() {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
-                 en.hasMoreElements();) {
+                 en.hasMoreElements(); ) {
                 NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
                         return inetAddress.getHostAddress().toString();
@@ -122,22 +130,57 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         return null;
     }
 
+    //-----------This function is used in order to Find out if the GPS of an Android device is enabled------------
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
 
+        //----------------Listener for the GPS Location-----------------------
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        /*locationListener = new MyLocationListener(getApplicationContext());
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+*/
 
-        //Listener for Internet Connectivity
+        //-------------------Listener for Internet Connectivity-------------------
         networkStateReceiver = new NetworkStateReceiver();
         networkStateReceiver.addListener(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 
 
-        //Create our Sensor Manager
-        SM = (SensorManager)getSystemService(SENSOR_SERVICE);
+        //--------------Create our Sensor Manager----------------
+        SM = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        //Internet Connection
 
+        //-----------------------Internet Connection------------------------
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
 
         connectivity_Mode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -145,13 +188,13 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
-                if(isChecked){
-                    online_mode=false;
+                if (isChecked) {
+                    online_mode = false;
                     invalidateOptionsMenu();
                     connectivity_Mode.setEnabled(true);
 
-                }else{
-                    online_mode=true;
+                } else {
+                    online_mode = true;
                     invalidateOptionsMenu();
                     connectivity_Mode.setChecked(false);
                     connectivity_Mode.setEnabled(true);
@@ -161,13 +204,28 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             }
         });
 
-        //Assign TextView
-        TextView[] textTable = new TextView[3];
-        textTable[0] = (TextView)findViewById(R.id.xText);
-        textTable[1] = (TextView)findViewById(R.id.yText);
-        textTable[2] = (TextView)findViewById(R.id.zText);
+        //-------------------------GPS----------------------------
 
-        //Initialization of thresholds from seekbars->settings
+
+                    if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        Context context = getApplicationContext();
+                        CharSequence text = "GPS : ENABLED";
+                        final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        buildAlertMessageNoGps();
+                    }
+
+        
+
+
+        //-----------Assign TextView-----------
+        TextView[] textTable = new TextView[3];
+        textTable[0] = (TextView) findViewById(R.id.xText);
+        textTable[1] = (TextView) findViewById(R.id.yText);
+        textTable[2] = (TextView) findViewById(R.id.zText);
+
+        //--------------Initialization of thresholds from seekbars->settings-------------
 
         Intent toy2 = getIntent();
         threshold_x_axis = toy2.getIntExtra("intVariableName1", 3);
@@ -176,37 +234,41 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         threshold_frequency = toy2.getIntExtra("intVariableName7", 1);
         threshold_max_light = toy2.getIntExtra("intVariableName4", 900);
         threshold_min_light = toy2.getIntExtra("intVariableName5", 1);
-        CheckProx = toy2.getBooleanExtra("intVariableName6" , true);
+        CheckProx = toy2.getBooleanExtra("intVariableName6", true);
 
         Context context = getApplicationContext();
 
-        //Accelerometer Sensor
-        accelero = new AccelerometerEventListener(SM,threshold_frequency , threshold_x_axis ,threshold_y_axis ,threshold_z_axis , textTable , context);
+        //-----------------Accelerometer Sensor-----------------
+        accelero = new AccelerometerEventListener(SM, threshold_frequency, threshold_x_axis, threshold_y_axis, threshold_z_axis, textTable, context);
 
-        //Proximity Sensor
+        //-------------------Proximity Sensor-----------------
         TextView proxText = (TextView) findViewById(R.id.proxText);
 
-        proxy = new ProximityEventListener(SM, CheckProx, proxText,context);
+        proxy = new ProximityEventListener(SM, CheckProx, proxText, context);
 
-        //Light Sensor
+        //-------------------Light Sensor----------------------
         TextView sensText = (TextView) findViewById(R.id.sensText);
-        lightsens = new LightEventListener(SM, sensText ,threshold_max_light, threshold_min_light , context);
+        lightsens = new LightEventListener(SM, sensText, threshold_max_light, threshold_min_light, context);
 
 
     }
 
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         accelero.unregister(SM);
         proxy.unregister(SM);
         lightsens.unregister(SM);
         unregisterReceiver(networkStateReceiver);
+
+
     }
 
 
-    //Creating Options_menu
+
+
+    //----------------Creating Options_menu--------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -240,14 +302,9 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                     finish();
                     break;
             case R.id.menu_mqtt_settings:
-                    //Intent toy2 = new Intent(MainActivity.this, MqttSetings.class);
-                    //startActivity(toy2);
-                    //finish();
-
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                 alertDialog.setTitle("Port");
                 alertDialog.setMessage("Enter Port");
-
 
                 final EditText input = new EditText(MainActivity.this);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -300,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     }
 
 
-    //Network state
+    //-----------------Network state---------------
 
     @Override
     public void networkAvailable() {
