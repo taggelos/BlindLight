@@ -1,13 +1,18 @@
 package com.example.aggel.blindlight.Activities;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,6 +28,7 @@ import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.example.aggel.accelerometerapplication.R;
+import com.example.aggel.blindlight.Listeners.MyLocationListener;
 import com.example.aggel.blindlight.util.MqttPublisher;
 import com.example.aggel.blindlight.util.MqttSubscriber;
 import com.example.aggel.blindlight.util.NetworkStateReceiver;
@@ -156,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
         //----------------Listener for the GPS Location-----------------------
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        /*locationListener = new MyLocationListener(getApplicationContext());
+        locationListener = new MyLocationListener(getApplicationContext());
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -165,10 +171,17 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
+                }, 10);
+            }
+
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
-*/
+
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0, locationListener);
+
 
         //-------------------Listener for Internet Connectivity-------------------
         networkStateReceiver = new NetworkStateReceiver();
@@ -207,16 +220,20 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         //-------------------------GPS----------------------------
 
 
-                    if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        Context context = getApplicationContext();
-                        CharSequence text = "GPS : ENABLED";
-                        final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-                        buildAlertMessageNoGps();
-                    }
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Context context = getApplicationContext();
+            CharSequence text = "GPS : ENABLED";
+            final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+            toast.show();
 
-        
+        } else {
+            buildAlertMessageNoGps();
+            /*Context context = getApplicationContext();
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            context.startActivity(intent);*/
+        }
+
+
 
 
         //-----------Assign TextView-----------
@@ -261,6 +278,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         proxy.unregister(SM);
         lightsens.unregister(SM);
         unregisterReceiver(networkStateReceiver);
+
+        //locationManager.removeUpdates(this);
 
 
     }
