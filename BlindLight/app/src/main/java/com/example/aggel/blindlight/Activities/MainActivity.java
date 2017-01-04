@@ -38,6 +38,8 @@ import com.example.aggel.blindlight.Listeners.ProximityEventListener;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -159,6 +161,14 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     @Override
     protected void onResume() {
         super.onResume();
+
+
+        Calendar c = Calendar.getInstance();
+        int seconds = c.get(Calendar.SECOND);
+
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm:ss a");
+        System.out.println(format.format(c.getTime()));
+        System.out.println(seconds);
 
         //----------------Listener for the GPS Location-----------------------
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
