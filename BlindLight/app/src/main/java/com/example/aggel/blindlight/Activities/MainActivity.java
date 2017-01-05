@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                         Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
                 }, 10);
             }
-            
+
             return;
         }
         locationManager.removeUpdates(locationListener);
