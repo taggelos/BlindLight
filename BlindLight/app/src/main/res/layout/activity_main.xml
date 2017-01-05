@@ -180,15 +180,6 @@
         android:layout_below="@+id/LightTextView"
         android:layout_alignStart="@+id/proxText" />
 
-    <Switch
-        android:text="Mode:  "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/connectivity"
-        android:layout_alignBaseline="@+id/readyApp"
-        android:layout_alignBottom="@+id/readyApp"
-        android:layout_toStartOf="@+id/textView3" />
-
     <TextView
         android:text="@string/Sensors"
         android:textColor="@color/colorBackround"
@@ -204,6 +195,24 @@
         android:background="@android:drawable/editbox_dropdown_dark_frame"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <Switch
+        android:text="Cam: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera"
+        android:layout_alignBaseline="@+id/connectivity"
+        android:layout_alignBottom="@+id/connectivity"
+        android:layout_toEndOf="@+id/Accelerometer" />
+
+    <Switch
+        android:text="Mode: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connectivity"
+        android:layout_alignBaseline="@+id/readyApp"
+        android:layout_alignBottom="@+id/readyApp"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     private MenuItem item;
     private MenuItem item2;
     private boolean online_mode;
+    private boolean online_mode_cam;
     private Switch connectivity_Mode;
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -183,14 +184,14 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             // for ActivityCompat#requestPermissions for more details.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
                 }, 10);
             }
 
             return;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
 
         //-------------------Listener for Internet Connectivity-------------------
@@ -243,7 +244,25 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             context.startActivity(intent);*/
         }
 
+        //-------------------------CAMERA----------------------------
 
+        Switch camera_Mode = (Switch) findViewById(R.id.camera);
+        camera_Mode.setChecked(true);
+        camera_Mode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if (isChecked) {
+                    System.out.println("AXNEEEEEEEEE");
+                    Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+                    startActivity(intent);
+                } else {
+                    System.out.println("OXIIIIIIII");
+                }
+
+            }
+        });
 
 
         //-----------Assign TextView-----------
@@ -289,7 +308,23 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         lightsens.unregister(SM);
         unregisterReceiver(networkStateReceiver);
 
-        //locationManager.removeUpdates(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
+                }, 10);
+            }
+
+            return;
+        }
+        locationManager.removeUpdates(locationListener);
 
 
     }
