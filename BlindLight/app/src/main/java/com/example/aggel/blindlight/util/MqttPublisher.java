@@ -5,6 +5,9 @@ package com.example.aggel.blindlight.util;
  */
 
 
+import com.example.aggel.blindlight.Activities.MainActivity;
+
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -13,11 +16,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttPublisher  {
-    public void main() {
-        String topic = "blindlight";
+
+    public String topic;
+    public void main(String topic , String port_ip ) {
+        this.topic=topic;
         String content = "My Message";
         int qos = 2;
-        String broker = "tcp://localhost:1883";
+        String broker = port_ip ;
         String clientId = "Μyclientid";
         MemoryPersistence persistence = new MemoryPersistence();
 
@@ -34,9 +39,8 @@ public class MqttPublisher  {
             message.setQos(qos);
             sampleClient.publish(topic, message);
             System.out.println("Message published");
-            sampleClient.disconnect();
-            System.out.println("Disconnected");
-            System.exit(0);
+            //sampleClient.disconnect();
+            //System.out.println("Disconnected");
         } catch (MqttException me) {
             System.out.println("reason " + me.getReasonCode());
             System.out.println("msg " + me.getMessage());
@@ -46,5 +50,6 @@ public class MqttPublisher  {
             me.printStackTrace();
         }
     }
+
 }
 

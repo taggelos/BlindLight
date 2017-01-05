@@ -15,6 +15,8 @@ import static android.content.ContentValues.TAG;
 public class MyLocationListener implements LocationListener {
 
     private Context context;
+    private Double mylatitude;
+    private Double mylongtitude;
 
     public MyLocationListener(Context context) {
         this.context= context;
@@ -22,23 +24,27 @@ public class MyLocationListener implements LocationListener {
 
     @Override
     public void onLocationChanged(Location loc ) {
+        if ( loc != null) {
+            CharSequence text = "I AM HEREEE LOCATION LISTENER";
+            final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+            toast.show();
 
-        //if ( loc != null)
+            mylatitude = loc.getLatitude();
+            mylongtitude = loc.getLongitude();
 
-        CharSequence text = "I AM HEREEE LOCATION LISTENER";
-        final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-        toast.show();
+            Toast.makeText(context,
+                    "Location changed: Lat: " + mylatitude + " Lng: "
+                            + mylongtitude, Toast.LENGTH_SHORT).show();
+            String longitude = "Longitude: " + mylongtitude;
+            Log.v(TAG, longitude);
+            String latitude = "Latitude: " + mylatitude;
+            Log.v(TAG, latitude);
 
-        Toast.makeText(context,
-                "Location changed: Lat: " + loc.getLatitude() + " Lng: "
-                        + loc.getLongitude(), Toast.LENGTH_SHORT).show();
-        String longitude = "Longitude: " + loc.getLongitude();
-        Log.v(TAG, longitude);
-        String latitude = "Latitude: " + loc.getLatitude();
-        Log.v(TAG, latitude);
+        }
 
 
     }
+
 
     @Override
     public void onProviderDisabled(String provider) {
@@ -55,6 +61,18 @@ public class MyLocationListener implements LocationListener {
 
         Toast.makeText(context, "Gps is turned on!! ",
                 Toast.LENGTH_SHORT).show();
+    }
+
+    public Double  getDevLatitude(){
+        if(mylatitude!=null)
+            return mylatitude;
+        return 0.0;
+    }
+
+    public Double getDevLongtitude(){
+        if(mylongtitude!=null)
+            return mylongtitude;
+        return 0.0;
     }
 
     @Override

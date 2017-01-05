@@ -21,10 +21,15 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
     private SoundEvent se;
     private int soundId;
     private int streamId;
+    public String sensor_name;
+    public String sensor_value;
 
     public ProximityEventListener(SensorManager SM, boolean CheckProx, TextView proxText, Context context) {
         //Proximity Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        sensor_name = mySensor.getName().replaceAll("\\s+" , "");
+
+
         //Register sensor listener
         SM.registerListener(this,mySensor,SensorManager.SENSOR_DELAY_NORMAL);
 
@@ -44,6 +49,7 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
 
 
         proxText.setText("Οff");
+        sensor_value = Float.toString(event.values[0]);
 
         if ((event.values[0] == 0) && (CheckProx)) {
             proxText.setText("Οn");
@@ -68,6 +74,13 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
         SM.unregisterListener(this);
         se.stopSound(streamId);
     }
+    public String getSensorName() {
+        return sensor_name;
+    }
+
+    public String getSensorValue() {
+         return sensor_value;
+     }
 
 
     @Override

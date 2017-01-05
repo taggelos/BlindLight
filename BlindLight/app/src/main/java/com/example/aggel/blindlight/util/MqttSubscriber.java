@@ -14,18 +14,20 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttSubscriber implements MqttCallback {
+    public  String topic;
 
-    public static void main(String[] args) {
+    public  void main(String topic , String port_ip) {
 
-        String topic="blindlight"; //
+        this.topic=topic;
         int qos = 2;
-        String broker = "tcp://localhost:1883";
+        String broker = port_ip;
         String clientId = "JavaAsyncSample";
         MemoryPersistence persistence = new MemoryPersistence();
 
         try {
             MqttAsyncClient sampleClient = new MqttAsyncClient(broker, clientId, persistence);
             MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setWill("Test/clienterrors" , "crashed".getBytes(),2,false);
             connOpts.setCleanSession(true);
             sampleClient.setCallback(new MqttSubscriber());
             System.out.println("Connecting to broker: " + broker);

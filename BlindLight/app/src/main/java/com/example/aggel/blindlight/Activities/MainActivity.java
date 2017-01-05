@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,7 +53,9 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     //Mqtt Broker Client
     public MqttSubscriber subscriber;
     public MqttPublisher publisher;
-    public static String Port;
+    public String Port_Ip="tcp://192.168.1.2:1883"; //by default
+    public String IpAddress;
+    public String date;
 
 
     //offline-online mode
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     private boolean online_mode;
     private Switch connectivity_Mode;
     private LocationManager locationManager;
-    private LocationListener locationListener;
+    private MyLocationListener locationListener;
 
     //Thresholds
 
@@ -81,12 +85,6 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Getting the MAC of the device
-        String macAddress = getMacAddr();
-        System.out.println("---------------------------");
-        System.out.println("MAC ADDRESS IS : " + macAddress);
-        System.out.println("---------------------------");
 
     }
 
@@ -118,25 +116,6 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     }
 
 
-    //---------------This function is used in order to find the ip address of the device--------------
-
-    protected String getIpAddress() {
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
-                 en.hasMoreElements(); ) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
-                        return inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            Log.e("IP Address", ex.toString());
-        }
-        return null;
-    }
 
     //-----------This function is used in order to Find out if the GPS of an Android device is enabled------------
     private void buildAlertMessageNoGps() {
@@ -162,13 +141,13 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     protected void onResume() {
         super.onResume();
 
-
+        //------------DATE------------
         Calendar c = Calendar.getInstance();
         int seconds = c.get(Calendar.SECOND);
-
         SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm:ss a");
-        System.out.println(format.format(c.getTime()));
-        System.out.println(seconds);
+        date = format.format(Calendar.getInstance().getTimeInMillis());
+        System.out.println(date);
+        //System.out.println(seconds);
 
         //----------------Listener for the GPS Location-----------------------
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -183,14 +162,14 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             // for ActivityCompat#requestPermissions for more details.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
                 }, 10);
             }
 
             return;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
 
         //-------------------Listener for Internet Connectivity-------------------
@@ -211,16 +190,20 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
+
+
                 if (isChecked) {
                     online_mode = false;
                     invalidateOptionsMenu();
                     connectivity_Mode.setEnabled(true);
+
 
                 } else {
                     online_mode = true;
                     invalidateOptionsMenu();
                     connectivity_Mode.setChecked(false);
                     connectivity_Mode.setEnabled(true);
+
                 }
 
 
@@ -244,8 +227,6 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         }
 
 
-
-
         //-----------Assign TextView-----------
         TextView[] textTable = new TextView[3];
         textTable[0] = (TextView) findViewById(R.id.xText);
@@ -262,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         threshold_max_light = toy2.getIntExtra("intVariableName4", 900);
         threshold_min_light = toy2.getIntExtra("intVariableName5", 1);
         CheckProx = toy2.getBooleanExtra("intVariableName6", true);
+
 
         Context context = getApplicationContext();
 
@@ -288,8 +270,23 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         proxy.unregister(SM);
         lightsens.unregister(SM);
         unregisterReceiver(networkStateReceiver);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
+                }, 10);
+            }
 
-        //locationManager.removeUpdates(this);
+            return;
+        }
+        locationManager.removeUpdates(locationListener);
 
 
     }
@@ -339,6 +336,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setText("tcp://192.168.1.2:1883");
                 input.setLayoutParams(lp);
                 alertDialog.setView(input);
 
@@ -346,10 +344,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
                     // click listener on the alert box
                     public void onClick(DialogInterface dialog, int which) {
-                        Port = input.getText().toString();
-                        System.out.println("---------------------------");
-                        System.out.println( " PORT :"+Port);
-                        System.out.println("---------------------------");
+                        Port_Ip = input.getText().toString();
                         dialog.dismiss();
                     }
                 });
@@ -399,8 +394,11 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         connectivity_Mode.setEnabled(true);
         connectivity_Mode.setChecked(true);
+        String topic = getMacAddr()+"/"+proxy.getSensorName()+"/"+proxy.getSensorValue()+"/"+date+"/"+locationListener.getDevLatitude()+"/"+locationListener.getDevLongtitude();
+        subscriber = new MqttSubscriber();
+        subscriber.main("#" ,Port_Ip);
         publisher = new MqttPublisher();
-        publisher.main();
+        publisher.main(topic , Port_Ip);
 
 
     }
