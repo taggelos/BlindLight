@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     private MenuItem item;
     private MenuItem item2;
     private boolean online_mode;
+    private boolean online_mode_cam;
     private Switch connectivity_Mode;
     private LocationManager locationManager;
     private MyLocationListener locationListener;
@@ -226,6 +227,28 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             context.startActivity(intent);*/
         }
 
+        //-------------------------CAMERA----------------------------
+
+
+        Switch camera_Mode = (Switch) findViewById(R.id.camera);
+        camera_Mode.setChecked(true);
+        camera_Mode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                if (isChecked) {
+                    System.out.println("AXNEEEEEEEEE");
+                    Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+                    startActivity(intent);
+                } else {
+                    System.out.println("OXIIIIIIII");
+                }
+
+            }
+        });
+
+
 
         //-----------Assign TextView-----------
         TextView[] textTable = new TextView[3];
@@ -283,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                         Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
                 }, 10);
             }
-
+            
             return;
         }
         locationManager.removeUpdates(locationListener);

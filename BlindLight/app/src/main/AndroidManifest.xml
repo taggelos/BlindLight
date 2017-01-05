@@ -36,6 +36,10 @@
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
 
+<<<<<<< HEAD
+=======
+        <activity android:name="com.example.aggel.blindlight.Activities.CameraActivity"></activity>
+>>>>>>> origin/master
     </application>
 
 </manifest>
