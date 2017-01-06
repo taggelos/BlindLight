@@ -34,7 +34,7 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
     public LightEventListener(SensorManager SM,  TextView textTable , int threshold_max_light , int threshold_min_light ,  Context context) {
         //Light Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_LIGHT);
-        sensor_name = mySensor.getName().replaceAll("\\s+" , "");
+        //sensor_name = mySensor.getName().replaceAll("\\s+" , "");
 
 
         //Register sensor listener
