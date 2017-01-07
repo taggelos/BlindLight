@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Controller {
@@ -105,62 +109,91 @@ public class Controller {
             try {
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "112358aaa");
                 Statement stmt = connection.createStatement();
-                String SQL = "SELECT * FROM blind_light_data where 1==1  ";
+                String SQL = "SELECT * FROM blind_light_data  ";
                 PreparedStatement prepared_state= connection.prepareStatement(SQL);;
 
-              //  if ( !user_id.equals("") &&  !longtitude.equals("") && !latitude.equals("") &&  !Sensor_Type.getValue().equals("") && Date.getValue()!=null && !cbox_hours.getValue().equals("") && !cbox_mins.getValue().equals("") && !cbox_secs.getValue().equals("")){
-                //    SQL += "where ";
-               // }
+                if ( !user_id.getText().equals("") ||  !longtitude.getText().equals("") || !latitude.getText().equals("") ||  Sensor_Type.getValue()!=null || Date.getValue()!=null ){
+                    SQL += "where ";
+                }
                 int cur=0;
-                if ( !user_id.equals("") ){
-                    SQL += " and name=?";
+                boolean flag=false;
+                if ( !user_id.getText().equals("") ){
+                    if (flag==true){
+                        SQL += " and ";
+                    }
+                    else {
+                        flag=true;
+                    }
+                    SQL += " name=?";
                 }
-                if( !longtitude.equals("")   ){
-                    SQL += " and location_latitude=?";
+                if( !longtitude.getText().equals("")   ){
+                    if (flag==true){
+                        SQL += " and ";
+                    }
+                    else {
+                        flag=true;
+                    }
+                    SQL += " location_latitude=?";
                 }
-                if( !latitude.equals("") ){
-                    SQL += " and location_longitude=?";
+                if( !latitude.getText().equals("") ){
+                    if (flag==true){
+                        SQL += " and ";
+                    }
+                    else {
+                        flag=true;
+                    }
+                    SQL += " location_longitude=?";
                 }
-                if(!Sensor_Type.getValue().equals("")){
-                    SQL += " and sensorType=?";
+                if(Sensor_Type.getValue()!=null){
+                    if (flag==true){
+                        SQL += " and ";
+                    }
+                    else {
+                        flag=true;
+                    }
+                    SQL += "  sensorType=?";
                 }
-                if(!Date.getValue().equals("")){
-                    SQL += " and date_time=?";
+                if(Date.getValue()!=null){
+                    if (flag==true){
+                        SQL += " and ";
+                    }
+                    else {
+                        flag=true;
+                    }
+                    SQL += "  date_time=?";
                 }
                 prepared_state = connection.prepareStatement(SQL);
 
-                if ( !user_id.equals("") ){
+                if ( !user_id.getText().equals("") ){
                     cur++;
                     prepared_state.setString(cur,user_id.getText() );
                 }
-                if( !longtitude.equals("")   ){
+                if( !longtitude.getText().equals("")   ){
                     cur++;
                     prepared_state.setFloat(cur, Float.parseFloat( longtitude.getText() ) );
                 }
-                if( !latitude.equals("") ){
+                if( !latitude.getText().equals("") ){
                     cur++;
                     prepared_state.setFloat(cur,Float.parseFloat( latitude.getText() ) );
                 }
-                if(!Sensor_Type.getValue().equals("")){
+                if(Sensor_Type.getValue()!=null){
                     cur++;
                     prepared_state.setString(cur,Sensor_Type.getValue().toString() );
                 }
-                if(!Date.getValue().equals("")){
+
+                if(Date.getValue()!=null){
                     cur++;
-                   java.sql.Date cur_date = new Date(0);
-                   cur_date.setYear(Date.getValue().getYear());
-                   cur_date.setMonth(Date.getValue().getMonthValue());
-                   cur_date.setDate(Date.getValue().getDayOfMonth());
-                   cur_date.setHours(Integer.parseInt( cbox_hours.getValue().toString()) );
-                   cur_date.setMinutes( Integer.parseInt( cbox_mins.getValue().toString()) );
-                   cur_date.setSeconds(Integer.parseInt( cbox_secs.getValue().toString()) );
-                    prepared_state.setDate(cur, cur_date  );
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm" );
+                    String date_string= Date.getValue().getYear()+"-"+ Date.getValue().getMonthValue()+"-"+Date.getValue().getDayOfMonth()+" "+ cbox_hours.getValue().toString()+":"+ cbox_mins.getValue().toString()+":"+ cbox_secs.getValue().toString();
+                    java.util.Date ends_date = df.parse(date_string);
+                    Timestamp mytmp = new java.sql.Timestamp(ends_date.getTime());
+                    prepared_state.setTimestamp(cur,mytmp);
                 }
 
 
                 System.out.println(prepared_state);
 
-                ResultSet rs = prepared_state.executeQuery();
+               ResultSet rs = prepared_state.executeQuery();
 /*
                 Records temp_record = new Records();
                 while (rs.next()) {
@@ -180,9 +213,11 @@ public class Controller {
             }
             catch (SQLException err)    {
                 System.out.println( err.getMessage() );
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
-            // Print results
+        // Print results
             Stage primaryStage = Main.getPrimaryStage();
             primaryStage.setTitle("Result)");
             TabPane myPane = FXMLLoader.load(getClass().getResource("Search.fxml"));
