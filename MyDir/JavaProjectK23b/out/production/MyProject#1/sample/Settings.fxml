@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+  <tabs>
+    <Tab text="Settings">
+      <content>
+          <AnchorPane accessibleRole="INCREMENT_BUTTON" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="69.0" layoutY="56.0" text="Select max light threshold:" />
+                  <Label layoutX="70.0" layoutY="94.0" text="Select min light threshold:" />
+                  <Label layoutX="71.0" layoutY="153.0" text="X-axis limit: " />
+                  <Label layoutX="70.0" layoutY="186.0" text="Y-axis limit:" />
+                  <Label layoutX="71.0" layoutY="214.0" text="Z-axis limit: " />
+                  <TextField fx:id="max_light" alignment="CENTER" editable="true" layoutX="226.0" layoutY="52.0" prefHeight="25.0" prefWidth="83.0" text="0" />
+                  <TextField fx:id="min_light" alignment="CENTER" editable="true" layoutX="226.0" layoutY="90.0" prefHeight="25.0" prefWidth="84.0" text="0" />
+                  <Label layoutX="70.0" layoutY="242.0" text="Frequency" />
+                  <Button layoutX="68.0" layoutY="307.0" mnemonicParsing="false" onAction="#Apply" prefHeight="33.0" prefWidth="122.0" text="Apply Settings" />
+                  <Label fx:id="min_check" layoutX="345.0" layoutY="56.0" text="The input must be an integer number and between (0-10000)" textFill="#da0f0f" visible="false" />
+                  <Label fx:id="max_check" layoutX="345.0" layoutY="96.0" text="The input must be an integer number and between (0-10000)" textFill="#da0f0f" visible="false" />
+
+                  <Label layoutX="68.0" layoutY="20.0" text="Light Sensor:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="69.0" layoutY="115.0" text="Accelerometer:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+
+                  <Slider blockIncrement="1.0" layoutX="165.0" layoutY="145.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" fx:id="x_axis" />
+                  <Slider fx:id="y_axis" blockIncrement="1.0" layoutX="165.0" layoutY="178.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" />
+                  <Slider fx:id="z_axis" blockIncrement="1.0" layoutX="165.0" layoutY="206.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" />
+                  <Slider fx:id="freq" blockIncrement="1.0" layoutX="165.0" layoutY="234.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" />
+                  <CheckBox layoutX="372.0" layoutY="69.0" mnemonicParsing="false" text="(enable/disable the sensor)" />
+                  <Label layoutX="378.0" layoutY="20.0" text="Proximity Sensor:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="383.0" layoutY="42.0" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Search">
+        <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                    <Label layoutX="46.0" layoutY="73.0" text="id:" />
+                    <Label layoutX="10.0" layoutY="123.0" text="Location(coordinates):" />
+                    <Label layoutX="19.0" layoutY="184.0" text="Sensor Type:" />
+                    <Label layoutX="39.0" layoutY="258.0" text="Date:" />
+                    <Button layoutX="21.0" layoutY="318.0" mnemonicParsing="false" onAction="#Search" prefHeight="39.0" prefWidth="96.0" text="Search">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Button>
+                    <TextField fx:id="user_id" alignment="CENTER" layoutX="135.0" layoutY="69.0" promptText="user id number" />
+                    <Label fx:id="id_check" layoutX="345.0" layoutY="56.0" text="There is no such user!" textFill="#da0f0f" visible="false" />
+                    <TextField fx:id="longtitude" alignment="CENTER" layoutX="134.0" layoutY="119.0" promptText="longitude (W)" />
+                    <TextField fx:id="latitude" alignment="CENTER" layoutX="328.0" layoutY="119.0" promptText="latitude (N)" />
+                    <Separator layoutY="87.0" prefHeight="32.0" prefWidth="600.0" AnchorPane.bottomAnchor="252.0" />
+                    <Separator layoutX="3.0" layoutY="144.0" prefHeight="32.0" prefWidth="600.0" />
+                    <Separator layoutY="209.0" prefHeight="32.0" prefWidth="600.0" />
+                    <Separator layoutY="275.0" prefHeight="45.0" prefWidth="600.0" />
+                    <Label layoutX="110.0" layoutY="14.0" text="Search throught the confirmed hits of the users." textAlignment="CENTER">
+                        <font>
+                            <Font size="18.0" />
+                        </font>
+                    </Label>
+                    <Label layoutX="293.0" layoutY="123.0" text="and" />
+                    <ChoiceBox fx:id="Sensor_Type" layoutX="134.0" layoutY="180.0" prefWidth="150.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Light sensor" />
+                            <String fx:value="Accelerometer" />
+                            <String fx:value="Proximity" />
+                        </FXCollections>
+                    </items>
+                    </ChoiceBox>
+                    <DatePicker fx:id="Date" layoutX="134.0" layoutY="254.0" prefHeight="25.0" prefWidth="152.0" />
+                    <ChoiceBox fx:id="cbox_hours" layoutX="307.0" layoutY="254.0" prefWidth="61.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="00" />
+                                <String fx:value="01" />
+                                <String fx:value="02" />
+                                <String fx:value="03" />
+                                <String fx:value="07" />
+                                <String fx:value="08" />
+                                <String fx:value="09" />
+                                <String fx:value="10" />
+                                <String fx:value="11" />
+                                <String fx:value="12" />
+                                <String fx:value="13" />
+                                <String fx:value="14" />
+                                <String fx:value="15" />
+                                <String fx:value="16" />
+                                <String fx:value="17" />
+                                <String fx:value="18" />
+                                <String fx:value="19" />
+                                <String fx:value="20" />
+                                <String fx:value="21" />
+                                <String fx:value="22" />
+                                <String fx:value="23" />
+                            </FXCollections>
+                        </items>
+                    </ChoiceBox>
+                    <ChoiceBox fx:id="cbox_secs" layoutX="460.0" layoutY="254.0" prefWidth="61.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="00" />
+                            <String fx:value="01" />
+                            <String fx:value="02" />
+                            <String fx:value="03" />
+                            <String fx:value="07" />
+                            <String fx:value="08" />
+                            <String fx:value="09" />
+                            <String fx:value="10" />
+                            <String fx:value="11" />
+                            <String fx:value="12" />
+                            <String fx:value="13" />
+                            <String fx:value="14" />
+                            <String fx:value="15" />
+                            <String fx:value="16" />
+                            <String fx:value="17" />
+                            <String fx:value="18" />
+                            <String fx:value="19" />
+                            <String fx:value="20" />
+                            <String fx:value="21" />
+                            <String fx:value="22" />
+                            <String fx:value="23" />
+                            <String fx:value="24" />
+                            <String fx:value="25" />
+                            <String fx:value="26" />
+                            <String fx:value="27" />
+                            <String fx:value="28" />
+                            <String fx:value="29" />
+                            <String fx:value="30" />
+                            <String fx:value="31" />
+                            <String fx:value="32" />
+                            <String fx:value="33" />
+                            <String fx:value="34" />
+                            <String fx:value="35" />
+                            <String fx:value="36" />
+                            <String fx:value="37" />
+                            <String fx:value="38" />
+                            <String fx:value="39" />
+                            <String fx:value="40" />
+                            <String fx:value="41" />
+                            <String fx:value="42" />
+                            <String fx:value="43" />
+                            <String fx:value="44" />
+                            <String fx:value="45" />
+                            <String fx:value="46" />
+                            <String fx:value="47" />
+                            <String fx:value="48" />
+                            <String fx:value="49" />
+                            <String fx:value="50" />
+                            <String fx:value="51" />
+                            <String fx:value="52" />
+                            <String fx:value="53" />
+                            <String fx:value="54" />
+                            <String fx:value="55" />
+                            <String fx:value="56" />
+                            <String fx:value="57" />
+                            <String fx:value="58" />
+                            <String fx:value="59" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+                    <ChoiceBox fx:id="cbox_mins" layoutX="383.0" layoutY="254.0" prefWidth="61.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="00" />
+                                <String fx:value="01" />
+                                <String fx:value="02" />
+                                <String fx:value="03" />
+                                <String fx:value="07" />
+                                <String fx:value="08" />
+                                <String fx:value="09" />
+                                <String fx:value="10" />
+                                <String fx:value="11" />
+                                <String fx:value="12" />
+                                <String fx:value="13" />
+                                <String fx:value="14" />
+                                <String fx:value="15" />
+                                <String fx:value="16" />
+                                <String fx:value="17" />
+                                <String fx:value="18" />
+                                <String fx:value="19" />
+                                <String fx:value="20" />
+                                <String fx:value="21" />
+                                <String fx:value="22" />
+                                <String fx:value="23" />
+                                <String fx:value="24" />
+                                <String fx:value="25" />
+                                <String fx:value="26" />
+                                <String fx:value="27" />
+                                <String fx:value="28" />
+                                <String fx:value="29" />
+                                <String fx:value="30" />
+                                <String fx:value="31" />
+                                <String fx:value="32" />
+                                <String fx:value="33" />
+                                <String fx:value="34" />
+                                <String fx:value="35" />
+                                <String fx:value="36" />
+                                <String fx:value="37" />
+                                <String fx:value="38" />
+                                <String fx:value="39" />
+                                <String fx:value="40" />
+                                <String fx:value="41" />
+                                <String fx:value="42" />
+                                <String fx:value="43" />
+                                <String fx:value="44" />
+                                <String fx:value="45" />
+                                <String fx:value="46" />
+                                <String fx:value="47" />
+                                <String fx:value="48" />
+                                <String fx:value="49" />
+                                <String fx:value="50" />
+                                <String fx:value="51" />
+                                <String fx:value="52" />
+                                <String fx:value="53" />
+                                <String fx:value="54" />
+                                <String fx:value="55" />
+                                <String fx:value="56" />
+                                <String fx:value="57" />
+                                <String fx:value="58" />
+                                <String fx:value="59" />
+                            </FXCollections>
+                        </items>
+                    </ChoiceBox>
+                    <Label layoutX="322.0" layoutY="233.0" text="hours" />
+                    <Label layoutX="401.0" layoutY="234.0" text="mins" />
+                    <Label layoutX="479.0" layoutY="234.0" text="secs" />
+                  <Separator layoutX="285.0" layoutY="158.0" orientation="VERTICAL" prefHeight="67.0" prefWidth="39.0" />
+                  <Label layoutX="345.0" layoutY="183.0" text="Sensor" />
+                </children></AnchorPane>
+        </content>
+    </Tab>
+  </tabs>
+</TabPane>

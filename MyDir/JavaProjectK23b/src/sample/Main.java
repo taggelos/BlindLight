@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
+import java.util.Date;
+import java.sql.*;
+//import org.eclipse.paho.client.mqttv3.MqttClient;
 import javafx.stage.Stage;
 import sample.Pub_Sub.MqttPublisher;
 import sample.Pub_Sub.MqttSubscriber;
@@ -19,10 +22,20 @@ import java.sql.*;
 
 public class Main extends Application {
 
+    private static Stage pStage;
+    public static Stage getPrimaryStage() {
+        return pStage;
+    }
+    private void setPrimaryStage(Stage pStage) {
+        this.pStage = pStage;
+    }
+
     private static MqttSubscriber subscriber;
     private static MqttPublisher publisher;
 
-    public class Records{
+
+
+    /*public class Records{
         int id_name;
         Float latitude ;
         Float longitude;
@@ -30,13 +43,16 @@ public class Main extends Application {
         Float records;
         // @Temporal(TemporalType.TIMESTAMP)
         Date datetime ;
-    }
+    }*/
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        setPrimaryStage(primaryStage);
+
         ObservableList items =
                 FXCollections.observableArrayList();
-        try {
+/*        try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "MyNewPass");
             Statement stmt = connection.createStatement( );
             String SQL = "SELECT * FROM blind_light_data";
@@ -66,6 +82,11 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().add(listView);
         primaryStage.setScene(new Scene(root, 200, 250));
+        primaryStage.show(); */
+
+        Parent root = FXMLLoader.load(getClass().getResource("Settings.fxml"));
+        primaryStage.setTitle("BlindLight(Beta)");
+        primaryStage.setScene(new Scene(root, 800, 400));
         primaryStage.show();
     }
 
@@ -74,6 +95,7 @@ public class Main extends Application {
         launch(args);
         subscriber = new MqttSubscriber();
         subscriber.main();
+
 
         //publisher = new MqttPublisher();
         //publisher.main();
