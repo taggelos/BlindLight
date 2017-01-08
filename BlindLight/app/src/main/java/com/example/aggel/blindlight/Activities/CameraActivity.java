@@ -78,8 +78,8 @@ public class CameraActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-            //t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
-            System.out.println(t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null));
+            t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
+            //System.out.println(t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null));
         } else {
             System.out.println("55555IIIIN?");
             t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);

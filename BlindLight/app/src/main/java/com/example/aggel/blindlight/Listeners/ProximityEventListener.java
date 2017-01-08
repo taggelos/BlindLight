@@ -8,14 +8,21 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.aggel.blindlight.Activities.SettingsActivity;
+import com.example.aggel.blindlight.util.MyAsyncTask;
 import com.example.aggel.blindlight.util.SoundEvent;
+
+import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
+import static com.example.aggel.blindlight.Activities.MainActivity.offine_mode;
+import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
+import static com.example.aggel.blindlight.Activities.MainActivity.date;
+import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
 
 
 public class ProximityEventListener extends SettingsActivity implements SensorEventListener {
 
     private TextView proxText;
+    public MyAsyncTask tt;
     private boolean CheckProx;
     private Context context;
     private SoundEvent se;
@@ -27,7 +34,7 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
     public ProximityEventListener(SensorManager SM, boolean CheckProx, TextView proxText, Context context) {
         //Proximity Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        sensor_name = mySensor.getName().replaceAll("\\s+" , "");
+        sensor_name = ("Proximity Sensor");
 
 
         //Register sensor listener
@@ -47,26 +54,42 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-
-        proxText.setText("Οff");
         sensor_value = Float.toString(event.values[0]);
+        proxText.setText("Οff");
 
-        if ((event.values[0] == 0) && (CheckProx)) {
+        if(event.values[0] == 0){
             proxText.setText("Οn");
-            CharSequence text = "Βe careful!!";
-            final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-            toast.show();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    toast.cancel();
-                }
-            }, 1500);
-            streamId = se.playNonStop(soundId);
-            return;
         }
-        se.stopSound(streamId);
+
+
+        //---------------Calling Async Task Function---------------
+
+
+        if (offine_mode == false) {
+            //final String c = sensor_value;
+            String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
+            tt = new MyAsyncTask(topic, Port_Ip);
+            tt.execute();
+
+        }
+        else {
+            if ((event.values[0] == 0) && (CheckProx)) {
+                proxText.setText("Οn");
+                CharSequence text = "Βe careful!!";
+                final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 1500);
+                streamId = se.playNonStop(soundId);
+                return;
+            }
+            se.stopSound(streamId);
+        }
     }
 
 

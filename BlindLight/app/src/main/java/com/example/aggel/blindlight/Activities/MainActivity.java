@@ -6,18 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.SharedPreferences;
 import android.hardware.SensorManager;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,19 +26,15 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.Listeners.MyLocationListener;
-import com.example.aggel.blindlight.util.MqttPublisher;
-import com.example.aggel.blindlight.util.MqttSubscriber;
 import com.example.aggel.blindlight.util.NetworkStateReceiver;
 import com.example.aggel.blindlight.Listeners.AccelerometerEventListener;
 import com.example.aggel.blindlight.Listeners.LightEventListener;
 import com.example.aggel.blindlight.Listeners.ProximityEventListener;
 
-import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener {
@@ -51,22 +42,25 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     private boolean CheckProx;
 
     //Mqtt Broker Client
-    public MqttSubscriber subscriber;
-    public MqttPublisher publisher;
-    public String Port_Ip="tcp://192.168.1.2:1883"; //by default
-    public String IpAddress;
-    public String date;
+    //public MqttSubscriber subscriber;
+    //public MqttPublisher publisher;
+    //public MyAsyncTask tt;
+    public static String Port_Ip="tcp://192.168.1.2:1883"; //by default
+    public static String date;
+    public static String macAddress;
 
 
     //offline-online mode
     private NetworkStateReceiver networkStateReceiver;
     private MenuItem item;
     private MenuItem item2;
-    private boolean online_mode;
+    public static boolean offine_mode;
     private boolean online_mode_cam;
     private Switch connectivity_Mode;
+
+    //Location
     private LocationManager locationManager;
-    private MyLocationListener locationListener;
+    public static MyLocationListener locationListener;
 
     //Thresholds
 
@@ -86,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        macAddress=getMacAddr();
 
     }
 
@@ -194,13 +189,13 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
 
                 if (isChecked) {
-                    online_mode = false;
+                    offine_mode = false;
                     invalidateOptionsMenu();
                     connectivity_Mode.setEnabled(true);
 
 
                 } else {
-                    online_mode = true;
+                    offine_mode = true;
                     invalidateOptionsMenu();
                     connectivity_Mode.setChecked(false);
                     connectivity_Mode.setEnabled(true);
@@ -333,8 +328,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         item2 = menu.findItem(R.id.menu_mqtt_settings);
 
 
-        item.setEnabled(online_mode);
-        item2.setEnabled(!online_mode);
+        item.setEnabled(offine_mode);
+        item2.setEnabled(!offine_mode);
 
 
         return true;
@@ -412,18 +407,11 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         CharSequence text = "Mode: ONLINE";
         final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.show();
-        online_mode = false;
+        offine_mode = false;
         invalidateOptionsMenu();
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         connectivity_Mode.setEnabled(true);
         connectivity_Mode.setChecked(true);
-        String topic = getMacAddr()+"/"+proxy.getSensorName()+"/"+proxy.getSensorValue()+"/"+date+"/"+locationListener.getDevLatitude()+"/"+locationListener.getDevLongtitude();
-        subscriber = new MqttSubscriber();
-        subscriber.main("#" ,Port_Ip);
-        publisher = new MqttPublisher();
-        publisher.main(topic , Port_Ip);
-
-
     }
 
     @Override
@@ -432,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         CharSequence text = "Mode: OFFLINE";
         final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.show();
-        online_mode=true;
+        offine_mode =true;
         invalidateOptionsMenu(); //  we call this function to update options_menu
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         connectivity_Mode.setChecked(false);

@@ -11,7 +11,13 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.aggel.blindlight.Activities.SettingsActivity;
+import com.example.aggel.blindlight.util.MyAsyncTask;
 import com.example.aggel.blindlight.util.SoundEvent;
+import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
+import static com.example.aggel.blindlight.Activities.MainActivity.offine_mode;
+import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
+import static com.example.aggel.blindlight.Activities.MainActivity.date;
+import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
 
 /**
  * Created by aggel on 15/10/2016.
@@ -33,6 +39,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
     public String  sensor_values="";
     private int soundId;
     private int streamId;
+    public MyAsyncTask tt;
 
 
 
@@ -42,7 +49,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
         //Accelerometer Sensor
 
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensor_name = mySensor.getName().replaceAll("\\s+" , "");
+        sensor_name = ("Accelerometer Sensor");
 
 
 
@@ -97,30 +104,42 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
         sensor_values=sensor_values+Float.toString(event.values[0])+","+Float.toString(event.values[1])+","+Float.toString(event.values[2]);
 
-        int max = 0;
-        for (int i = 0; i < event.values.length; i++) {
-            textTable[i].setTextColor(Color.BLACK);
-            if (event.values[i] > event.values[max])
-                max = i;
+        //---------------Calling Async Task Function---------------
+
+        if(offine_mode ==false){
+            //final String c = sensor_value;
+            String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
+            tt = new MyAsyncTask(topic, Port_Ip);
+            tt.execute();
+
         }
-        textTable[max].setTextColor(Color.BLUE);
+
+        else {
+            int max = 0;
+            for (int i = 0; i < event.values.length; i++) {
+                textTable[i].setTextColor(Color.BLACK);
+                if (event.values[i] > event.values[max])
+                    max = i;
+            }
+            textTable[max].setTextColor(Color.BLUE);
 
 
-        if ((linear_acceleration[0] > threshold_x_axis) || (linear_acceleration[1] > threshold_y_axis) || (linear_acceleration[2] > threshold_z_axis)) {
-            CharSequence text = "Be carefull: You're moving too fast!!";
-            final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-            toast.show();
-            Handler handler2 = new Handler();
-            handler2.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    toast.cancel();
-                }
-            }, 1500);
-            mHandler.postDelayed(run, freq);
-            //streamId = se.playNonStop(soundId);
-            //return;
+            if ((linear_acceleration[0] > threshold_x_axis) || (linear_acceleration[1] > threshold_y_axis) || (linear_acceleration[2] > threshold_z_axis)) {
+                CharSequence text = "Be carefull: You're moving too fast!!";
+                final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                toast.show();
+                Handler handler2 = new Handler();
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 1500);
+                mHandler.postDelayed(run, freq);
+                //streamId = se.playNonStop(soundId);
+                //return;
 
+            }
         }
 
 
@@ -132,11 +151,16 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
         SM.unregisterListener(this);
     }
 
-    public String getSensorName() {
+    public String getSensorName(){
+        return sensor_name;
+    }
+
+    public String getSensorValue() {
 
         return sensor_values;
 
     }
+
 
 
     @Override
