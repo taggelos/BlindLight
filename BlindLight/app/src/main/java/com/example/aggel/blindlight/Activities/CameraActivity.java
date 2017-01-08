@@ -7,10 +7,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import com.example.aggel.accelerometerapplication.R;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -44,14 +44,24 @@ import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.google.common.collect.ImmutableList;
 
-public class CameraActivity extends AppCompatActivity {
+import static android.R.id.input;
 
-    private TextToSpeech t1;
-    private EditText ed1;
-    private Button b1;
+import android.speech.tts.TextToSpeech;
+
+
+
+public class CameraActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, View.OnClickListener {
+
+
+
     private Button camBtn;
     private ImageView camImg;
     private static final int CAM_REQUEST = 1313;
+
+
+    EditText input;
+    Button button_clear,button_speak;
+    TextToSpeech tts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,84 +73,65 @@ public class CameraActivity extends AppCompatActivity {
 
         camBtn.setOnClickListener(new BtnClicker());
         /////////////////////////////////////////////////
-        //ed1=(EditText)findViewById(R.id.editText);
-        //b1=(Button)findViewById(R.id.button);
+        input = (EditText) findViewById(R.id.input);
+        button_clear = (Button) findViewById(R.id.button_clear);
+        button_speak = (Button) findViewById(R.id.button_speak);
 
-       /* t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status == TextToSpeech.SUCCESS) {
-                    t1.setLanguage(Locale.UK);
-                }
+        button_clear.setOnClickListener(this);
+        button_speak.setOnClickListener(this);
+
+        tts = new TextToSpeech(this,this);
+
+        System.out.println("EDW EIMAII NAI RE MUNIA");
+
+
+    }
+
+
+    ////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    @Override
+    public void onInit(int status) {
+        if(status == TextToSpeech.SUCCESS){
+            Locale lang = tts.getLanguage();
+            int result = tts.setLanguage(lang);
+            if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                Log.e("TTS", "this language is not supported");
+
             }
-        });
-        String text = "Hello World";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-            t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
-            //System.out.println(t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null));
-        } else {
-            System.out.println("55555IIIIN?");
-            t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+            else{
+                //do nothing
+            }
         }
-
-        System.out.println("WORKIIIIIIIN?");
-
-       /* b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String toSpeak = ed1.getText().toString();
-                Toast.makeText(getApplicationContext(), toSpeak, Toast.LENGTH_SHORT).show();
-                //String text = editText.getText().toString();
-                String text = "Axneeee";
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
-                } else {
-                    t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-                }
-            }
-        });*/
-
+        else {
+            Log.e("TTS","Initialisation Failed");
+        }
+        System.out.println("KSEFYGA R PUSTES");
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        t1=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status == TextToSpeech.SUCCESS) {
-                    t1.setLanguage(Locale.UK);
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button_clear:
+                input.setText("");
+                break;
+            case R.id.button_speak:
+                String text = input.getText().toString();
+                if(text.isEmpty()){
+                    Toast.makeText(CameraActivity.this, "Text is empty", Toast.LENGTH_SHORT).show();
+
                 }
-            }
-        });
-        String text = "Hello World 2";
+                else{
+                    tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                    System.out.println("OLE OLE OLE");
+                }
+                break;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-            //t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
-            System.out.println(t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null));
-        } else {
-            System.out.println("55555IIIIN2222?");
-            t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
 
-        System.out.println("WORKIIIIIIIN2222?");
     }
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-    public void onPause(){
-        if(t1 !=null){
-            //t1.stop();
-            //t1.shutdown();
-        }
-        super.onPause();
-    }
-
-
-
-    /////////////////////////////////////////////////
+    ///////////////////////////////////////////////// GOOGLE VISION
 
 
     public static Vision getVisionService() throws IOException, GeneralSecurityException {
@@ -156,9 +147,9 @@ public class CameraActivity extends AppCompatActivity {
     private  Vision vision;
 
 
-    /**
-     * Prints the labels received from the Vision API.
-     */
+
+     // Prints the labels received from the Vision API.
+
     public static void printLabels(PrintStream out, List<EntityAnnotation> labels) {
         //out.printf("Labels for image %s:\n", imagePath);
         for (EntityAnnotation label : labels) {
@@ -236,8 +227,6 @@ public class CameraActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
         return stream.toByteArray();
     }
-
-
 
 
     class BtnClicker implements Button.OnClickListener{
