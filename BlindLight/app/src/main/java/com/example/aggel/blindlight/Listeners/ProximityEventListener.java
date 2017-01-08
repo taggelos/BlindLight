@@ -12,10 +12,12 @@ import com.example.aggel.blindlight.Activities.SettingsActivity;
 import com.example.aggel.blindlight.util.MyAsyncTask;
 import com.example.aggel.blindlight.util.SoundEvent;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
 import static com.example.aggel.blindlight.Activities.MainActivity.offine_mode;
 import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
-import static com.example.aggel.blindlight.Activities.MainActivity.date;
 import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
 
 
@@ -30,6 +32,7 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
     private int streamId;
     public String sensor_name;
     public String sensor_value;
+    private String date;
 
     public ProximityEventListener(SensorManager SM, boolean CheckProx, TextView proxText, Context context) {
         //Proximity Sensor
@@ -66,6 +69,14 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
 
 
         if (offine_mode == false) {
+
+            Calendar c = Calendar.getInstance();
+            int seconds = c.get(Calendar.SECOND);
+            SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm:ss a");
+            date = format.format(Calendar.getInstance().getTimeInMillis());
+            System.out.println(date);
+            //System.out.println(seconds);
+
             //final String c = sensor_value;
             String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
             tt = new MyAsyncTask(topic, Port_Ip);

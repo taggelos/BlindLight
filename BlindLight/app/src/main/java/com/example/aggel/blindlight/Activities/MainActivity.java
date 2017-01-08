@@ -41,12 +41,9 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
     private boolean CheckProx;
 
-    //Mqtt Broker Client
-    //public MqttSubscriber subscriber;
-    //public MqttPublisher publisher;
-    //public MyAsyncTask tt;
+
     public static String Port_Ip="tcp://192.168.1.2:1883"; //by default
-    public static String date;
+
     public static String macAddress;
 
 
@@ -137,13 +134,6 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     protected void onResume() {
         super.onResume();
 
-        //------------DATE------------
-        Calendar c = Calendar.getInstance();
-        int seconds = c.get(Calendar.SECOND);
-        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm:ss a");
-        date = format.format(Calendar.getInstance().getTimeInMillis());
-        System.out.println(date);
-        //System.out.println(seconds);
 
         //----------------Listener for the GPS Location-----------------------
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -209,18 +199,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         //-------------------------GPS----------------------------
 
 
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Context context = getApplicationContext();
-            CharSequence text = "GPS : ENABLED";
-            final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-            toast.show();
 
-        } else {
-            buildAlertMessageNoGps();
-            /*Context context = getApplicationContext();
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            context.startActivity(intent);*/
-        }
 
         //-------------------------CAMERA----------------------------
 
@@ -326,12 +305,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         item = menu.findItem(R.id.menu_AndroidSettings);
         item2 = menu.findItem(R.id.menu_mqtt_settings);
-
-
         item.setEnabled(offine_mode);
         item2.setEnabled(!offine_mode);
-
-
         return true;
     }
 
@@ -347,8 +322,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                     break;
             case R.id.menu_mqtt_settings:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-                alertDialog.setTitle("Port");
-                alertDialog.setMessage("Enter Port");
+                alertDialog.setTitle("Connection Settings");
+                alertDialog.setMessage("Please enter Ip/PortQ");
 
                 final EditText input = new EditText(MainActivity.this);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -412,6 +387,18 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         connectivity_Mode.setEnabled(true);
         connectivity_Mode.setChecked(true);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            //Context context = getApplicationContext();
+            CharSequence text2 = "GPS : ENABLED";
+            final Toast toast2 = Toast.makeText(context, text2, Toast.LENGTH_SHORT);
+            toast.show();
+
+        } else {
+            buildAlertMessageNoGps();
+            /*Context context = getApplicationContext();
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            context.startActivity(intent);*/
+        }
     }
 
     @Override
