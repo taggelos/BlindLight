@@ -10,7 +10,15 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.aggel.blindlight.Activities.SettingsActivity;
+import com.example.aggel.blindlight.util.MyAsyncTask;
+
 import com.example.aggel.blindlight.util.SoundEvent;
+import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
+import static com.example.aggel.blindlight.Activities.MainActivity.offine_mode;
+import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
+import static com.example.aggel.blindlight.Activities.MainActivity.date;
+import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
+
 
 /**
  * Created by aggel on 15/10/2016.
@@ -26,15 +34,14 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
     private int soundId;
     public String sensor_name;
     public String sensor_value;
-
     private int streamId;
-
     private Context context;
+    public MyAsyncTask tt;
 
     public LightEventListener(SensorManager SM,  TextView textTable , int threshold_max_light , int threshold_min_light ,  Context context) {
         //Light Sensor
         Sensor mySensor = SM.getDefaultSensor(Sensor.TYPE_LIGHT);
-        //sensor_name = mySensor.getName().replaceAll("\\s+" , "");
+        sensor_name = ("Light Sensor");
 
 
         //Register sensor listener
@@ -59,30 +66,45 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
             textTable.setText(String.valueOf(event.values[0]));
             sensor_value = Float.toString(event.values[0]);
 
+            //---------------Calling Async Task Function---------------
 
-            if (event.values[0] > threshold_max_light ) {
-                CharSequence text = "Too much light around you!!";
-                final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-                toast.show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        toast.cancel();
-                    }
-                }, 1500);
+
+            if (offine_mode == false) {
+                //final String c = sensor_value;
+                String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
+                tt = new MyAsyncTask(topic, Port_Ip);
+                tt.execute();
+
             }
-            if (event.values[0] < threshold_min_light ) {
-                CharSequence text = "Little light around you!!";
-                final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-                toast.show();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        toast.cancel();
-                    }
-                }, 1500);
+
+
+            else {
+
+
+                if (event.values[0] > threshold_max_light) {
+                    CharSequence text = "Too much light around you!!";
+                    final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                    toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                        }
+                    }, 1500);
+                }
+                if (event.values[0] < threshold_min_light) {
+                    CharSequence text = "Little light around you!!";
+                    final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                    toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                        }
+                    }, 1500);
+                }
             }
         }
     }
