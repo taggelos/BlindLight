@@ -36,9 +36,11 @@
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
 
+        <service android:name="com.example.aggel.blindlight.Services.CameraService"
+                android:exported ="false"
+        > </service>
 
-
-        <activity android:name="com.example.aggel.blindlight.Activities.CameraActivity"></activity>
+        <activity android:name="com.example.aggel.blindlight.Activities.CameraActivity2"></activity>
 
     </application>
 

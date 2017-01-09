@@ -2,16 +2,12 @@ package com.example.aggel.blindlight.Activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Path;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import com.example.aggel.accelerometerapplication.R;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.security.GeneralSecurityException;
@@ -44,13 +39,11 @@ import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.google.common.collect.ImmutableList;
 
-import static android.R.id.input;
-
 import android.speech.tts.TextToSpeech;
 
 
 
-public class CameraActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, View.OnClickListener {
+public class CameraActivity2 extends AppCompatActivity implements TextToSpeech.OnInitListener, View.OnClickListener {
 
 
 
@@ -61,7 +54,7 @@ public class CameraActivity extends AppCompatActivity implements TextToSpeech.On
 
     EditText input;
     Button button_clear,button_speak;
-    TextToSpeech tts;
+    TextToSpeech t1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +73,7 @@ public class CameraActivity extends AppCompatActivity implements TextToSpeech.On
         button_clear.setOnClickListener(this);
         button_speak.setOnClickListener(this);
 
-        tts = new TextToSpeech(this,this);
+        t1 = new TextToSpeech(this,this);
 
         System.out.println("EDW EIMAII NAI RE MUNIA");
 
@@ -92,8 +85,8 @@ public class CameraActivity extends AppCompatActivity implements TextToSpeech.On
     @Override
     public void onInit(int status) {
         if(status == TextToSpeech.SUCCESS){
-            Locale lang = tts.getLanguage();
-            int result = tts.setLanguage(lang);
+            Locale lang = t1.getLanguage();
+            int result = t1.setLanguage(lang);
             if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
                 Log.e("TTS", "this language is not supported");
 
@@ -117,12 +110,15 @@ public class CameraActivity extends AppCompatActivity implements TextToSpeech.On
             case R.id.button_speak:
                 String text = input.getText().toString();
                 if(text.isEmpty()){
-                    Toast.makeText(CameraActivity.this, "Text is empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CameraActivity2.this, "Text is empty", Toast.LENGTH_SHORT).show();
 
                 }
                 else{
-                    tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-                    System.out.println("OLE OLE OLE");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        t1.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
+                    } else {
+                        t1.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                    }
                 }
                 break;
 
@@ -135,9 +131,8 @@ public class CameraActivity extends AppCompatActivity implements TextToSpeech.On
 
 
     public static Vision getVisionService() throws IOException, GeneralSecurityException {
-        GoogleCredential credential =
-                GoogleCredential.getApplicationDefault()
-                        .createScoped(VisionScopes.all());
+        GoogleCredential credential = GoogleCredential.getApplicationDefault().createScoped(VisionScopes.all());
+
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         return new Vision.Builder(GoogleNetHttpTransport.newTrustedTransport(), jsonFactory, credential)
                 .setApplicationName("BlindLightApp")
@@ -158,7 +153,7 @@ public class CameraActivity extends AppCompatActivity implements TextToSpeech.On
                     label.getDescription(),
                     label.getScore());
         }
-        if (labels.isEmpty()) {
+        if (labels.isEmpty() || labels == null) {
             out.println("\tNo labels found.");
         }
     }
@@ -167,8 +162,33 @@ public class CameraActivity extends AppCompatActivity implements TextToSpeech.On
     public List<EntityAnnotation> labelImage(byte[] data, int maxResults) throws IOException, GeneralSecurityException {
         //byte[] data = File.readAllBytes(path);
 
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    vision = getVisionService();
+                }
+                catch (Exception e) {
+                    vision = null;
+                }
+            }
+        });
 
-        vision= getVisionService();
+        thread.start();
+
+        try {
+            thread.join();
+            System.out.println("------------1111111------------");
+        }
+        catch (InterruptedException e) {
+            System.out.println("------------222222------------");
+            return null;
+        }
+
+        if (vision == null) {
+            System.out.println("THN EGAMHSAME PALIKARIA");
+            return null;
+        }
 
         AnnotateImageRequest request =
                 new AnnotateImageRequest()

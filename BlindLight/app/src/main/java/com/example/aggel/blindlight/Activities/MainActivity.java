@@ -26,6 +26,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.Listeners.MyLocationListener;
+import com.example.aggel.blindlight.Services.CameraService;
 import com.example.aggel.blindlight.util.NetworkStateReceiver;
 import com.example.aggel.blindlight.Listeners.AccelerometerEventListener;
 import com.example.aggel.blindlight.Listeners.LightEventListener;
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         alert.show();
     }
 
-
+    Intent intent1;
     @Override
     protected void onResume() {
         super.onResume();
@@ -213,10 +214,14 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                                          boolean isChecked) {
                 if (isChecked) {
                     System.out.println("AXNEEEEEEEEE");
-                    Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+                    Intent intent = new Intent(MainActivity.this, CameraActivity2.class);
                     startActivity(intent);
+                    intent1 = new Intent(MainActivity.this,CameraService.class);
+                    startService(intent1);
+                    Toast.makeText(MainActivity.this,"PAME REEE...",Toast.LENGTH_LONG).show();
+
                 } else {
-                    System.out.println("OXIIIIIIII");
+                    System.out.println("OXIIIIIIIIII");
                 }
 
             }
@@ -260,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     }
 
 
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -285,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         }
         locationManager.removeUpdates(locationListener);
 
-
+        //stopService(intent1);
     }
 
 
@@ -361,6 +367,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 finish();
             }
         });
@@ -373,6 +380,11 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         ad.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(intent1);
+    }
 
     //-----------------Network state---------------
 
@@ -414,3 +426,4 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode.setEnabled(false);
     }
 }
+

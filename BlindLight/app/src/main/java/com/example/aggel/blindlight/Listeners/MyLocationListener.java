@@ -25,16 +25,12 @@ public class MyLocationListener implements LocationListener {
     @Override
     public void onLocationChanged(Location loc ) {
         if ( loc != null) {
-            CharSequence text = "I AM HEREEE LOCATION LISTENER";
-            final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-            toast.show();
-
             mylatitude = loc.getLatitude();
             mylongtitude = loc.getLongitude();
 
-            Toast.makeText(context,
+            /*Toast.makeText(context,
                     "Location changed: Lat: " + mylatitude + " Lng: "
-                            + mylongtitude, Toast.LENGTH_SHORT).show();
+                            + mylongtitude, Toast.LENGTH_SHORT).show();*/
             String longitude = "Longitude: " + mylongtitude;
             Log.v(TAG, longitude);
             String latitude = "Latitude: " + mylatitude;
