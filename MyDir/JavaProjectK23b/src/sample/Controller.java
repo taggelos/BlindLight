@@ -24,8 +24,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import java.util.StringJoiner;
+
 
 public class Controller {
+    @FXML
+    public static Double x_threshold;
+    @FXML
+    public static Double y_threshold;
+    @FXML
+    public static Double z_threshold;
+    @FXML
+    public static Double max_light_threshold;
+    @FXML
+    public static Double  min_light_threshold;
+
 
     @FXML
     private Slider x_axis;
@@ -92,6 +105,14 @@ public class Controller {
            try_again.setVisible(true);
        }else
            System.out.println("clicked on "+ max_light.getText()+"   "+ min_light.getText() +"     " + x_axis.getValue() +"    " + y_axis.getValue() + "   " + z_axis.getValue() +" "+ freq.getValue());
+
+        System.out.println("clicked on "+ x_axis.getValue()+"    " + y_axis.getValue()+ "   " + z_axis.getValue()+" "+freq.getValue());
+        x_threshold=x_axis.getValue();
+        y_threshold=y_axis.getValue();
+        z_threshold=z_axis.getValue();
+        max_light_threshold=Double.parseDouble(max_light.getText());
+        min_light_threshold=Double.parseDouble(min_light.getText());
+
     }
 
 

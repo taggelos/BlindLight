@@ -20,7 +20,8 @@ public class MqttSubscriber implements MqttCallback {
 
         this.topic=topic;
         int qos = 2;
-        String broker = port_ip;
+        //String broker = port_ip;
+        String broker = "tcp://192.168.1.4:1883";
         String clientId = "JavaAsyncSample";
         MemoryPersistence persistence = new MemoryPersistence();
 

@@ -22,14 +22,11 @@ import sample.Pub_Sub.MqttSubscriber;
 import java.util.Date;
 import java.sql.*;
 
-/*
-import static sample.Controller.max_light;
-import static sample.Controller.min_light;
-import static sample.Controller.x_axis;
-import static sample.Controller.y_axis;
-import static sample.Controller.z_axis;
-import static sample.Controller.freq;
-*/
+
+
+
+import static sample.Controller.*;
+
 
 
 public class Main extends Application {
@@ -107,8 +104,11 @@ public class Main extends Application {
         launch(args);
         subscriber = new MqttSubscriber();
         subscriber.main();
+
         //publisher = new MqttPublisher();
         //publisher.main();
     }
+
+
 
 }

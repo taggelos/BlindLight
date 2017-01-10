@@ -197,10 +197,6 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             }
         });
 
-        //-------------------------GPS----------------------------
-
-
-
 
         //-------------------------CAMERA----------------------------
 

@@ -41,7 +41,6 @@ public class MyLocationListener implements LocationListener {
 
     }
 
-
     @Override
     public void onProviderDisabled(String provider) {
         Toast.makeText(context, "Gps is turned off!! ",
