@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/new_logo"
@@ -40,7 +43,18 @@
                 android:exported ="false"
         > </service>
 
-        <activity android:name="com.example.aggel.blindlight.Activities.CameraActivity2"></activity>
+        <activity android:name="com.example.aggel.blindlight.Services.GoogleService"
+            android:exported ="false"> </activity>
+
+        <service android:name="com.example.aggel.blindlight.Services.PhotoService"
+            android:exported ="false"> </service>
+
+        <activity android:name="com.example.aggel.blindlight.Services.GoogleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported ="false"> </activity>
+
+        <activity android:name="com.example.aggel.blindlight.Activities.CameraActivity"></activity>
 
     </application>
 

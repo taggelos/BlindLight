@@ -27,14 +27,14 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.Listeners.MyLocationListener;
 import com.example.aggel.blindlight.Services.CameraService;
+import com.example.aggel.blindlight.Services.GoogleActivity;
+import com.example.aggel.blindlight.Services.PhotoService;
 import com.example.aggel.blindlight.util.NetworkStateReceiver;
 import com.example.aggel.blindlight.Listeners.AccelerometerEventListener;
 import com.example.aggel.blindlight.Listeners.LightEventListener;
 import com.example.aggel.blindlight.Listeners.ProximityEventListener;
 
 import java.net.NetworkInterface;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -210,10 +210,10 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                                          boolean isChecked) {
                 if (isChecked) {
                     System.out.println("AXNEEEEEEEEE");
-                    Intent intent = new Intent(MainActivity.this, CameraActivity2.class);
+                    Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
                     startActivity(intent);
                     intent1 = new Intent(MainActivity.this,CameraService.class);
-                    startService(intent1);
+                    //startService(intent1);
                     Toast.makeText(MainActivity.this,"PAME REEE...",Toast.LENGTH_LONG).show();
 
                 } else {
@@ -379,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopService(intent1);
+        //stopService(intent1);
     }
 
     //-----------------Network state---------------

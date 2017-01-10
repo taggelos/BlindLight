@@ -64,6 +64,13 @@ public class CameraService extends Service implements TextToSpeech.OnInitListene
 
         }
 
+        //startService(new Intent(this, PhotoService.class));
+        System.out.println("sdghaskjh");
+
+        /*Intent dialogIntent = new Intent(this, GoogleService.class);
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(dialogIntent);*/
+
         tts = new TextToSpeech(this,this);
         //tts.setSpeechRate(0.5f);
         return START_STICKY;

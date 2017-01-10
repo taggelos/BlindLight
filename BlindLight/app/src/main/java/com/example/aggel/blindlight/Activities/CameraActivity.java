@@ -43,7 +43,7 @@ import android.speech.tts.TextToSpeech;
 
 
 
-public class CameraActivity2 extends AppCompatActivity implements TextToSpeech.OnInitListener, View.OnClickListener {
+public class CameraActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, View.OnClickListener {
 
 
 
@@ -65,6 +65,8 @@ public class CameraActivity2 extends AppCompatActivity implements TextToSpeech.O
         camImg = (ImageView) findViewById(R.id.camImg);
 
         camBtn.setOnClickListener(new BtnClicker());
+
+        //camBtn.callOnClick();
         /////////////////////////////////////////////////
         input = (EditText) findViewById(R.id.input);
         button_clear = (Button) findViewById(R.id.button_clear);
@@ -80,6 +82,60 @@ public class CameraActivity2 extends AppCompatActivity implements TextToSpeech.O
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAM_REQUEST) {
+                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                camImg.setImageBitmap(thumbnail);
+                try {
+                    //labelImage (getBytesFromBitmap(thumbnail),100);
+                    try {
+                        printLabels(System.out, labelImage (getBytesFromBitmap(thumbnail),100));
+                    } catch (GeneralSecurityException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
+
+    public byte[] getBytesFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        return stream.toByteArray();
+    }
+
+
+    class BtnClicker implements Button.OnClickListener{
+        private String getPictureName(){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String timestamp = sdf.format(new Date());
+            System.out.println("PlantPlacesImage" + timestamp + ".jpg" + "777777");
+            return "PlantPlacesImage" + timestamp + ".jpg";
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            // File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            //String pictureName = getPictureName();
+            // File imageFile = new File(pictureDirectory,pictureName);
+            //Uri pictureUri = Uri.fromFile(imageFile);
+            // cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,pictureUri);
+
+            // System.out.println(pictureDirectory.getAbsolutePath() + "<----------- my path");
+            startActivityForResult(cameraIntent,CAM_REQUEST);
+        }
+    }
 
     ////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     @Override
@@ -110,7 +166,7 @@ public class CameraActivity2 extends AppCompatActivity implements TextToSpeech.O
             case R.id.button_speak:
                 String text = input.getText().toString();
                 if(text.isEmpty()){
-                    Toast.makeText(CameraActivity2.this, "Text is empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CameraActivity.this, "Text is empty", Toast.LENGTH_SHORT).show();
 
                 }
                 else{
@@ -218,58 +274,6 @@ public class CameraActivity2 extends AppCompatActivity implements TextToSpeech.O
 
     //////////////////////////////////////////////
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
 
-        if (resultCode == RESULT_OK) {
-            if (requestCode == CAM_REQUEST) {
-                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                camImg.setImageBitmap(thumbnail);
-                try {
-                    //labelImage (getBytesFromBitmap(thumbnail),100);
-                    try {
-                        printLabels(System.out, labelImage (getBytesFromBitmap(thumbnail),100));
-                    } catch (GeneralSecurityException e) {
-                        e.printStackTrace();
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-    }
-
-    public byte[] getBytesFromBitmap(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-        return stream.toByteArray();
-    }
-
-
-    class BtnClicker implements Button.OnClickListener{
-        private String getPictureName(){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-            String timestamp = sdf.format(new Date());
-            System.out.println("PlantPlacesImage" + timestamp + ".jpg" + "777777");
-            return "PlantPlacesImage" + timestamp + ".jpg";
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-           // File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            //String pictureName = getPictureName();
-            // File imageFile = new File(pictureDirectory,pictureName);
-            //Uri pictureUri = Uri.fromFile(imageFile);
-           // cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,pictureUri);
-
-           // System.out.println(pictureDirectory.getAbsolutePath() + "<----------- my path");
-            startActivityForResult(cameraIntent,CAM_REQUEST);
-        }
-    }
 
 }
