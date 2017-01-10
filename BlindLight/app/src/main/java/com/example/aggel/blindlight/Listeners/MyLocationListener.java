@@ -31,9 +31,9 @@ public class MyLocationListener implements LocationListener {
             /*Toast.makeText(context,
                     "Location changed: Lat: " + mylatitude + " Lng: "
                             + mylongtitude, Toast.LENGTH_SHORT).show();*/
-            String longitude = "Longitude: " + mylongtitude;
+            String longitude = "Longitude______: " + mylongtitude;
             Log.v(TAG, longitude);
-            String latitude = "Latitude: " + mylatitude;
+            String latitude = "Latitude________: " + mylatitude;
             Log.v(TAG, latitude);
 
         }

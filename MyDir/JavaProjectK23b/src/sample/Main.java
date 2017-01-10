@@ -61,7 +61,8 @@ public class Main extends Application {
 
         ObservableList items =
                 FXCollections.observableArrayList();
-/*        try {
+        /*
+        try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "MyNewPass");
             Statement stmt = connection.createStatement( );
             String SQL = "SELECT * FROM blind_light_data";
@@ -91,12 +92,14 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().add(listView);
         primaryStage.setScene(new Scene(root, 200, 250));
-        primaryStage.show(); */
+        primaryStage.show();
+        */
 
         Parent root = FXMLLoader.load(getClass().getResource("Settings.fxml"));
         primaryStage.setTitle("BlindLight(Beta)");
         primaryStage.setScene(new Scene(root, 800, 400));
         primaryStage.show();
+
     }
 
 
@@ -104,6 +107,7 @@ public class Main extends Application {
         launch(args);
         subscriber = new MqttSubscriber();
         subscriber.main();
+
 
         //publisher = new MqttPublisher();
         //publisher.main();
