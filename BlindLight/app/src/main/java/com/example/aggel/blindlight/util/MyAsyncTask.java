@@ -12,6 +12,8 @@ import com.example.aggel.blindlight.util.MqttSubscriber;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
+import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
+
 
 import java.util.Comparator;
 
@@ -39,26 +41,34 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
     protected Void doInBackground(Void... params) {
         //final String value = params[0];
 
-        //subscriber = new MqttSubscriber();
+      //  subscriber = new MqttSubscriber();
         publisher = new MqttPublisher();
 
-        try {
-            int time = 1000;
-            // Sleeping for given time period
-            Thread.sleep(time);
-            //subscriber = new MqttSubscriber();
-            //subscriber.main("#" ,ip_port);
-            //publisher = new MqttPublisher();
-            publisher.main(topic , ip_port);
-            // Do your long operations here and return the result
 
 
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            try {
+                int time = 1000;
+                // Sleeping for given time period
+                Thread.sleep(time);
+                //subscriber = new MqttSubscriber();
+                //subscriber.main("20:2D:07:B3:E1:81" ,ip_port);
+                //publisher = new MqttPublisher();
+                if (offline_mode==false) {
+                    publisher = new MqttPublisher();
+                    publisher.main(topic, ip_port);
+                }
+                else {return null;}
+                // Do your long operations here and return the result
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         return null;
     }
 }

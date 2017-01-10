@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
-import static com.example.aggel.blindlight.Activities.MainActivity.offine_mode;
+import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
 import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
 import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
 
@@ -68,11 +68,11 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
         //---------------Calling Async Task Function---------------
 
 
-        if (offine_mode == false) {
+        if (offline_mode == false) {
 
             Calendar c = Calendar.getInstance();
             int seconds = c.get(Calendar.SECOND);
-            SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm:ss a");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             date = format.format(Calendar.getInstance().getTimeInMillis());
             System.out.println(date);
             //System.out.println(seconds);

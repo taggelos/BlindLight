@@ -27,14 +27,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.Listeners.MyLocationListener;
 import com.example.aggel.blindlight.Services.CameraService;
+import com.example.aggel.blindlight.util.MqttSubscriber;
 import com.example.aggel.blindlight.util.NetworkStateReceiver;
 import com.example.aggel.blindlight.Listeners.AccelerometerEventListener;
 import com.example.aggel.blindlight.Listeners.LightEventListener;
 import com.example.aggel.blindlight.Listeners.ProximityEventListener;
 
 import java.net.NetworkInterface;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,9 +51,10 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     private NetworkStateReceiver networkStateReceiver;
     private MenuItem item;
     private MenuItem item2;
-    public static boolean offine_mode;
+    public static boolean offline_mode=true;
     private boolean online_mode_cam;
     private Switch connectivity_Mode;
+    private MqttSubscriber subscriber;
 
     //Location
     private LocationManager locationManager;
@@ -163,7 +163,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         networkStateReceiver = new NetworkStateReceiver();
         networkStateReceiver.addListener(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
-
+        System.out.println("MARIAAAAAAAAAAAAAAAAAAAAAAAA"+offline_mode);
+        //offline_mode=true;
 
         //--------------Create our Sensor Manager----------------
         SM = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -180,13 +181,14 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
 
                 if (isChecked) {
-                    offine_mode = false;
+                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    offline_mode = false;
                     invalidateOptionsMenu();
                     connectivity_Mode.setEnabled(true);
 
 
                 } else {
-                    offine_mode = true;
+                    offline_mode = true;
                     invalidateOptionsMenu();
                     connectivity_Mode.setChecked(false);
                     connectivity_Mode.setEnabled(true);
@@ -307,8 +309,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         item = menu.findItem(R.id.menu_AndroidSettings);
         item2 = menu.findItem(R.id.menu_mqtt_settings);
-        item.setEnabled(offine_mode);
-        item2.setEnabled(!offine_mode);
+        item.setEnabled(offline_mode);
+        item2.setEnabled(!offline_mode);
         return true;
     }
 
@@ -379,7 +381,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        stopService(intent1);
+       // stopService(intent1);
     }
 
     //-----------------Network state---------------
@@ -390,7 +392,8 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         CharSequence text = "Mode: ONLINE";
         final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.show();
-        offine_mode = false;
+        System.out.println("EDWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+        offline_mode = false;
         invalidateOptionsMenu();
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         connectivity_Mode.setEnabled(true);
@@ -407,6 +410,9 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             context.startActivity(intent);*/
         }
+        subscriber = new MqttSubscriber();
+        subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip);
+
     }
 
     @Override
@@ -415,7 +421,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         CharSequence text = "Mode: OFFLINE";
         final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.show();
-        offine_mode =true;
+        offline_mode =true;
         invalidateOptionsMenu(); //  we call this function to update options_menu
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
         connectivity_Mode.setChecked(false);

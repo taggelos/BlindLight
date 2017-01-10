@@ -14,6 +14,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
+
 
 public class MqttPublisher  {
 
@@ -33,12 +35,15 @@ public class MqttPublisher  {
             connOpts.setCleanSession(true);
             System.out.println("Connecting to broker: " + broker);
             sampleClient.connect(connOpts);
-            System.out.println("Connected");
-            System.out.println("Publishing message: " + content);
-            MqttMessage message = new MqttMessage(content.getBytes());
-            message.setQos(qos);
-            sampleClient.publish(topic, message);
-            System.out.println("Message published");
+            if (offline_mode==false) {
+                System.out.println("Connected");
+                System.out.println("Publishing message: " + content);
+                MqttMessage message = new MqttMessage(content.getBytes());
+                message.setQos(qos);
+
+                sampleClient.publish(topic, message);
+                System.out.println("Message published");
+            }
             //sampleClient.disconnect();
             //System.out.println("Disconnected");
         } catch (MqttException me) {

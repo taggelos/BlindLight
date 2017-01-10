@@ -13,6 +13,11 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.sql.Date;
 
 import static sample.Controller.x_threshold;
 import static sample.Controller.y_threshold;
@@ -25,6 +30,7 @@ import static sample.Controller.min_light_threshold;
 public class MqttSubscriber implements MqttCallback {
 
     private String[] arr;
+    private static MqttPublisher publisher;
 
 
     public static void main() {
@@ -72,15 +78,12 @@ public class MqttSubscriber implements MqttCallback {
         //take the values
         String s = topic;
         arr = s.split("/");
+
+
+
+
         manager(arr);
 
-
-        //System.out.println(macAddress);
-        //System.out.println(sensorType);
-        //System.out.println(sensor_Value);
-        //System.out.println(date);
-        //System.out.println(latitude);
-        //System.out.println(longtitude);
 
     }
 
@@ -95,18 +98,13 @@ public class MqttSubscriber implements MqttCallback {
     }
 
     public static void manager(String[] arr){
+        Boolean possible_crash=false;
         String macAddress = arr[0];
         String sensorType= arr[1];
         String sensor_Value= arr[2];
         String date= arr[3];
         String latitude=arr[4];
         String longtitude=arr[5];
-
-        System.out.println(sensorType);
-
-
-
-
 
         if (sensorType.equals("Accelerometer Sensor")) {
 
@@ -117,37 +115,8 @@ public class MqttSubscriber implements MqttCallback {
             if ((Double.parseDouble(accelero_values[0]) >= x_threshold) || (Double.parseDouble(accelero_values[1]) >= y_threshold) || (Double.parseDouble(accelero_values[2]) >= z_threshold)) {
                 System.out.println("-------------"+x_threshold);
 
-
-
-
-                try {
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "MyNewPass");
-                    // stmt = connection.createStatement( );
-                    String SQL = "INSERT INTO  blind_light_data(user_id ,location_latitude , location_longitude , sensorType , sensorValue , date_time)  VALUES(? , ? , ? , ? , ? , ?)";
-                    PreparedStatement prepared_state= connection.prepareStatement(SQL);
-                    prepared_state.setString(1 , macAddress );
-
-
-                    prepared_state.setFloat(2 , Float.parseFloat(latitude));
-                    prepared_state.setFloat(3 , Float.parseFloat(longtitude));
-                    prepared_state.setString(4 , sensorType );
-                    prepared_state.setString(5 , sensor_Value );
-
-
-                    prepared_state.setDate(6 ,null);
-
-
-                    System.out.println(prepared_state+"----fwefwf-------");
-                    //int rs = stmt.executeUpdate(String.valueOf(prepared_state));
-                    prepared_state.executeUpdate();
-
-
-
-                }
-                catch ( SQLException err ) {
-                    System.out.println( err.getMessage( ) );
-                }
-
+                //inserInMyDataBase(macAddress , latitude , longtitude , sensorType , sensor_Value , date);
+                possible_crash=true;
 
             }
 
@@ -155,25 +124,64 @@ public class MqttSubscriber implements MqttCallback {
         else if(sensorType.equals("Light Sensor")){
 
             if (Double.parseDouble(sensor_Value) > max_light_threshold) {
+                possible_crash=true;
 
             }
             if (Double.parseDouble(sensor_Value) < min_light_threshold) {
+                possible_crash=true;
 
             }
 
         }
         else {
+            if ((Double.parseDouble(sensor_Value))==0){
+                possible_crash=true;
+
+            }
+
+        }
+        if(possible_crash.equals(true)){
+            inserInMyDataBase(macAddress , latitude , longtitude , sensorType , sensor_Value , date);
+            publisher = new MqttPublisher();
+            publisher.main(macAddress);
 
         }
 
 
+        //if possibitity =true
+
+        ////publisher = new MqttPublisher();
+        //publisher.main();
+
+    }
+
+    public static void inserInMyDataBase(String macAddress ,String latitude ,String longtitude ,String sensorType ,String sensor_Value , String  date ){
 
 
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?autoReconnect=true&useSSL=false", "root", "MyNewPass");
+            // stmt = connection.createStatement( );
+            String SQL = "INSERT INTO  blind_light_data(user_id ,location_latitude , location_longitude , sensorType , sensorValue , date_time)  VALUES(? , ? , ? , ? , ? , ?)";
 
 
+            PreparedStatement prepared_state= connection.prepareStatement(SQL);
+            prepared_state.setString(1 , macAddress );
+            prepared_state.setFloat(2 , Float.parseFloat(latitude));
+            prepared_state.setFloat(3 , Float.parseFloat(longtitude));
+            prepared_state.setString(4 , sensorType );
+            prepared_state.setString(5 , sensor_Value );
+            prepared_state.setDate(6 , null);
 
 
+            System.out.println(prepared_state+"----fwefwf-------");
+            //int rs = stmt.executeUpdate(String.valueOf(prepared_state));
+            prepared_state.executeUpdate();
 
+
+        }
+        catch ( SQLException err ) {
+            System.out.println( err.getMessage( ) );
+        }
 
     }
 

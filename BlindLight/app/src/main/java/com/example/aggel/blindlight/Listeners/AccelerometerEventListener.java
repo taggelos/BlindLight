@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
-import static com.example.aggel.blindlight.Activities.MainActivity.offine_mode;
+import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
 import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
 //import static com.example.aggel.blindlight.Activities.MainActivity.date;
 import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
@@ -109,12 +109,16 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
         sensor_values=sensor_values+Float.toString(event.values[0])+","+Float.toString(event.values[1])+","+Float.toString(event.values[2]);
 
-        //---------------Calling Async Task Function---------------
 
-        if(offine_mode ==false){
+        //---------------Calling Async Task Function---------------
+        System.out.println("++++++++++++++++++"+ offline_mode);
+
+
+        if(offline_mode ==false){
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             Calendar c = Calendar.getInstance();
             int seconds = c.get(Calendar.SECOND);
-            SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm:ss a");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             date = format.format(Calendar.getInstance().getTimeInMillis());
             //final String c = sensor_value;
             String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
@@ -122,7 +126,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
             tt.execute();
 
         }
-        else {
+        else if(offline_mode ==true) {
             int max = 0;
             for (int i = 0; i < event.values.length; i++) {
                 textTable[i].setTextColor(Color.BLACK);
