@@ -41,13 +41,7 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
     protected Void doInBackground(Void... params) {
         //final String value = params[0];
 
-      //  subscriber = new MqttSubscriber();
-        publisher = new MqttPublisher();
-
-
-
-
-            try {
+        try {
                 int time = 1000;
                 // Sleeping for given time period
                 Thread.sleep(time);
@@ -58,9 +52,9 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
                     publisher = new MqttPublisher();
                     publisher.main(topic, ip_port);
                 }
-                else {return null;}
-                // Do your long operations here and return the result
-
+                else {
+                    return null;
+                }
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

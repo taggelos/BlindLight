@@ -111,11 +111,10 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
 
         //---------------Calling Async Task Function---------------
-        System.out.println("++++++++++++++++++"+ offline_mode);
+       // System.out.println("++++++++++++++++++"+ offline_mode);
 
 
         if(offline_mode ==false){
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             Calendar c = Calendar.getInstance();
             int seconds = c.get(Calendar.SECOND);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

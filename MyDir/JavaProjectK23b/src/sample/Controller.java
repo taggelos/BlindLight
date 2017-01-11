@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import sample.Pub_Sub.MqttPublisher;
+import sample.Pub_Sub.MqttSubscriber;
+
 import java.util.StringJoiner;
 
 
@@ -38,6 +41,9 @@ public class Controller {
     public static Double max_light_threshold;
     @FXML
     public static Double  min_light_threshold;
+
+
+    public static Boolean  broker_run_flag = false;
 
 
     @FXML
@@ -79,7 +85,11 @@ public class Controller {
     @FXML
     private Label datetime_check;
 
+
+
     public void Apply(ActionEvent mouseEvent) {
+
+
 
        boolean fMax = false;
        if (max_light.getText().matches("[0-9]+")){
@@ -112,6 +122,12 @@ public class Controller {
         z_threshold=z_axis.getValue();
         max_light_threshold=Double.parseDouble(max_light.getText());
         min_light_threshold=Double.parseDouble(min_light.getText());
+        if(!broker_run_flag) {
+            MqttSubscriber subscriber = new MqttSubscriber();
+            subscriber.main();
+            broker_run_flag=true;
+
+        }
 
     }
 
@@ -122,7 +138,7 @@ public class Controller {
         float latitude ;
         float longitude;
         String sensor_type;
-        float  sensor_value;
+        String  sensor_value;
         // @Temporal(TemporalType.TIMESTAMP)
         Date  datetime ;
     }
@@ -130,28 +146,17 @@ public class Controller {
 
    public static List<Records> rec_li = new ArrayList<Records>();
     ResultSet rs;
-    int resperpage  = 2;
+    int resperpage  = 10;
     int numofpages;
 
 
 
     public void Search(ActionEvent mouseEvent) throws IOException {
-        System.out.println("maaaaa");
 
-       // boolean fId = false;
-        //if (user_id.getText().matches("[0-9]+")){
-         //   String userId = user_id.getText();
-        //    fId = true;
-       // }
-       // id_check.setVisible(fId);
 
-            // get var
 
-            // check var
-
-            // Sql query
             try {
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "112358aaa");
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "MyNewPass");
                 Statement stmt = connection.createStatement();
                 String SQL = "SELECT * FROM blind_light_data  ";
                 PreparedStatement prepared_state= connection.prepareStatement(SQL);;
@@ -240,7 +245,7 @@ public class Controller {
 
                 if(Date.getValue()!=null){
                     cur++;
-                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm" );
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" );
                     String date_string= Date.getValue().getYear()+"-"+ Date.getValue().getMonthValue()+"-"+Date.getValue().getDayOfMonth()+" "+ cbox_hours.getValue().toString()+":"+ cbox_mins.getValue().toString()+":"+ cbox_secs.getValue().toString();
                     java.util.Date ends_date = df.parse(date_string);
                     Timestamp mytmp = new java.sql.Timestamp(ends_date.getTime());
@@ -285,7 +290,7 @@ public class Controller {
                     temp_record.latitude = rs.getFloat("location_latitude");
                     temp_record.longitude = rs.getFloat("location_longitude");
                     temp_record.sensor_type = rs.getString("sensorType");
-                    temp_record.sensor_value = rs.getFloat("sensorValue");
+                    temp_record.sensor_value = rs.getString("sensorValue");
                     // @Temporal(TemporalType.TIMESTAMP)
                     temp_record.datetime = rs.getDate("date_time");
                     rec_li.add(temp_record);
@@ -368,7 +373,7 @@ public class Controller {
                     myar.add(cur_str);
                     cur_str = rec.sensor_type;
                     myar.add(cur_str);
-                    cur_str = Float.toString(rec.sensor_value);
+                    cur_str = rec.sensor_value;
                     myar.add(cur_str);
                     if (rec.datetime!=null) {
                         cur_str =rec.datetime.toString();

@@ -5,6 +5,10 @@ package com.example.aggel.blindlight.util;
  */
 
 
+import android.content.Context;
+import android.os.Handler;
+import android.widget.Toast;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -15,10 +19,13 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttSubscriber implements MqttCallback {
     public  String topic;
+    public Context context;
 
-    public  void main(String topic , String port_ip) {
+    public  void main(String topic , String port_ip , Context context ) {
 
         this.topic=topic;
+        this.context = context;
+
         int qos = 2;
         String broker = port_ip;
         //String broker = "tcp://192.168.1.4:1883";
@@ -58,7 +65,14 @@ public class MqttSubscriber implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         System.out.println("topic: " + topic);
-        System.out.println("message: " + new String(message.getPayload()));
+        String mes = new String(message.getPayload());
+        System.out.println("message: " + mes);
+
+        Toast.makeText(context, mes,
+                Toast.LENGTH_SHORT).show();
+
+
+
     }
 
     @Override

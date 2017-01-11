@@ -104,9 +104,21 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
+        //------------Empty Data Base-----------
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "MyNewPass");
+            Statement stmt = connection.createStatement( );
+            // Use TRUNCATE
+            String sql = "TRUNCATE blind_light_data";
+            // Execute deletion
+            stmt.executeUpdate(sql);
+        }
+        catch ( SQLException err ) {
+            System.out.println( err.getMessage( ) );
+        }
+
         launch(args);
-        subscriber = new MqttSubscriber();
-        subscriber.main();
 
 
         //publisher = new MqttPublisher();
