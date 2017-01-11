@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -24,8 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import java.util.StringJoiner;
-
 
 public class Controller {
     @FXML
@@ -38,16 +35,12 @@ public class Controller {
     public static Double max_light_threshold;
     @FXML
     public static Double  min_light_threshold;
-
-
     @FXML
     private Slider x_axis;
     @FXML
     private Slider y_axis;
     @FXML
     private Slider z_axis;
-    @FXML
-    private Slider freq;
     @FXML
     private Label max_check;
     @FXML
@@ -61,7 +54,7 @@ public class Controller {
     @FXML
     private TextField user_id;
     @FXML
-    private TextField longtitude;
+    private TextField longitude;
     @FXML
     private TextField latitude;
     @FXML
@@ -78,6 +71,8 @@ public class Controller {
     private ChoiceBox cbox_secs;
     @FXML
     private Label datetime_check;
+
+    //----------------------------------------------------------------------------------------
 
     public void Apply(ActionEvent mouseEvent) {
 
@@ -96,6 +91,7 @@ public class Controller {
            if (min_light_int < 0 || min_light_int > 10000)
                fMin = true;
        }
+
        else fMin = true;
 
        min_check.setVisible(fMax);
@@ -104,19 +100,18 @@ public class Controller {
        if (fMax==true || fMin==true){
            try_again.setVisible(true);
        }else
-           System.out.println("clicked on "+ max_light.getText()+"   "+ min_light.getText() +"     " + x_axis.getValue() +"    " + y_axis.getValue() + "   " + z_axis.getValue() +" "+ freq.getValue());
+           System.out.println("clicked on "+ max_light.getText()+"   "+ min_light.getText() +"     " + x_axis.getValue() +"    " + y_axis.getValue() + "   " + z_axis.getValue());
 
-        System.out.println("clicked on "+ x_axis.getValue()+"    " + y_axis.getValue()+ "   " + z_axis.getValue()+" "+freq.getValue());
+        System.out.println("clicked on "+ x_axis.getValue()+"    " + y_axis.getValue()+ "   " + z_axis.getValue());
         x_threshold=x_axis.getValue();
         y_threshold=y_axis.getValue();
         z_threshold=z_axis.getValue();
         max_light_threshold=Double.parseDouble(max_light.getText());
         min_light_threshold=Double.parseDouble(min_light.getText());
-
     }
 
+//----------------------------------------------------------------------------------------
 
-//--------------------------------------
     class Records {
         String id_name;
         float latitude ;
@@ -126,37 +121,35 @@ public class Controller {
         // @Temporal(TemporalType.TIMESTAMP)
         Date  datetime ;
     }
-
+//----------------------------------------------------------------------------------------
 
    public static List<Records> rec_li = new ArrayList<Records>();
     ResultSet rs;
-    int resperpage  = 2;
+    int resperpage  = 10;
     int numofpages;
 
-
+//----------------------------------------------------------------------------------------
 
     public void Search(ActionEvent mouseEvent) throws IOException {
         System.out.println("maaaaa");
 
-       // boolean fId = false;
-        //if (user_id.getText().matches("[0-9]+")){
-         //   String userId = user_id.getText();
-        //    fId = true;
-       // }
-       // id_check.setVisible(fId);
 
-            // get var
+        //an dinetai hmeromhnia prepei na dinete OLOKLHRH!!!
 
-            // check var
+        if (Date.getValue() != null) {
+           if (cbox_hours.getValue() == null || cbox_mins.getValue() == null || cbox_secs.getValue() == null) {
+             datetime_check.setVisible(true);
+            return;
+           }
+        }
 
-            // Sql query
             try {
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "112358aaa");
                 Statement stmt = connection.createStatement();
                 String SQL = "SELECT * FROM blind_light_data  ";
                 PreparedStatement prepared_state= connection.prepareStatement(SQL);;
 
-                if ( !user_id.getText().equals("") ||  !longtitude.getText().equals("") || !latitude.getText().equals("") ||  Sensor_Type.getValue()!=null ||  !Sensor_Value.getText().equals("")  || Date.getValue()!=null ){
+                if ( !user_id.getText().equals("") ||  !longitude.getText().equals("") || !latitude.getText().equals("") ||  Sensor_Type.getValue()!=null ||  !Sensor_Value.getText().equals("")  || Date.getValue()!=null ){
                     SQL += "where ";
                 }
                 int cur=0;
@@ -170,7 +163,7 @@ public class Controller {
                     }
                     SQL += " user_id=?";
                 }
-                if( !longtitude.getText().equals("")   ){
+                if( !longitude.getText().equals("")   ){
                     if (flag==true){
                         SQL += " and ";
                     }
@@ -215,15 +208,16 @@ public class Controller {
                     }
                     SQL += "  date_time=?";
                 }
+
                 prepared_state = connection.prepareStatement(SQL);
 
                 if ( !user_id.getText().equals("") ){
                     cur++;
                     prepared_state.setString(cur,user_id.getText() );
                 }
-                if( !longtitude.getText().equals("")   ){
+                if( !longitude.getText().equals("")   ){
                     cur++;
-                    prepared_state.setFloat(cur, Float.parseFloat( longtitude.getText() ) );
+                    prepared_state.setFloat(cur, Float.parseFloat( longitude.getText() ) );
                 }
                 if( !latitude.getText().equals("") ){
                     cur++;
@@ -249,17 +243,12 @@ public class Controller {
 
                 System.out.println(prepared_state);
 
-               rs = prepared_state.executeQuery();
+                rs = prepared_state.executeQuery();
 
-
-                // Print results
-               // if (cbox_hours.getValue()==null || cbox_mins.getValue()==null || cbox_secs.getValue()==null ) {
-                //    datetime_check.setVisible(true);
-            //        return;
-             //   }
+                //Print results
 
                 Stage primaryStage = Main.getPrimaryStage();
-                primaryStage.setTitle("Result");
+                primaryStage.setTitle("Results");
                 Pane myPane = FXMLLoader.load(getClass().getResource("Search.fxml"));
 
                 int numofres=0;
@@ -279,7 +268,8 @@ public class Controller {
                 }
 
                 rec_li.clear();
-                while (rs.next()) {
+
+                while (rs.next()){
                     Records temp_record = new Records();
                     temp_record.id_name = rs.getString("user_id");
                     temp_record.latitude = rs.getFloat("location_latitude");
@@ -295,7 +285,7 @@ public class Controller {
                 Pagination mypg =  new Pagination();
                 mypg.setPageCount(numofpages);
 
-                mypg.setPageFactory(new Callback<Integer, Node>() {
+                mypg.setPageFactory(new Callback<Integer, Node>(){
                     @Override
                     public Node call(Integer pageIndex) {
                         try {
