@@ -23,14 +23,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-<<<<<<< HEAD
+
 import sample.Pub_Sub.MqttPublisher;
 import sample.Pub_Sub.MqttSubscriber;
 
 import java.util.StringJoiner;
 
-=======
->>>>>>> origin/master
+
 
 public class Controller {
     @FXML
@@ -43,14 +42,13 @@ public class Controller {
     public static Double max_light_threshold;
     @FXML
     public static Double  min_light_threshold;
-<<<<<<< HEAD
+
 
 
     public static Boolean  broker_run_flag = false;
 
 
-=======
->>>>>>> origin/master
+
     @FXML
     private Slider x_axis;
     @FXML
@@ -88,11 +86,7 @@ public class Controller {
     @FXML
     private Label datetime_check;
 
-<<<<<<< HEAD
 
-=======
-    //----------------------------------------------------------------------------------------
->>>>>>> origin/master
 
     public void Apply(ActionEvent mouseEvent) {
 
@@ -130,7 +124,7 @@ public class Controller {
         z_threshold=z_axis.getValue();
         max_light_threshold=Double.parseDouble(max_light.getText());
         min_light_threshold=Double.parseDouble(min_light.getText());
-<<<<<<< HEAD
+
         if(!broker_run_flag) {
             MqttSubscriber subscriber = new MqttSubscriber();
             subscriber.main();
@@ -138,8 +132,7 @@ public class Controller {
 
         }
 
-=======
->>>>>>> origin/master
+
     }
 
 //----------------------------------------------------------------------------------------
@@ -163,10 +156,7 @@ public class Controller {
 //----------------------------------------------------------------------------------------
 
     public void Search(ActionEvent mouseEvent) throws IOException {
-<<<<<<< HEAD
 
-
-=======
         System.out.println("maaaaa");
 
 
@@ -178,7 +168,7 @@ public class Controller {
             return;
            }
         }
->>>>>>> origin/master
+
 
             try {
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "MyNewPass");

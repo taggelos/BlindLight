@@ -165,15 +165,12 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                                          boolean isChecked) {
                 if (isChecked) {
                     System.out.println("AXNEEEEEEEEE");
-                    Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+                    Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
                     startActivity(intent);
-<<<<<<< HEAD
-                    intent1 = new Intent(MainActivity.this,CameraService.class);
-                    startService(intent1);
-=======
+
                     //intent1 = new Intent(MainActivity.this,CameraService.class);
                     //startService(intent1);
->>>>>>> origin/master
+
                     Toast.makeText(MainActivity.this,"PAME REEE...",Toast.LENGTH_LONG).show();
 
                 } else {

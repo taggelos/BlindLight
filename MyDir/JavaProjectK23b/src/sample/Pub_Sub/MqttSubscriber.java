@@ -14,9 +14,6 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.sql.*;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.Date;
 import java.text.DateFormat;

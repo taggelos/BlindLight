@@ -111,11 +111,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
 
         //---------------Calling Async Task Function---------------
-<<<<<<< HEAD
-       // System.out.println("++++++++++++++++++"+ offline_mode);
-=======
 
->>>>>>> origin/master
 
 
         if(offline_mode ==false){
