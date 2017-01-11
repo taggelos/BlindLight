@@ -26,9 +26,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -104,8 +106,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class GoogleActivity extends AppCompatActivity {
+public class GoogleActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
     private static final String CLOUD_VISION_API_KEY = "AIzaSyDC6K15sgrlvnZDSNoefvF7ox2GpaELgoc";
     public static final String FILE_NAME = "temp.jpg";
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
@@ -123,38 +126,8 @@ public class GoogleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(GoogleActivity.this);
-                builder
-                        .setMessage(R.string.dialog_select_prompt)
-                        .setPositiveButton(R.string.dialog_select_gallery, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                startGalleryChooser();
-                            }
-                        })
-                        .setNegativeButton(R.string.dialog_select_camera, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                System.out.println("------------2----------------");
-                                startCamera();
-                            }
-                        });
-                builder.create().show();
-            }
-        });
-
-        System.out.println("------------1----------------");
-
-        mImageDetails = (TextView) findViewById(R.id.image_details);
-        mMainImage = (ImageView) findViewById(R.id.main_image);
+        setContentView(R.layout.activity_main);
+        startCamera();
     }
 
     public void startGalleryChooser() {
@@ -224,7 +197,7 @@ public class GoogleActivity extends AppCompatActivity {
                                 1200);
 
                 callCloudVision(bitmap);
-                mMainImage.setImageBitmap(bitmap);
+                ///////////////////////mMainImage.setImageBitmap(bitmap);
 
             } catch (IOException e) {
                 Log.d(TAG, "Image picking failed because " + e.getMessage());
@@ -238,7 +211,7 @@ public class GoogleActivity extends AppCompatActivity {
 
     private void callCloudVision(final Bitmap bitmap) throws IOException {
         // Switch text to loading
-        mImageDetails.setText(R.string.loading_message);
+      //////////////////  mImageDetails.setText(R.string.loading_message);
 
         // Do the real work in an async task, because we need to use the network anyway
         new AsyncTask<Object, Void, String>() {
@@ -321,7 +294,7 @@ public class GoogleActivity extends AppCompatActivity {
             }
 
             protected void onPostExecute(String result) {
-                mImageDetails.setText(result);
+              /////////////  mImageDetails.setText(result);
             }
         }.execute();
     }
@@ -346,10 +319,25 @@ public class GoogleActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
     }
 
+    private TextToSpeech tts;
+    private  String myresult = "Be Careful! ";
+
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         String message = "I found these things:\n\n";
 
         List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
+
+        System.out.println( labels.get(0)+ " abraham:");
+        String msg = String.valueOf(labels.get(0));
+        String [] myparts = msg.split(",");
+        String [] mp =myparts[0].split(":");
+
+        System.out.println(mp[1].substring(1,mp[1].length()-1));
+
+        myresult += mp[1].substring(1,mp[1].length()-1);
+
+        tts = new TextToSpeech(this,this);
+
         if (labels != null) {
             for (EntityAnnotation label : labels) {
                 message += String.format("%.3f: %s", label.getScore(), label.getDescription());
@@ -360,5 +348,34 @@ public class GoogleActivity extends AppCompatActivity {
         }
 
         return message;
+    }
+
+    @Override
+    public void onInit(int status) {
+
+        Log.v(TAG, "oninit");
+        if (status == TextToSpeech.SUCCESS) {
+            int result = tts.setLanguage(Locale.US);
+            if (result == TextToSpeech.LANG_MISSING_DATA ||
+                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.v(TAG, "Language is not available.");
+            } else {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        tts.speak(myresult,TextToSpeech.QUEUE_FLUSH,null,null);
+                    } else {
+                        tts.speak(myresult, TextToSpeech.QUEUE_FLUSH, null);
+                    }
+                    myresult = "Be Careful! ";
+            }
+        } else {
+            Log.v(TAG, "Could not initialize TextToSpeech.");
+        }
+        try {
+            Thread.sleep(10000);
+            GoogleActivity.this.finish();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

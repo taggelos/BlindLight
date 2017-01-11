@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import java.util.Date;
 import java.sql.*;
@@ -18,13 +19,8 @@ import java.sql.*;
 import javafx.stage.Stage;
 import sample.Pub_Sub.MqttPublisher;
 import sample.Pub_Sub.MqttSubscriber;
-
 import java.util.Date;
 import java.sql.*;
-
-
-
-
 import static sample.Controller.*;
 
 
@@ -98,10 +94,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Settings.fxml"));
         primaryStage.setTitle("BlindLight(Beta)");
         primaryStage.setScene(new Scene(root, 800, 400));
+        primaryStage.getIcons().add(new Image("sample/icon.png"));
         primaryStage.show();
-
     }
-
 
     public static void main(String[] args) {
 
@@ -124,7 +119,4 @@ public class Main extends Application {
         //publisher = new MqttPublisher();
         //publisher.main();
     }
-
-
-
 }
