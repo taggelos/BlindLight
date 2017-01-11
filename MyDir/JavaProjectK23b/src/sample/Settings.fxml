@@ -56,10 +56,10 @@
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <children>
-                    <Label layoutX="46.0" layoutY="73.0" text="id:" />
+                    <Label layoutX="47.0" layoutY="73.0" text="User id:" />
                     <Label layoutX="10.0" layoutY="123.0" text="Location(coordinates):" />
-                    <Label layoutX="19.0" layoutY="184.0" text="Sensor Type:" />
-                    <Label layoutX="39.0" layoutY="258.0" text="Date:" />
+                    <Label layoutX="33.0" layoutY="184.0" text="Sensor Type:" />
+                    <Label layoutX="53.0" layoutY="258.0" text="Date:" />
                     <Button layoutX="21.0" layoutY="318.0" mnemonicParsing="false" onAction="#Search" prefHeight="39.0" prefWidth="96.0" text="Search">
                         <font>
                             <Font size="15.0" />
@@ -82,9 +82,9 @@
                     <ChoiceBox fx:id="Sensor_Type" layoutX="134.0" layoutY="180.0" prefWidth="150.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Light sensor" />
-                            <String fx:value="Accelerometer" />
-                            <String fx:value="Proximity" />
+                            <String fx:value="Light Sensor" />
+                            <String fx:value="Accelerometer Sensor " />
+                            <String fx:value="Proximity Sensor" />
                         </FXCollections>
                     </items>
                     </ChoiceBox>
