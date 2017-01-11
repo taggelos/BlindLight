@@ -126,38 +126,8 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(GoogleActivity.this);
-                builder
-                        .setMessage(R.string.dialog_select_prompt)
-                        .setPositiveButton(R.string.dialog_select_gallery, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                startGalleryChooser();
-                            }
-                        })
-                        .setNegativeButton(R.string.dialog_select_camera, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                System.out.println("------------2----------------");
-                                startCamera();
-                            }
-                        });
-                builder.create().show();
-            }
-        });
-
-        System.out.println("------------1----------------");
-
-        mImageDetails = (TextView) findViewById(R.id.image_details);
-        mMainImage = (ImageView) findViewById(R.id.main_image);
+        setContentView(R.layout.activity_main);
+        startCamera();
     }
 
     public void startGalleryChooser() {
@@ -227,7 +197,7 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
                                 1200);
 
                 callCloudVision(bitmap);
-                mMainImage.setImageBitmap(bitmap);
+                ///////////////////////mMainImage.setImageBitmap(bitmap);
 
             } catch (IOException e) {
                 Log.d(TAG, "Image picking failed because " + e.getMessage());
@@ -241,7 +211,7 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
 
     private void callCloudVision(final Bitmap bitmap) throws IOException {
         // Switch text to loading
-        mImageDetails.setText(R.string.loading_message);
+      //////////////////  mImageDetails.setText(R.string.loading_message);
 
         // Do the real work in an async task, because we need to use the network anyway
         new AsyncTask<Object, Void, String>() {
@@ -324,7 +294,7 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
             }
 
             protected void onPostExecute(String result) {
-                mImageDetails.setText(result);
+              /////////////  mImageDetails.setText(result);
             }
         }.execute();
     }
@@ -400,6 +370,12 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
             }
         } else {
             Log.v(TAG, "Could not initialize TextToSpeech.");
+        }
+        try {
+            Thread.sleep(10000);
+            GoogleActivity.this.finish();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
