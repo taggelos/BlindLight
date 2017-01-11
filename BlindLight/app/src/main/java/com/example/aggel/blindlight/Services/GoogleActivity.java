@@ -350,6 +350,7 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
     }
 
     private TextToSpeech tts;
+    private  String myresult = "Be Careful! ";
 
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         String message = "I found these things:\n\n";
@@ -363,6 +364,7 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
 
         System.out.println(mp[1].substring(1,mp[1].length()-1));
 
+        myresult += mp[1].substring(1,mp[1].length()-1);
 
         tts = new TextToSpeech(this,this);
 
@@ -394,6 +396,7 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
                     } else {
                         tts.speak(myresult, TextToSpeech.QUEUE_FLUSH, null);
                     }
+                    myresult = "Be Careful! ";
             }
         } else {
             Log.v(TAG, "Could not initialize TextToSpeech.");
