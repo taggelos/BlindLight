@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                     System.out.println("AXNEEEEEEEEE");
                     Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
                     startActivity(intent);
-                    intent1 = new Intent(MainActivity.this,CameraService.class);
+                    //intent1 = new Intent(MainActivity.this,CameraService.class);
                     //startService(intent1);
                     Toast.makeText(MainActivity.this,"PAME REEE...",Toast.LENGTH_LONG).show();
 

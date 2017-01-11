@@ -26,9 +26,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -104,8 +106,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class GoogleActivity extends AppCompatActivity {
+public class GoogleActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
     private static final String CLOUD_VISION_API_KEY = "AIzaSyDC6K15sgrlvnZDSNoefvF7ox2GpaELgoc";
     public static final String FILE_NAME = "temp.jpg";
     private static final String ANDROID_CERT_HEADER = "X-Android-Cert";
@@ -346,10 +349,23 @@ public class GoogleActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
     }
 
+    private TextToSpeech tts;
+
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
         String message = "I found these things:\n\n";
 
         List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
+
+        System.out.println( labels.get(0)+ " abraham:");
+        String msg = String.valueOf(labels.get(0));
+        String [] myparts = msg.split(",");
+        String [] mp =myparts[0].split(":");
+
+        System.out.println(mp[1].substring(1,mp[1].length()-1));
+
+
+        tts = new TextToSpeech(this,this);
+
         if (labels != null) {
             for (EntityAnnotation label : labels) {
                 message += String.format("%.3f: %s", label.getScore(), label.getDescription());
@@ -360,5 +376,27 @@ public class GoogleActivity extends AppCompatActivity {
         }
 
         return message;
+    }
+
+    @Override
+    public void onInit(int status) {
+
+        Log.v(TAG, "oninit");
+        if (status == TextToSpeech.SUCCESS) {
+            int result = tts.setLanguage(Locale.US);
+            if (result == TextToSpeech.LANG_MISSING_DATA ||
+                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.v(TAG, "Language is not available.");
+            } else {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        tts.speak(myresult,TextToSpeech.QUEUE_FLUSH,null,null);
+                    } else {
+                        tts.speak(myresult, TextToSpeech.QUEUE_FLUSH, null);
+                    }
+            }
+        } else {
+            Log.v(TAG, "Could not initialize TextToSpeech.");
+        }
     }
 }
