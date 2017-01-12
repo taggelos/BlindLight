@@ -81,7 +81,6 @@ public class Controller {
            int max_light_int = Integer.parseInt(max_light.getText());
            if (max_light_int < 0 || max_light_int > 10000)
                fMax = true;
-
        }
        else
            fMax = true;
@@ -98,12 +97,10 @@ public class Controller {
        min_check.setVisible(fMax);
        max_check.setVisible(fMin);
 
-       if  (fMax==true || fMin==true){
-            try_again.setVisible(true);
-            return;
+       if (fMax==true || fMin==true){
+           try_again.setVisible(true);
        }else
-            System.out.println("clicked on "+ max_light.getText()+"   "+ min_light.getText() +"     " + x_axis.getValue() +"    " + y_axis.getValue() + "   " + z_axis.getValue());
-            try_again.setVisible(false);
+           System.out.println("clicked on "+ max_light.getText()+"   "+ min_light.getText() +"     " + x_axis.getValue() +"    " + y_axis.getValue() + "   " + z_axis.getValue());
 
         System.out.println("clicked on "+ x_axis.getValue()+"    " + y_axis.getValue()+ "   " + z_axis.getValue());
         x_threshold=x_axis.getValue();
@@ -121,20 +118,23 @@ public class Controller {
         float longitude;
         String sensor_type;
         float  sensor_value;
+        // @Temporal(TemporalType.TIMESTAMP)
         Date  datetime ;
     }
 //----------------------------------------------------------------------------------------
 
    public static List<Records> rec_li = new ArrayList<Records>();
     ResultSet rs;
-    int resperpage  = 2;
+    int resperpage  = 10;
     int numofpages;
 
 //----------------------------------------------------------------------------------------
 
     public void Search(ActionEvent mouseEvent) throws IOException {
+        System.out.println("maaaaa");
 
-        //an dinetai hmeromhnia...prepei na dinete OLOKLHRH!!!
+
+        //an dinetai hmeromhnia prepei na dinete OLOKLHRH!!!
 
         if (Date.getValue() != null) {
            if (cbox_hours.getValue() == null || cbox_mins.getValue() == null || cbox_secs.getValue() == null) {
@@ -147,7 +147,7 @@ public class Controller {
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "112358aaa");
                 Statement stmt = connection.createStatement();
                 String SQL = "SELECT * FROM blind_light_data  ";
-                PreparedStatement prepared_state= connection.prepareStatement(SQL);
+                PreparedStatement prepared_state= connection.prepareStatement(SQL);;
 
                 if ( !user_id.getText().equals("") ||  !longitude.getText().equals("") || !latitude.getText().equals("") ||  Sensor_Type.getValue()!=null ||  !Sensor_Value.getText().equals("")  || Date.getValue()!=null ){
                     SQL += "where ";
@@ -385,7 +385,7 @@ public class Controller {
     public void Refresh(ActionEvent mouseEvent) throws IOException {
 
         Stage primaryStage = Main.getPrimaryStage();
-        primaryStage.setTitle("Results");
+        primaryStage.setTitle("Result)");
         Pane myPane = FXMLLoader.load(getClass().getResource("Search.fxml"));
 
         Pagination mypg =  new Pagination();
@@ -419,7 +419,8 @@ public class Controller {
         Pane sec_pane = (Pane) myPane.getChildren().get(1);
         sec_pane.getChildren().add(mypg);
 
-        Scene scene = new Scene(myPane,1000, 600);
+
+        Scene scene = new Scene(myPane,600, 600);
         primaryStage.close();
         primaryStage.setScene(scene);
         primaryStage.show();
