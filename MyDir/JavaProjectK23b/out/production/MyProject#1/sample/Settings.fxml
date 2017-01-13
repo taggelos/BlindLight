@@ -11,8 +11,6 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -22,60 +20,33 @@
       <content>
           <AnchorPane accessibleRole="INCREMENT_BUTTON" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="14.0" layoutY="51.0" text="Select max light threshold:" />
-                  <Label layoutX="15.0" layoutY="93.0" text="Select min light threshold:" />
-                  <Label layoutX="34.0" layoutY="175.0" text="X-axis limit: ">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-                  <Label layoutX="36.0" layoutY="216.0" text="Y-axis limit:">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-                  <Label layoutX="34.0" layoutY="258.0" text="Z-axis limit: ">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Label>
-                  <TextField fx:id="max_light" alignment="CENTER" editable="true" layoutX="165.0" layoutY="47.0" prefHeight="23.0" prefWidth="61.0" text="0" />
-                  <TextField fx:id="min_light" alignment="CENTER" editable="true" layoutX="165.0" layoutY="89.0" prefHeight="19.0" prefWidth="61.0" text="0" />
-                  <Button layoutX="249.0" layoutY="324.0" mnemonicParsing="false" onAction="#Apply" prefHeight="40.0" prefWidth="129.0" text="Apply Settings">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Button>
-                  <Label fx:id="min_check" layoutX="229.0" layoutY="51.0" text="The input must be an integer number and between (0-10000)!" textFill="#da0f0f" visible="false" />
-                  <Label fx:id="max_check" layoutX="229.0" layoutY="93.0" text="The input must be an integer number and between (0-10000)!" textFill="#da0f0f" visible="false" />
+                  <Label layoutX="69.0" layoutY="56.0" text="Select max light threshold:" />
+                  <Label layoutX="70.0" layoutY="94.0" text="Select min light threshold:" />
+                  <Label layoutX="71.0" layoutY="153.0" text="X-axis limit: " />
+                  <Label layoutX="70.0" layoutY="186.0" text="Y-axis limit:" />
+                  <Label layoutX="71.0" layoutY="214.0" text="Z-axis limit: " />
+                  <TextField fx:id="max_light" alignment="CENTER" editable="true" layoutX="226.0" layoutY="52.0" prefHeight="25.0" prefWidth="83.0" text="0" />
+                  <TextField fx:id="min_light" alignment="CENTER" editable="true" layoutX="226.0" layoutY="90.0" prefHeight="25.0" prefWidth="84.0" text="0" />
+                  <Button layoutX="68.0" layoutY="307.0" mnemonicParsing="false" onAction="#Apply" prefHeight="33.0" prefWidth="122.0" text="Apply Settings" />
+                  <Label fx:id="min_check" layoutX="345.0" layoutY="56.0" text="The input must be an integer number and between (0-10000)" textFill="#da0f0f" visible="false" />
+                  <Label fx:id="max_check" layoutX="345.0" layoutY="96.0" text="The input must be an integer number and between (0-10000)" textFill="#da0f0f" visible="false" />
 
-                  <Label layoutX="24.0" layoutY="14.0" text="Light Sensor:">
+                  <Label layoutX="68.0" layoutY="20.0" text="Light Sensor:">
                      <font>
-                        <Font name="System Bold Italic" size="20.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="137.0" text="Accelerometer:">
+                  <Label layoutX="69.0" layoutY="115.0" text="Accelerometer:">
                      <font>
-                        <Font name="System Bold Italic" size="20.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
-                   
-                  <Slider blockIncrement="1.0" layoutX="140.0" layoutY="179.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" fx:id="x_axis" />
-                  <Slider fx:id="y_axis" blockIncrement="1.0" layoutX="140.0" layoutY="220.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" />
-                  <Slider fx:id="z_axis" blockIncrement="1.0" layoutX="140.0" layoutY="258.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" />
+
+                  <Slider blockIncrement="1.0" layoutX="165.0" layoutY="145.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" fx:id="x_axis" />
+                  <Slider fx:id="y_axis" blockIncrement="1.0" layoutX="165.0" layoutY="178.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" />
+                  <Slider fx:id="z_axis" blockIncrement="1.0" layoutX="165.0" layoutY="206.0" majorTickUnit="1.0" max="10.0" minorTickCount="1" prefHeight="33.0" prefWidth="352.0" showTickLabels="true" />
                   <Label layoutX="383.0" layoutY="42.0" />
-                  <Label fx:id="try_again" layoutX="392.0" layoutY="328.0" text="Try again with valid thresholds!" textFill="#da0f0f" visible="false" />
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="551.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Picture1.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="508.0" layoutY="144.0" text="Local Service Application for BlindLight Android Clients" textFill="#000000c0">
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="577.0" layoutY="328.0" text="AML® Development Team" textFill="#000000c1">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="try_again" layoutX="226.0" layoutY="315.0" text="Try again with valid thresholds!" textFill="#da0f0f" visible="false" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -87,21 +58,22 @@
                     <Label layoutX="10.0" layoutY="123.0" text="Location(coordinates):" />
                     <Label layoutX="33.0" layoutY="184.0" text="Sensor Type:" />
                     <Label layoutX="53.0" layoutY="258.0" text="Date:" />
-                    <Button layoutX="260.0" layoutY="318.0" mnemonicParsing="false" onAction="#Search" prefHeight="39.0" prefWidth="96.0" text="Search">
+                    <Button layoutX="21.0" layoutY="318.0" mnemonicParsing="false" onAction="#Search" prefHeight="39.0" prefWidth="96.0" text="Search">
                         <font>
                             <Font size="15.0" />
                         </font>
                     </Button>
                     <TextField fx:id="user_id" alignment="CENTER" layoutX="135.0" layoutY="69.0" promptText="user id " />
+                    <Label fx:id="id_check" layoutX="345.0" layoutY="56.0" text="There is no such user!" textFill="#da0f0f" visible="false" />
                     <TextField fx:id="longitude" alignment="CENTER" layoutX="134.0" layoutY="119.0" promptText="longitude (W)" />
                     <TextField fx:id="latitude" alignment="CENTER" layoutX="328.0" layoutY="119.0" promptText="latitude (N)" />
                     <Separator layoutY="87.0" prefHeight="32.0" prefWidth="600.0" AnchorPane.bottomAnchor="252.0" />
                     <Separator layoutX="3.0" layoutY="144.0" prefHeight="32.0" prefWidth="600.0" />
                     <Separator layoutY="209.0" prefHeight="32.0" prefWidth="600.0" />
                     <Separator layoutY="275.0" prefHeight="45.0" prefWidth="600.0" />
-                    <Label layoutX="74.0" layoutY="20.0" text="Search thought the confirmed hits of the users." textAlignment="CENTER">
+                    <Label layoutX="110.0" layoutY="14.0" text="Search throught the confirmed hits of the users." textAlignment="CENTER">
                         <font>
-                            <Font name="System Bold Italic" size="21.0" />
+                            <Font size="18.0" />
                         </font>
                     </Label>
                     <Label layoutX="293.0" layoutY="123.0" text="and" />
@@ -273,17 +245,8 @@
                     <Label layoutX="479.0" layoutY="234.0" text="secs" />
                   <Separator layoutX="285.0" layoutY="158.0" orientation="VERTICAL" prefHeight="67.0" prefWidth="39.0" />
                   <Label layoutX="316.0" layoutY="183.0" text="Sensor Value:" />
-                  <Label fx:id="datetime_check" layoutX="176.0" layoutY="298.0" text="Please give both Date and Time (hours+mins+secs)!" textFill="#da0f0f" visible="false" />
+                  <Label fx:id="datetime_check" layoutX="137.0" layoutY="329.0" text="Please give both Date and Time (hours+mins+secs)!" textFill="#da0f0f" visible="false" />
                   <TextField fx:id="Sensor_Value" alignment="CENTER" layoutX="403.0" layoutY="179.0" promptText="sensor value" />
-                  <ImageView fitHeight="76.0" fitWidth="58.0" layoutX="542.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@iconsrch.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="529.0" layoutY="329.0" text="AML® Development Team" textFill="#000000b5">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font></Label>
                 </children></AnchorPane>
         </content>
     </Tab>
