@@ -6,7 +6,7 @@
 ![Image](images/Screenshot_3.png)
 
 ```java
-ENDEIKTIKOS KWDIKAS AN THELETE NA DEIKSETE KWMMATI SAS
+ENDEIKTIKOS KWDIKAS AN THELETE NA DEIKSETE KOMMATI SAS
 function fancyAlert(arg) {
   if(arg) {
     $.facebox({div:'#foo'})
