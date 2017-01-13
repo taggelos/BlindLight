@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
     <Tab text="Settings">
       <content>
@@ -25,8 +25,8 @@
                   <Label layoutX="71.0" layoutY="153.0" text="X-axis limit: " />
                   <Label layoutX="70.0" layoutY="186.0" text="Y-axis limit:" />
                   <Label layoutX="71.0" layoutY="214.0" text="Z-axis limit: " />
-                  <TextField fx:id="max_light" alignment="CENTER" editable="true" layoutX="226.0" layoutY="52.0" prefHeight="25.0" prefWidth="83.0" text="0" />
-                  <TextField fx:id="min_light" alignment="CENTER" editable="true" layoutX="226.0" layoutY="90.0" prefHeight="25.0" prefWidth="84.0" text="0" />
+                  <TextField fx:id="max_light" alignment="CENTER" editable="true" layoutX="248.0" layoutY="52.0" prefHeight="25.0" prefWidth="83.0" text="0" />
+                  <TextField fx:id="min_light" alignment="CENTER" editable="true" layoutX="247.0" layoutY="90.0" prefHeight="25.0" prefWidth="84.0" text="0" />
                   <Button layoutX="68.0" layoutY="307.0" mnemonicParsing="false" onAction="#Apply" prefHeight="33.0" prefWidth="122.0" text="Apply Settings" />
                   <Label fx:id="min_check" layoutX="345.0" layoutY="56.0" text="The input must be an integer number and between (0-10000)" textFill="#da0f0f" visible="false" />
                   <Label fx:id="max_check" layoutX="345.0" layoutY="96.0" text="The input must be an integer number and between (0-10000)" textFill="#da0f0f" visible="false" />
@@ -54,8 +54,8 @@
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <children>
-                    <Label layoutX="47.0" layoutY="73.0" text="User id:" />
-                    <Label layoutX="10.0" layoutY="123.0" text="Location(coordinates):" />
+                    <Label layoutX="47.0" layoutY="69.0" text="User id:" />
+                    <Label layoutX="5.0" layoutY="123.0" text="Location(coordinates):" />
                     <Label layoutX="33.0" layoutY="184.0" text="Sensor Type:" />
                     <Label layoutX="53.0" layoutY="258.0" text="Date:" />
                     <Button layoutX="21.0" layoutY="318.0" mnemonicParsing="false" onAction="#Search" prefHeight="39.0" prefWidth="96.0" text="Search">
@@ -63,10 +63,10 @@
                             <Font size="15.0" />
                         </font>
                     </Button>
-                    <TextField fx:id="user_id" alignment="CENTER" layoutX="135.0" layoutY="69.0" promptText="user id " />
+                    <TextField fx:id="user_id" alignment="CENTER" layoutX="135.0" layoutY="64.0" promptText="user id " />
                     <Label fx:id="id_check" layoutX="345.0" layoutY="56.0" text="There is no such user!" textFill="#da0f0f" visible="false" />
-                    <TextField fx:id="longitude" alignment="CENTER" layoutX="134.0" layoutY="119.0" promptText="longitude (W)" />
-                    <TextField fx:id="latitude" alignment="CENTER" layoutX="328.0" layoutY="119.0" promptText="latitude (N)" />
+                    <TextField fx:id="longitude" alignment="CENTER" layoutX="147.0" layoutY="119.0" promptText="longitude (W)" />
+                    <TextField fx:id="latitude" alignment="CENTER" layoutX="350.0" layoutY="119.0" promptText="latitude (N)" />
                     <Separator layoutY="87.0" prefHeight="32.0" prefWidth="600.0" AnchorPane.bottomAnchor="252.0" />
                     <Separator layoutX="3.0" layoutY="144.0" prefHeight="32.0" prefWidth="600.0" />
                     <Separator layoutY="209.0" prefHeight="32.0" prefWidth="600.0" />
@@ -76,7 +76,7 @@
                             <Font size="18.0" />
                         </font>
                     </Label>
-                    <Label layoutX="293.0" layoutY="123.0" text="and" />
+                    <Label layoutX="319.0" layoutY="123.0" text="and" />
                     <ChoiceBox fx:id="Sensor_Type" layoutX="134.0" layoutY="180.0" prefWidth="150.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -243,10 +243,10 @@
                     <Label layoutX="322.0" layoutY="233.0" text="hours" />
                     <Label layoutX="401.0" layoutY="234.0" text="mins" />
                     <Label layoutX="479.0" layoutY="234.0" text="secs" />
-                  <Separator layoutX="285.0" layoutY="158.0" orientation="VERTICAL" prefHeight="67.0" prefWidth="39.0" />
+                  <Separator layoutX="285.0" layoutY="160.0" orientation="VERTICAL" prefHeight="65.0" prefWidth="39.0" />
                   <Label layoutX="316.0" layoutY="183.0" text="Sensor Value:" />
                   <Label fx:id="datetime_check" layoutX="137.0" layoutY="329.0" text="Please give both Date and Time (hours+mins+secs)!" textFill="#da0f0f" visible="false" />
-                  <TextField fx:id="Sensor_Value" alignment="CENTER" layoutX="403.0" layoutY="179.0" promptText="sensor value" />
+                  <TextField fx:id="Sensor_Value" alignment="CENTER" layoutX="408.0" layoutY="178.0" promptText="sensor value" />
                 </children></AnchorPane>
         </content>
     </Tab>

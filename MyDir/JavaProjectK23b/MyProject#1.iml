@@ -19,5 +19,14 @@
     <orderEntry type="library" exported="" name="mysql-connector-java-5.1.40-bin1" level="project" />
     <orderEntry type="library" exported="" name="mysql-connector-java-5.1.40-bin" level="project" />
     <orderEntry type="library" exported="" name="org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/joda-time-1.6-src /joda-time-1.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

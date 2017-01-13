@@ -26,10 +26,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.Listeners.MyLocationListener;
-import com.example.aggel.blindlight.Services.CameraService;
 
-import com.example.aggel.blindlight.Services.GoogleActivity;
-import com.example.aggel.blindlight.Services.PhotoService;
 
 import com.example.aggel.blindlight.util.MqttSubscriber;
 
@@ -45,6 +42,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener {
 
     private boolean CheckProx;
+    public static Boolean  broker_run_flag = false;
+
 
 
     public static String Port_Ip="tcp://192.168.1.2:1883"; //by default
@@ -118,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         networkStateReceiver = new NetworkStateReceiver();
         networkStateReceiver.addListener(this);
         this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
-        System.out.println("MARIAAAAAAAAAAAAAAAAAAAAAAAA"+offline_mode);
         //offline_mode=true;
 
         //--------------Create our Sensor Manager----------------
@@ -136,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
 
                 if (isChecked) {
-                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     offline_mode = false;
                     invalidateOptionsMenu();
                     connectivity_Mode.setEnabled(true);
@@ -166,15 +163,13 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
                 if (isChecked) {
-                    System.out.println("AXNEEEEEEEEE");
+
                     Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
                     startActivity(intent);
-                    //intent1 = new Intent(MainActivity.this,CameraService.class);
-                    //startService(intent1);
-                    Toast.makeText(MainActivity.this,"PAME REEE...",Toast.LENGTH_LONG).show();
+
 
                 } else {
-                    System.out.println("OXIIIIIIIIII");
+                    System.out.println("ELSE CASE");
                 }
 
             }
@@ -333,13 +328,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         ad.show();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
-        //stopService(intent1);
-
-    }
 
     //--------------This function is used in order to find the mac address of the device--------------
     public static String getMacAddr() {
@@ -393,11 +382,10 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
     @Override
     public void networkAvailable() {
-        Context context = getApplicationContext();
+        Context  context = getApplicationContext();
         CharSequence text = "Mode: ONLINE";
         final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.show();
-        System.out.println("EDWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
         offline_mode = false;
         invalidateOptionsMenu();
         connectivity_Mode = (Switch) findViewById(R.id.connectivity);
@@ -411,12 +399,26 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
         } else {
             buildAlertMessageNoGps();
-            /*Context context = getApplicationContext();
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            context.startActivity(intent);*/
+
         }
-        subscriber = new MqttSubscriber();
-        subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip);
+
+
+        //subscriber = new MqttSubscriber();
+       //subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip , context );
+
+
+
+        //Intent inte = new Intent(this, MySubService.class);
+        //startService(inte);
+
+
+
+        //if(!broker_run_flag) {
+          //  subscriber = new MqttSubscriber();
+            //subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip , context );
+            //broker_run_flag=true;
+
+        //}
 
     }
 
@@ -432,5 +434,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode.setChecked(false);
         connectivity_Mode.setEnabled(false);
     }
+
+
 }
 

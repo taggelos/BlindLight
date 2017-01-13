@@ -25,7 +25,7 @@ public class MqttPublisher  {
         String content = "My Message";
         int qos = 2;
         String broker = port_ip ;
-        String clientId = "Μyclientid";
+        String clientId = "ΜyclientidAndroid";
         MemoryPersistence persistence = new MemoryPersistence();
 
 

@@ -121,7 +121,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
             date = format.format(Calendar.getInstance().getTimeInMillis());
             //final String c = sensor_value;
             String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
-            tt = new MyAsyncTask(topic, Port_Ip);
+            tt = new MyAsyncTask(topic, Port_Ip , context);
             tt.execute();
 
         }
