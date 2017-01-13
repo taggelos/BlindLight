@@ -1,7 +1,5 @@
 # projectK23b :sparkles: <h3>BlindLight :mortar_board:
 
-/play tada
-
 [github] (http://prntscr.com/duy5tb)
 
 >axne oops
