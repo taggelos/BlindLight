@@ -1,13 +1,12 @@
-# projectK23b :sparkles: <h3>BlindLight :mortar_board:
+# projectK23b :sparkles: <h3>[BlindLight](https://github.com/taggelos/projectK23b) :mortar_board:
 
-[github] (http://prntscr.com/duy5tb)
-
->axne oops
+>VALTE KAPOIOS TA AM MAS EDW  
 >sxoliakia kai etsi
 
 ![Image](Screenshot_3.png)
 
 ```java
+ENDEIKTIKOS KWDIKAS AN THELETE NA DEIKSETE KWMMATI SAS
 function fancyAlert(arg) {
   if(arg) {
     $.facebox({div:'#foo'})
