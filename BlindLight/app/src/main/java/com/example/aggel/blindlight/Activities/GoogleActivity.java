@@ -83,6 +83,7 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startCamera();
+        Toast.makeText(this, "PRESS CLICK ON CAMERA", Toast.LENGTH_SHORT).show();
     }
 
     public void startGalleryChooser() {

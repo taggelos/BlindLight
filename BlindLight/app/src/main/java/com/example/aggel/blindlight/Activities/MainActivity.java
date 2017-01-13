@@ -163,16 +163,13 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
                 if (isChecked) {
-                    System.out.println("AXNEEEEEEEEE");
+
                     Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
                     startActivity(intent);
 
 
-
-                    Toast.makeText(MainActivity.this,"PAME REEE...",Toast.LENGTH_LONG).show();
-
                 } else {
-                    System.out.println("OXIIIIIIIIII");
+                    System.out.println("ELSE CASE");
                 }
 
             }
