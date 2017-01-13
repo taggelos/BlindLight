@@ -1,6 +1,7 @@
 # projectK23b :sparkles: <h3>BlindLight :mortar_board:
 
 
+![Screenshot](screenshot.png)
 
 [github] (http://prntscr.com/duy5tb)
 
