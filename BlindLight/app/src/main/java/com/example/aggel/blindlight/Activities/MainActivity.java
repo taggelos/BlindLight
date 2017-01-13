@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -27,12 +26,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.Listeners.MyLocationListener;
-import com.example.aggel.blindlight.Services.CameraService;
-import com.example.aggel.blindlight.Services.MySubService;
 
-
-import com.example.aggel.blindlight.Services.GoogleActivity;
-import com.example.aggel.blindlight.Services.PhotoService;
 
 import com.example.aggel.blindlight.util.MqttSubscriber;
 
@@ -173,8 +167,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
                     Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
                     startActivity(intent);
 
-                    //intent1 = new Intent(MainActivity.this,CameraService.class);
-                    //startService(intent1);
+
 
                     Toast.makeText(MainActivity.this,"PAME REEE...",Toast.LENGTH_LONG).show();
 
@@ -338,13 +331,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         ad.show();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
-        //stopService(intent1);
-
-    }
 
     //--------------This function is used in order to find the mac address of the device--------------
     public static String getMacAddr() {

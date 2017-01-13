@@ -38,24 +38,13 @@
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
 
-        <service android:name="com.example.aggel.blindlight.Services.CameraService"
-                android:exported ="false"
-        > </service>
-
-        <activity android:name="com.example.aggel.blindlight.Services.GoogleService"
-            android:exported ="false"> </activity>
-
-        <service android:name="com.example.aggel.blindlight.Services.PhotoService"
-            android:exported ="false"> </service>
         <service android:name="com.example.aggel.blindlight.Services.MySubService"
             android:exported ="false"> </service>
 
-        <activity android:name="com.example.aggel.blindlight.Services.GoogleActivity"
+        <activity android:name="com.example.aggel.blindlight.Activities.GoogleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported ="false"> </activity>
-
-        <activity android:name="com.example.aggel.blindlight.Activities.CameraActivity"></activity>
 
     </application>
 
