@@ -15,6 +15,11 @@ function fancyAlert(arg) {
 ```
 ###Android Application :robot:
 
+Σε ότι αφορά την Android εφαρμογή έχουν υλοποιηθεί τα εξής.
+
+  -Η εφαρμοφή τρέχει είτε σε online mode είτε σε offline mode. Η εναλλαγή μεταξύ online και offline κατάστασης γίνεται αυτόμοτα (με την βοήθεια της κλάσσης NetworkStateReciever).Στη κλάση αυτή περιέχονται (μεταξύ άλλων) οι εξής 2 συναρτήσεις, 
+
+
 
 ###Java Application :coffee:
 Το γραφικό περιβάλλον της Java εφαρμογής βασίστηκε σε Java FX:
