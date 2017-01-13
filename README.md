@@ -1,6 +1,6 @@
 # projectK23b :sparkles: <h3>BlindLight :mortar_board:
 
-
+/play tada
 
 [github] (http://prntscr.com/duy5tb)
 
@@ -16,6 +16,11 @@ function fancyAlert(arg) {
   }
 }
 ```
+###Android Application :robot:
+
+
+###Java Application :coffee:
+
 
 ###Bonus :camera:
 
