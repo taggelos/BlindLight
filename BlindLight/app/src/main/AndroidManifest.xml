@@ -47,6 +47,8 @@
 
         <service android:name="com.example.aggel.blindlight.Services.PhotoService"
             android:exported ="false"> </service>
+        <service android:name="com.example.aggel.blindlight.Services.MySubService"
+            android:exported ="false"> </service>
 
         <activity android:name="com.example.aggel.blindlight.Services.GoogleActivity"
             android:screenOrientation="portrait"

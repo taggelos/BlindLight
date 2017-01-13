@@ -148,7 +148,7 @@ public class Controller {
     }
 //----------------------------------------------------------------------------------------
 
-   public static List<Records> rec_li = new ArrayList<Records>();
+    public static List<Records> rec_li = new ArrayList<Records>();
     ResultSet rs;
     int resperpage  = 10;
     int numofpages;
@@ -156,9 +156,6 @@ public class Controller {
 //----------------------------------------------------------------------------------------
 
     public void Search(ActionEvent mouseEvent) throws IOException {
-
-        System.out.println("maaaaa");
-
 
         //an dinetai hmeromhnia prepei na dinete OLOKLHRH!!!
 
@@ -411,20 +408,21 @@ public class Controller {
 
     public void Refresh(ActionEvent mouseEvent) throws IOException {
 
+
+
         Stage primaryStage = Main.getPrimaryStage();
         primaryStage.setTitle("Result)");
         Pane myPane = FXMLLoader.load(getClass().getResource("Search.fxml"));
-
         Pagination mypg =  new Pagination();
 
-        if  (rec_li.size()%resperpage>0){
-            numofpages = rec_li.size()/resperpage+1;
+        if  (rec_li.size() % resperpage > 0){
+            numofpages = rec_li.size() / resperpage+1;
         }
         else{
-            numofpages = rec_li.size()/resperpage;
+            numofpages = rec_li.size() / resperpage;
         }
         if (rec_li.size() == 0) {
-            numofpages=1;
+            numofpages = 1;
         }
 
         mypg.setPageCount(numofpages);
@@ -447,7 +445,7 @@ public class Controller {
         sec_pane.getChildren().add(mypg);
 
 
-        Scene scene = new Scene(myPane,600, 600);
+        Scene scene = new Scene(myPane,1000, 600);
         primaryStage.close();
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -81,7 +81,7 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
                 date = format.format(Calendar.getInstance().getTimeInMillis());
                 System.out.println(date);
                 String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
-                tt = new MyAsyncTask(topic, Port_Ip);
+                tt = new MyAsyncTask(topic, Port_Ip , context);
                 tt.execute();
 
             }

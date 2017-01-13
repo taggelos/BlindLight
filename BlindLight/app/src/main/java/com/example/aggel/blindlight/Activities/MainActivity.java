@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -27,6 +28,8 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.Listeners.MyLocationListener;
 import com.example.aggel.blindlight.Services.CameraService;
+import com.example.aggel.blindlight.Services.MySubService;
+
 
 import com.example.aggel.blindlight.Services.GoogleActivity;
 import com.example.aggel.blindlight.Services.PhotoService;
@@ -45,6 +48,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener {
 
     private boolean CheckProx;
+    public static Boolean  broker_run_flag = false;
+
 
 
     public static String Port_Ip="tcp://192.168.1.2:1883"; //by default
@@ -410,12 +415,26 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
         } else {
             buildAlertMessageNoGps();
-            /*Context context = getApplicationContext();
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            context.startActivity(intent);*/
+
         }
-        subscriber = new MqttSubscriber();
-        subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip , context );
+
+
+        //subscriber = new MqttSubscriber();
+       //subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip , context );
+
+
+
+        //Intent inte = new Intent(this, MySubService.class);
+        //startService(inte);
+
+
+
+        //if(!broker_run_flag) {
+          //  subscriber = new MqttSubscriber();
+            //subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip , context );
+            //broker_run_flag=true;
+
+        //}
 
     }
 
@@ -431,5 +450,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode.setChecked(false);
         connectivity_Mode.setEnabled(false);
     }
+
+
 }
 
