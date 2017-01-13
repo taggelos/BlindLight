@@ -3,7 +3,7 @@
 >VALTE KAPOIOS TA AM MAS EDW  
 >sxoliakia kai etsi
 
-![Image](Screenshot_3.png)
+![Image](images/Screenshot_3.png)
 
 ```java
 ENDEIKTIKOS KWDIKAS AN THELETE NA DEIKSETE KWMMATI SAS
