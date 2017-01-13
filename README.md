@@ -4,6 +4,8 @@
 
 [github] (http://prntscr.com/duy5tb)
 
+![GitHub Logo](projectK23b/BlindLight/app/src/main/res/mipmap-hdpi/ic_launcher.png)
+
 >axne oops
 >sxoliakia kai etsi
 
