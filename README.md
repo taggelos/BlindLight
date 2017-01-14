@@ -1,18 +1,10 @@
 # projectK23b :sparkles: <h3>[BlindLight](https://github.com/taggelos/projectK23b) :mortar_board:
 
->VALTE KAPOIOS TA AM MAS EDW  
->sxoliakia kai etsi
+><b>Ά</b>γγελος Τουμάσης  ΑΜ 115201300177 <br>
+><b>Μ</b>αρία Μαρίνη  ΑΜ  115201300094 <br>
+><b>Λ</b>εωνίδας Ηλιόπουλος  ΑΜ : 115201300047  <br>
 
-![Image](images/Screenshot_3.png)
 
-```java
-ENDEIKTIKOS KWDIKAS AN THELETE NA DEIKSETE KOMMATI SAS
-function fancyAlert(arg) {
-  if(arg) {
-    $.facebox({div:'#foo'})
-  }
-}
-```
 ###Android Application :robot:
 
 Σε ότι αφορά την Android εφαρμογή έχουν υλοποιηθεί τα εξής.
