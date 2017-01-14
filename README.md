@@ -132,8 +132,7 @@ function fancyAlert(arg) {
         
         Ενδεικτικός Κωδικας. (Συνάρτηση doInBackground() του MyAsyncTask.java
         
-        
-        ```java
+```java
          @Override
        protected Void doInBackground(Void... params) {
 
@@ -165,34 +164,27 @@ function fancyAlert(arg) {
         return null;
     }
 ```
-
 Σημείωση: Η boolean μεταβλητη broker_run_flag χρησιμοποιείται ωστε να ελεγχθεί το γεγονός οτι γίνεται 
 μια φορα subscribe.
 
 Συνολικά στο project του Android studio υπάρχουν 20 αρχεία , τα οποία οπως θα δείτε και εσεις έχουν τοποθετηθεί σε 4 διαφορετικά packages ανάλογα με τη λειτουργικότητα τους. (Αctivities , Services , Listeners , util )
 
 Mια ενδεικτική εκτέλεση της android εφαρμογης όπως καταγράφεται απο τον run πεδίο στο android studio σε ONline mode είναι η ακόλουθη: (Επικοινωνία Pub-Sub)
-
-
-
-
-
-
-
-![Image](images/android_1.jpg)
-
-
-
-
-
-
-
-
+![Image](images/android_1.png)
 
 
  
 ###Java Application :coffee:
-Java Εφαρμογή
+Σε ότι αφορά την Java Εφαρμογή.
+
+Εδώ ορίζουμε μέσω του JavaFx τα καταλληλα thtresholds που αφορουν στις τιμές που θα λάβουμε απο τους αισθητήρες των κινητών. Αυτά τα όρια θα καθορίσουν αν το εκαστοτε topic θα μπεί στη βάση μας. Αξίζει να σημειωθεί οτι η βάση μας mybd βρίσκεται μέσα στo java project και κάθε φορά που τρεχουμε το project απο την αρχή πρωτα καθαρίζουμε τη βάση μέσω ενός SQL ερωτήματος ωστέ να απαλαγούμε απο παλιές μετρησεις , που δεν μας αφορούν.
+
+Κατα την επιλογή Apply στο γαρφικό κομματι javaFx κάνουμε μια φορα (ξανά ελέγχεται με μια boolean flag) subscribe με topic="#" port=1883 και ip=localhost ωστέ να λαμβάνουμε τα μηνύματα απο όλα τα κινητά που κάνουν publish.
+
+Αφου ληφθεί το κάποιο μηνυμα , ελέγχουμε ένα ένα τα πεδία του topic και αν κρίνεται απαραίτητο βάσει τον thresholds μπαίνει στη βάση μας.
+
+
+Η βάση μας περιέχει τα εξής πεδία:
 
 
 
