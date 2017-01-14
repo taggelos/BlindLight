@@ -204,6 +204,9 @@ Eπιπρόσθετα η βάση μας σε κποια χρονική στιγ
 
 
 ![Image](images/dataFX2.jpg)
+![Image](images/dataFX3.jpg)
+
+
 
 
 
