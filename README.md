@@ -63,9 +63,106 @@ function fancyAlert(arg) {
         
           Η εφαρμογή είναι λειτουργικά ίδια με αυτη που παραδώσαμε στο 1ο παραδοτέο.Στο menu bar το item για τις ρυθμίσεις      σε οτι αφορά την παραμετροποίηση των αισθητήρων είναι λειτουργικό. Ωστόσο προστεθηκε ένα νέο item που αφορά στις ρυθμίσεις που είναι απαραίτητες για την συνδεση με τον Mqtt Broker(ip,Port) για την Online λειτουργία. Βεβαια εδώ το κουμπτί δεν έχει καμια λειτουργικότητα.
           
+        
+        
         ΟΝLINE λειτουργια :
         
-        Στην εφαρμογή τώρα
+        Στην εφαρμογή τώρα το item για τις ρυθμίσεις που αφορουν στη συνδεση με τον  broker είναι λειτουργικό , ενώ εκείνο για την παραμετροποίηση στους σένσορες δεν είναι. Κατα την επιλογή του item που αφορά τον Mqtt broker ανοίγεται στον χρήστη ένα dialog box ωστέ να θέσει το port(1883) και το ip(η ip του λάπτοπ οπου έχει εγκαταστηθεί ο broker) που είναι απαραίτητα για τη σύνδεση με αυτόν. 
+        
+        Τα μηνύματα απο και προς τον broker.
+        
+        To κινητό-τερματικό κάνει publish κάθε φορά που εντοπιστεί μια αλλαγή στην / στις τιμές κάποιου απο τους σένσορες.Δηλαδή μέσα σε κάθε onSensorChange(). (Eνδεικτικό αρχείο : ProximityEventListener.java)
+          
+```java
+ @Override
+    public void onSensorChanged(SensorEvent event) {
+
+        sensor_value = Float.toString(event.values[0]);
+        proxText.setText("Οff");
+
+        if(event.values[0] == 0){
+            proxText.setText("Οn");
+        }
+
+
+        //---------------Calling Async Task Function---------------
+
+
+        if (offline_mode == false) {
+
+            Calendar c = Calendar.getInstance();
+            int seconds = c.get(Calendar.SECOND);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = format.format(Calendar.getInstance().getTimeInMillis());
+
+            //final String c = sensor_value;
+            String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
+            tt = new MyAsyncTask(topic, Port_Ip , context);
+            tt.execute();
+
+        }
+        else {
+            if ((event.values[0] == 0) && (CheckProx)) {
+                proxText.setText("Οn");
+                CharSequence text = "Βe careful!!";
+                final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 1500);
+                streamId = se.playNonStop(soundId);
+                return;
+            }
+            se.stopSound(streamId);
+        }
+    }
+```
+        
+        Δημιουργείται λοιπον επιτόπου κατάλληλο τόπικ το οποίο είναι ένα string που περιέχει τη mavAddress του κιητόυ, τις τιμές και τον τυπο του αισθητηρα, την ωρα και ημερομηνία της μέτρησης καθως και την τρέχουσα τοποθεσία του τερματικόυ. Κάνει publish ως ΜyclientidAndroid. Κάνουμε publish μέσω ενός AsyncTask με time 1sec. 
+        Σημειώνουμε πως αφού το android τερματικό κάνει publish το 1ο μηνυμα του κάνει αμέσως subscribe με topic τη mac address. Eτσι κάθε κινητό θα ακουει σε ένα και μόνο topic μιας και η macAddress ειναι διαφορετική.
+        
+        Ενδεικτικός Κωδικας. (Συνάρτηση doInBackground() του MyAsyncTask.java
+        
+        
+        ```java
+ @Override
+    protected Void doInBackground(Void... params) {
+
+        try {
+                int time = 4000;
+                // Sleeping for given time period
+                Thread.sleep(time);
+                if (offline_mode==false) {
+                    publisher = new MqttPublisher();
+                    publisher.main(topic, ip_port);
+                    if(!broker_run_flag){
+                        subscriber = new MqttSubscriber();
+                        subscriber.main("20:2D:07:B3:E1:81" ,ip_port  , context);
+                        broker_run_flag=true;
+                    }
+
+                }
+                else {
+                    return null;
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        return null;
+    }
+```
+        
+        
+        
         
         
         
