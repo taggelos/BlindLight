@@ -17,10 +17,60 @@ function fancyAlert(arg) {
 
 Σε ότι αφορά την Android εφαρμογή έχουν υλοποιηθεί τα εξής.
 
-  -Η εφαρμοφή τρέχει είτε σε online mode είτε σε offline mode. Η εναλλαγή μεταξύ online και offline κατάστασης γίνεται αυτόμοτα (με την βοήθεια της κλάσσης NetworkStateReciever).Στη κλάση αυτή περιέχονται (μεταξύ άλλων) οι εξής 2 συναρτήσεις, 
+  -Η εφαρμοφή τρέχει είτε σε online mode είτε σε offline mode. Η εναλλαγή μεταξύ online και offline κατάστασης γίνεται αυτόμοτα (με την βοήθεια της κλάσσης NetworkStateReciever).Υπάρχει , βέβαία ενα switch στη Main Activity το οποίο είναι λειτουργικό μόνο οταν βρισκόμαστε στην Online λειτουργια , ωστε όποτε θέλουμε να μπουμε στην Offline. Οι δυο συναρτήσεις που καθορίζουν τις διαφορετικές λειτουργίες που κάνει η εφαρμογή ανάλογα με το mode στο οποίο βρισκόμαστε είναι η NetworkAvailable() και NetworkUnAvailable().
+  Ενδεικτικός Κώδικας απο το αρχείο MainActivity.java
+  
+  ```java
+//-----------------Network state---------------
+
+    @Override
+    public void networkAvailable() {
+        Context  context = getApplicationContext();
+        CharSequence text = "Mode: ONLINE";
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        offline_mode = false;
+        invalidateOptionsMenu();
+        connectivity_Mode = (Switch) findViewById(R.id.connectivity);
+        connectivity_Mode.setEnabled(true);
+        connectivity_Mode.setChecked(true);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            CharSequence text2 = "GPS : ENABLED";
+            Toast.makeText(context, text2, Toast.LENGTH_SHORT).show();
+        } else {
+            buildAlertMessageNoGps();
+        }
+
+    }
+
+    @Override
+    public void networkUnavailable() {
+        Context context = getApplicationContext();
+        CharSequence text = "Mode: OFFLINE";
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        offline_mode =true;
+        invalidateOptionsMenu(); //  we call this function to update options_menu
+        connectivity_Mode = (Switch) findViewById(R.id.connectivity);
+        connectivity_Mode.setChecked(false);
+        connectivity_Mode.setEnabled(false);
+    }
 
 
+```
 
+Χρειάζεται να σημειώσουμε τα ακόλουθα κάνοντας τον εξής διαχωρισμό.
+
+        ΟFFLINE λειτουργια :
+        
+          Η εφαρμογή είναι λειτουργικά ίδια με αυτη που παραδώσαμε στο 1ο παραδοτέο.Στο menu bar το item για τις ρυθμίσεις      σε οτι αφορά την παραμετροποίηση των αισθητήρων είναι λειτουργικό. Ωστόσο προστεθηκε ένα νέο item που αφορά στις ρυθμίσεις που είναι απαραίτητες για την συνδεση με τον Mqtt Broker(ip,Port) για την Online λειτουργία. Βεβαια εδώ το κουμπτί δεν έχει καμια λειτουργικότητα.
+          
+        ΟΝLINE λειτουργια :
+        
+        Στην εφαρμογή τώρα
+        
+        
+        
+  
+  
 ###Java Application :coffee:
 Το γραφικό περιβάλλον της Java εφαρμογής βασίστηκε σε Java FX:
 - Η πρώτη οθόνη (Tab) είναι η Settings στην οποία ρυθμίζουμε τις τιμές των κατωφλιών των αισθητήρων με αντίστοιχο τρόπο με αυτόν που είχε υλοποιηθεί στις ρυθμίσεις της Android εφαρμογής. Όταν ο χρήστης πατάει το κουμπί Apply Settings πριν δοθούν οι ρυθμίσεις ελέγχονται τυχόν κακόβουλες εισαγωγές στα thresholds του Light Sensor. Σε περίπτωση που εντοπιστούν, τα Settings δεν γίνονται Apply και ζητείται εκ νέου ρύθμιση μέχρις ότου ανιχνευτεί η απαιτούμενη.
