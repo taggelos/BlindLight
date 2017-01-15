@@ -1,6 +1,7 @@
 package com.example.aggel.blindlight.Listeners;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.example.aggel.blindlight.Activities.GoogleActivity;
 import com.example.aggel.blindlight.Activities.SettingsActivity;
 import com.example.aggel.blindlight.util.MyAsyncTask;
 
@@ -17,11 +19,13 @@ import com.example.aggel.blindlight.util.SoundEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.example.aggel.blindlight.Activities.MainActivity.flag_for_switch;
 import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
 import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
 import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
 //import static com.example.aggel.blindlight.Activities.MainActivity.date;
 import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
+import static com.example.aggel.blindlight.util.MqttSubscriber.flag_message;
 
 
 /**
@@ -81,6 +85,25 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
                 String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
                 tt = new MyAsyncTask(topic, Port_Ip , context);
                 tt.execute();
+                System.out.println(flag_message +"  "+ flag_for_switch);
+
+                if(flag_message)
+                {
+                    Toast.makeText(context, "Be carefull: Possibility of crash", Toast.LENGTH_SHORT).show();
+                }
+                if(flag_message && flag_for_switch){
+                    tt.cancel(true);
+                    final Toast toast = Toast.makeText(context, "Be carefull: Possibility of crash", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    Intent startActivity = new Intent();
+                    startActivity.setClass(context, GoogleActivity.class);
+                    startActivity.setAction(GoogleActivity.class.getName());
+                    startActivity.setFlags(
+                            Intent.FLAG_ACTIVITY_NEW_TASK
+                                    | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    context.startActivity(startActivity);
+                }
 
             }
 

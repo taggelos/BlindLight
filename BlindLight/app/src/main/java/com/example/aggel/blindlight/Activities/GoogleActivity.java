@@ -75,8 +75,7 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
     public static final int CAMERA_PERMISSIONS_REQUEST = 2;
     public static final int CAMERA_IMAGE_REQUEST = 3;
 
-    private TextView mImageDetails;
-    private ImageView mMainImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +96,6 @@ public class GoogleActivity extends AppCompatActivity implements TextToSpeech.On
     }
 
     public void startCamera() {
-        System.out.println("------------3----------------");
         if (PermissionUtils.requestPermission(
                 this,
                 CAMERA_PERMISSIONS_REQUEST,

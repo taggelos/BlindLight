@@ -10,7 +10,9 @@ import android.os.AsyncTask;
 
 
 import static com.example.aggel.blindlight.Activities.MainActivity.broker_run_flag;
+import static com.example.aggel.blindlight.Activities.MainActivity.flag_for_switch;
 import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
+import static com.example.aggel.blindlight.util.MqttSubscriber.flag_message;
 
 
 import java.util.Comparator;
@@ -24,6 +26,7 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
     private String ip_port;
     private MqttSubscriber subscriber;
     private MqttPublisher publisher;
+    private boolean running = true;
 
     public MyAsyncTask(String topic, String ip_port , Context context) {
         this.topic=topic;
@@ -39,24 +42,31 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
     }
     @Override
     protected Void doInBackground(Void... params) {
+        while(running) {
 
-        try {
+            try {
                 int time = 1000;
                 // Sleeping for given time period
                 Thread.sleep(time);
-                if (offline_mode==false) {
+                if (offline_mode == false ) {
+                    if(flag_message && flag_for_switch){
+                        break;
+                    }
                     publisher = new MqttPublisher();
                     publisher.main(topic, ip_port);
-                    if(!broker_run_flag){
+                    if (!broker_run_flag) {
                         subscriber = new MqttSubscriber();
-                        subscriber.main("20:2D:07:B3:E1:81" ,ip_port  , context);
-                        broker_run_flag=true;
+                        subscriber.main("20:2D:07:B3:E1:81", ip_port, context);
+                        broker_run_flag = true;
                     }
 
+
                 }
-                else {
-                    return null;
-                }
+
+                System.out.println("--------2");
+
+
+
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -65,6 +75,12 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
             }
 
 
+        }
         return null;
+    }
+
+    @Override
+    protected void onCancelled() {
+        running = false;
     }
 }

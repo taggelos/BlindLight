@@ -17,10 +17,10 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 
-
 public class MqttSubscriber implements MqttCallback  {
     public  String topic;
     public Context context;
+    public static boolean flag_message =false;
 
     public  void main(String topic , String port_ip ,Context context ) {
 
@@ -45,6 +45,9 @@ public class MqttSubscriber implements MqttCallback  {
             Thread.sleep(1000);
             sampleClient.subscribe(topic, qos);
             System.out.println("Subscribed");
+              //  sampleClient.disconnect();
+                //System.out.println("Disconnected");
+
         } catch (Exception me) {
             if (me instanceof MqttException) {
                 System.out.println("reason " + ((MqttException) me).getReasonCode());
@@ -68,6 +71,10 @@ public class MqttSubscriber implements MqttCallback  {
         System.out.println("topic: " + topic);
         final String mes = new String(message.getPayload());
         System.out.println("message: " + mes);
+        flag_message =true;
+        System.out.println(flag_message + "--------------------");
+
+
 
 
         /* CharSequence text = mes;

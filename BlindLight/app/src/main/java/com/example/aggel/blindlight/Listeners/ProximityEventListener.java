@@ -8,6 +8,7 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.aggel.blindlight.Activities.SettingsActivity;
 import com.example.aggel.blindlight.util.MyAsyncTask;
 import com.example.aggel.blindlight.util.SoundEvent;
@@ -15,10 +16,12 @@ import com.example.aggel.blindlight.util.SoundEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.example.aggel.blindlight.Activities.MainActivity.flag_for_switch;
 import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
 import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
 import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
 import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
+import static com.example.aggel.blindlight.util.MqttSubscriber.flag_message;
 
 
 public class ProximityEventListener extends SettingsActivity implements SensorEventListener {
@@ -76,8 +79,19 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
             String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
             tt = new MyAsyncTask(topic, Port_Ip , context);
             tt.execute();
+            System.out.println(flag_message +"  "+ flag_for_switch);
+            if(flag_message)
+            {
+                Toast.makeText(context, "Be carefull: Possibility of crash", Toast.LENGTH_SHORT).show();
+
+            }
+            if(flag_message && flag_for_switch){
+                tt.cancel(true);
+
+            }
 
         }
+
         else {
             if ((event.values[0] == 0) && (CheckProx)) {
                 proxText.setText("Οn");

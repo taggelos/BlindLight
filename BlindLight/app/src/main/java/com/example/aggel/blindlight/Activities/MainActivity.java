@@ -28,8 +28,6 @@ import com.example.aggel.accelerometerapplication.R;
 import com.example.aggel.blindlight.Listeners.MyLocationListener;
 
 
-import com.example.aggel.blindlight.util.MqttSubscriber;
-
 import com.example.aggel.blindlight.util.NetworkStateReceiver;
 import com.example.aggel.blindlight.Listeners.AccelerometerEventListener;
 import com.example.aggel.blindlight.Listeners.LightEventListener;
@@ -43,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
     private boolean CheckProx;
     public static Boolean  broker_run_flag = false;
+    public static Boolean flag_for_switch = false;
 
 
 
@@ -152,26 +151,30 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
 
         //-------------------------CAMERA----------------------------
 
-
         Switch camera_Mode = (Switch) findViewById(R.id.camera);
-        camera_Mode.setChecked(true);
+        camera_Mode.setChecked(false);
         camera_Mode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                                          boolean isChecked) {
-                if (isChecked) {
+                if (isChecked ) {
+                    flag_for_switch=true;
 
-                    Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
-                    startActivity(intent);
-
+                    //Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
+                    //startActivity(intent);
 
                 } else {
+                    flag_for_switch=false;
                     System.out.println("ELSE CASE");
                 }
 
             }
         });
+
+
+
+
 
 
 

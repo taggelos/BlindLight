@@ -5,15 +5,12 @@ package com.example.aggel.blindlight.util;
  */
 
 
-import com.example.aggel.blindlight.Activities.MainActivity;
-
-import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
 
 
@@ -44,8 +41,10 @@ public class MqttPublisher  {
                 sampleClient.publish(topic, message);
                 System.out.println("Message published");
             }
-            //sampleClient.disconnect();
-            //System.out.println("Disconnected");
+
+              //  sampleClient.disconnect();
+                //System.out.println("Disconnected");
+
         } catch (MqttException me) {
             System.out.println("reason " + me.getReasonCode());
             System.out.println("msg " + me.getMessage());

@@ -17,11 +17,13 @@ import com.example.aggel.blindlight.util.SoundEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.example.aggel.blindlight.Activities.MainActivity.flag_for_switch;
 import static com.example.aggel.blindlight.Activities.MainActivity.macAddress;
 import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
 import static com.example.aggel.blindlight.Activities.MainActivity.Port_Ip;
 //import static com.example.aggel.blindlight.Activities.MainActivity.date;
 import static com.example.aggel.blindlight.Activities.MainActivity.locationListener;
+import static com.example.aggel.blindlight.util.MqttSubscriber.flag_message;
 
 /**
  * Created by aggel on 15/10/2016.
@@ -121,6 +123,20 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
             String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
             tt = new MyAsyncTask(topic, Port_Ip , context);
             tt.execute();
+            System.out.println(flag_message +"  "+ flag_for_switch);
+            if(flag_message)
+            {
+                Toast.makeText(context, "Be carefull: Possibility of crash", Toast.LENGTH_SHORT).show();
+
+
+            }
+            if(flag_message && flag_for_switch){
+                tt.cancel(true);
+
+            }
+
+
+
 
         }
         else if(offline_mode ==true) {
