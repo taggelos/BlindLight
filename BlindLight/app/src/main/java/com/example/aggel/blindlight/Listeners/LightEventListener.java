@@ -85,16 +85,22 @@ public class LightEventListener extends SettingsActivity implements SensorEventL
                 String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
                 tt = new MyAsyncTask(topic, Port_Ip , context);
                 tt.execute();
-                System.out.println(flag_message +"  "+ flag_for_switch);
 
                 if(flag_message)
                 {
-                    Toast.makeText(context, "Be carefull: Possibility of crash", Toast.LENGTH_SHORT).show();
+                    CharSequence text = "Be carefull: Possibility of crash";
+                    final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                    toast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            toast.cancel();
+                        }
+                    }, 1500);
+
                 }
                 if(flag_message && flag_for_switch){
-                    tt.cancel(true);
-                    final Toast toast = Toast.makeText(context, "Be carefull: Possibility of crash", Toast.LENGTH_SHORT);
-                    toast.show();
 
                     Intent startActivity = new Intent();
                     startActivity.setClass(context, GoogleActivity.class);

@@ -121,21 +121,26 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             date = format.format(Calendar.getInstance().getTimeInMillis());
             String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
-            tt = new MyAsyncTask(topic, Port_Ip , context);
+            /*tt = new MyAsyncTask(topic, Port_Ip , context);
             tt.execute();
-            System.out.println(flag_message +"  "+ flag_for_switch);
             if(flag_message)
             {
-                Toast.makeText(context, "Be carefull: Possibility of crash", Toast.LENGTH_SHORT).show();
-
+                CharSequence text = "Be carefull: Possibility of crash";
+                final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+                toast.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toast.cancel();
+                    }
+                }, 1500);
 
             }
-            if(flag_message && flag_for_switch){
-                tt.cancel(true);
-
-            }
 
 
+
+            */
 
 
         }

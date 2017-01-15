@@ -42,7 +42,7 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
     }
     @Override
     protected Void doInBackground(Void... params) {
-        while(running) {
+
 
             try {
                 int time = 1000;
@@ -50,7 +50,7 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
                 Thread.sleep(time);
                 if (offline_mode == false ) {
                     if(flag_message && flag_for_switch){
-                        break;
+                        return null;
                     }
                     publisher = new MqttPublisher();
                     publisher.main(topic, ip_port);
@@ -63,10 +63,6 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
 
                 }
 
-                System.out.println("--------2");
-
-
-
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -75,12 +71,9 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
             }
 
 
-        }
+
         return null;
     }
 
-    @Override
-    protected void onCancelled() {
-        running = false;
-    }
+
 }
