@@ -154,7 +154,7 @@ To κινητό-τερματικό κάνει publish κάθε φορά που �
 Σημείωση: Η boolean μεταβλητή broker_run_flag χρησιμοποιείται ώστε να ελεγχθεί το γεγονός οτι γίνεται 
 μια φορά subscribe.
 
-Συνολικά στο project του Android studio υπάρχουν 20 αρχεία , τα οποία οπως θα δείτε και εσείς έχουν τοποθετηθεί σε 4 διαφορετικά packages ανάλογα με τη λειτουργικότητα τους. (Αctivities , Services , Listeners , util )
+Συνολικά στο project του Android studio υπάρχουν 16 αρχεία , τα οποία οπως θα δείτε και εσείς έχουν τοποθετηθεί σε 4 διαφορετικά packages ανάλογα με τη λειτουργικότητα τους. (Αctivities , Services , Listeners , util )
 
 Mια ενδεικτική εκτέλεση της android εφαρμογης όπως καταγράφεται απο τον run πεδίο στο android studio σε ONline mode είναι η ακόλουθη: (Επικοινωνία Pub-Sub)
 ![Image](images/android_1.jpg)
