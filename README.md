@@ -81,7 +81,6 @@ To κινητό-τερματικό κάνει publish κάθε φορά που �
         if (offline_mode == false) {
 
             Calendar c = Calendar.getInstance();
-            int seconds = c.get(Calendar.SECOND);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             date = format.format(Calendar.getInstance().getTimeInMillis());
 
