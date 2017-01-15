@@ -6,8 +6,7 @@ package com.example.aggel.blindlight.util;
 
 
 import android.content.Context;
-import android.os.Handler;
-import android.widget.Toast;
+
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
@@ -17,16 +16,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import static android.os.Looper.getMainLooper;
 
 public class MqttSubscriber implements MqttCallback  {
     public  String topic;
@@ -80,10 +70,7 @@ public class MqttSubscriber implements MqttCallback  {
         System.out.println("message: " + mes);
 
 
-       Toast.makeText(context, mes,
-                Toast.LENGTH_SHORT).show(); 
-
-      /* CharSequence text = mes;
+        /* CharSequence text = mes;
         final Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         toast.show();
         Handler handler = new Handler();

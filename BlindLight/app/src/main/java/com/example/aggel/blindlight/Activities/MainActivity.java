@@ -56,9 +56,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
     private MenuItem item;
     private MenuItem item2;
     public static boolean offline_mode=true;
-    private boolean online_mode_cam;
     private Switch connectivity_Mode;
-    private MqttSubscriber subscriber;
 
     //Location
     private LocationManager locationManager;
@@ -239,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         }
         locationManager.removeUpdates(locationListener);
 
-        //stopService(intent1);
+
     }
 
 
@@ -392,33 +390,15 @@ public class MainActivity extends AppCompatActivity implements NetworkStateRecei
         connectivity_Mode.setEnabled(true);
         connectivity_Mode.setChecked(true);
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            //Context context = getApplicationContext();
+
             CharSequence text2 = "GPS : ENABLED";
-            final Toast toast2 = Toast.makeText(context, text2, Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(context, text2, Toast.LENGTH_SHORT).show();
 
         } else {
             buildAlertMessageNoGps();
 
         }
 
-
-        //subscriber = new MqttSubscriber();
-       //subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip , context );
-
-
-
-        //Intent inte = new Intent(this, MySubService.class);
-        //startService(inte);
-
-
-
-        //if(!broker_run_flag) {
-          //  subscriber = new MqttSubscriber();
-            //subscriber.main("20:2D:07:B3:E1:81" ,Port_Ip , context );
-            //broker_run_flag=true;
-
-        //}
 
     }
 

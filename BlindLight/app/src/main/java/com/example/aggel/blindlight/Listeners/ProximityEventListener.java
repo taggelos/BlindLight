@@ -71,12 +71,8 @@ public class ProximityEventListener extends SettingsActivity implements SensorEv
         if (offline_mode == false) {
 
             Calendar c = Calendar.getInstance();
-            int seconds = c.get(Calendar.SECOND);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             date = format.format(Calendar.getInstance().getTimeInMillis());
-            System.out.println(date);
-
-            //final String c = sensor_value;
             String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
             tt = new MyAsyncTask(topic, Port_Ip , context);
             tt.execute();

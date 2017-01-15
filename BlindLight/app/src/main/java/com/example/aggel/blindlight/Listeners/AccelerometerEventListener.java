@@ -116,10 +116,8 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
 
         if(offline_mode ==false){
             Calendar c = Calendar.getInstance();
-            int seconds = c.get(Calendar.SECOND);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             date = format.format(Calendar.getInstance().getTimeInMillis());
-            //final String c = sensor_value;
             String topic = macAddress + "/" + getSensorName() + "/" + getSensorValue() + "/" + date + "/" + locationListener.getDevLatitude() + "/" + locationListener.getDevLongtitude();
             tt = new MyAsyncTask(topic, Port_Ip , context);
             tt.execute();
@@ -147,8 +145,7 @@ public class AccelerometerEventListener extends SettingsActivity implements Sens
                     }
                 }, 1500);
                 mHandler.postDelayed(run, freq);
-                //streamId = se.playNonStop(soundId);
-                //return;
+
 
             }
         }

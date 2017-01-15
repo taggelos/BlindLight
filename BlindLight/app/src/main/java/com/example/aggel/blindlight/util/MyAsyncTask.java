@@ -5,17 +5,9 @@ package com.example.aggel.blindlight.util;
  */
 
 import android.content.Context;
-import android.content.Intent;
+
 import android.os.AsyncTask;
 
-import com.example.aggel.blindlight.Services.MySubService;
-import com.example.aggel.blindlight.util.MqttPublisher;
-import com.example.aggel.blindlight.util.MqttSubscriber;
-
-
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 
 import static com.example.aggel.blindlight.Activities.MainActivity.broker_run_flag;
 import static com.example.aggel.blindlight.Activities.MainActivity.offline_mode;
@@ -47,15 +39,11 @@ public class MyAsyncTask extends AsyncTask<Void ,Void , Void> {
     }
     @Override
     protected Void doInBackground(Void... params) {
-        //final String value = params[0];
 
         try {
                 int time = 1000;
                 // Sleeping for given time period
                 Thread.sleep(time);
-                //subscriber = new MqttSubscriber();
-                //subscriber.main("20:2D:07:B3:E1:81" ,ip_port);
-                //publisher = new MqttPublisher();
                 if (offline_mode==false) {
                     publisher = new MqttPublisher();
                     publisher.main(topic, ip_port);
