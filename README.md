@@ -1,14 +1,23 @@
 # projectK23b :sparkles: <h3>[BlindLight](https://github.com/taggelos/projectK23b) :mortar_board:
 
-><b>Ά</b>γγελος Τουμάσης  ΑΜ 115201300177 <br>
-><b>Μ</b>αρία Μαρίνη  ΑΜ  115201300094 <br>
-><b>Λ</b>εωνίδας Ηλιόπουλος  ΑΜ  115201300047  <br>
+><b>Ά</b>ggelos Toumasis <br>
+><b>Μ</b>aria Marini <br>
+><b>L</b>eonidas Hliopoulos <br>
 
 
 ###Android Application :robot:
 
 Η Android εφαρμογή τρέχει είτε σε online mode είτε σε offline mode. Η εναλλαγή μεταξύ online και offline κατάστασης γίνεται αυτόμοτα (με την βοήθεια της κλάσης NetworkStateReciever).Υπάρχει switch στη Main Activity το οποίο είναι λειτουργικό μόνο οταν βρισκόμαστε στην Online λειτουργία , ώστε όποτε θέλήσει ο χρήστης να μπορεί να μπει στην Offline. Οι δυο συναρτήσεις που καθορίζουν τις διαφορετικές λειτουργίες που κάνει η εφαρμογή ανάλογα με το mode στο οποίο βρισκόμαστε είναι η NetworkAvailable() και NetworkUnAvailable().
  
+Previews: 
+<br>
+<a href = "images/start.png" target="_blank" > Start Screen </a>
+<br>
+<a href = "images/main.png" target="_blank"> Main </a>
+<br>
+<a href = "images/main_set.png" target="_blank" > Settings panel in Main </a>
+
+
 Ενδεικτικός Κώδικας από το αρχείο MainActivity.java
   
   ```java
@@ -47,7 +56,6 @@
 
 
 ```
-
 Χρειάζεται να σημειώσουμε τα ακόλουθα κάνοντας τον εξής διαχωρισμό:
 
 ΟFFLINE λειτουργία :
