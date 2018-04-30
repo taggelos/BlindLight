@@ -4,13 +4,13 @@
 ><b>Μ</b>aria Marini <br>
 ><b>L</b>eonidas Hliopoulos <br>
 
-Previews: 
+<b> Previews: </b> <br>
 <br>
-<a href = "images/start.png" target="_blank" > Start Screen </a>
+:point_right: <a href = "images/start.png" target="_blank" > Start Screen </a>
 <br>
-<a href = "images/main.png" target="_blank"> Main </a>
+:point_right: <a href = "images/main.png" target="_blank"> Main </a>
 <br>
-<a href = "images/main_set.png" target="_blank" > Settings panel in Main </a>
+:point_right: <a href = "images/main_set.png" target="_blank" > Settings panel in Main </a>
 
 ###Android Application :robot:
 
